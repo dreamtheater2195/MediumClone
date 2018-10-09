@@ -37,7 +37,7 @@ shell.mv('internals/templates/translations', 'app');
 // Handle utils/
 shell.rm('-rf', 'app/utils');
 shell.mv('internals/templates/utils', 'app');
-
+s
 // Replace the files in the root app/ folder
 shell.cp('internals/templates/app.js', 'app/app.js');
 shell.cp('internals/templates/global-styles.js', 'app/global-styles.js');

@@ -6,37 +6,37 @@
  */
 
 // Needed for redux-saga es6 generator support
-import 'babel-polyfill';
+import "babel-polyfill";
 
 // Import all the third party stuff
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "react-router-redux";
+import createHistory from "history/createBrowserHistory";
 // Import root app
-import App from 'containers/App';
+import App from "containers/App";
 
 // Import plugin css
-import 'assets/scss/material-kit-pro-react.css';
+import "assets/scss/material-kit-pro-react.scss";
 
 // Import Language Provider
-import LanguageProvider from 'containers/LanguageProvider';
+import LanguageProvider from "containers/LanguageProvider";
 
 // Load the favicon and the .htaccess file
-import '!file-loader?name=[name].[ext]!./images/favicon.ico';
-import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
+import "!file-loader?name=[name].[ext]!./images/favicon.ico";
+import "file-loader?name=[name].[ext]!./.htaccess"; // eslint-disable-line import/extensions
 
-import configureStore from './configureStore';
+import configureStore from "./configureStore";
 
 // Import i18n messages
-import { translationMessages } from './i18n';
+import { translationMessages } from "./i18n";
 
 // Create redux store with history
 const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
-const MOUNT_NODE = document.getElementById('app');
+const MOUNT_NODE = document.getElementById("app");
 
 const render = messages => {
   ReactDOM.render(
@@ -55,7 +55,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept(['./i18n', 'containers/App'], () => {
+  module.hot.accept(["./i18n", "containers/App"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render(translationMessages);
   });
@@ -64,12 +64,12 @@ if (module.hot) {
 // Chunked polyfill for browsers without Intl support
 if (!window.Intl) {
   new Promise(resolve => {
-    resolve(import('intl'));
+    resolve(import("intl"));
   })
     .then(() => {
       Promise.all([
-        import('intl/locale-data/jsonp/en.js'),
-        import('intl/locale-data/jsonp/de.js'),
+        import("intl/locale-data/jsonp/en.js"),
+        import("intl/locale-data/jsonp/de.js"),
       ]);
     })
     .then(() => render(translationMessages))
@@ -83,6 +83,6 @@ if (!window.Intl) {
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
 // we do not want it installed
-if (process.env.NODE_ENV === 'production') {
-  require('offline-plugin/runtime').install(); // eslint-disable-line global-require
+if (process.env.NODE_ENV === "production") {
+  require("offline-plugin/runtime").install(); // eslint-disable-line global-require
 }
