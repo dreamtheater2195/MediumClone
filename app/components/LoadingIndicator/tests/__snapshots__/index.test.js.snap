@@ -17,7 +17,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c1:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -42,7 +42,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c2:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -70,7 +70,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c3:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -98,7 +98,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c4:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -126,7 +126,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c5:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -154,7 +154,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c6:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -182,7 +182,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c7:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -210,7 +210,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c8:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -238,7 +238,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c9:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -266,7 +266,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c10:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -294,7 +294,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c11:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;
@@ -322,7 +322,7 @@ exports[`<LoadingIndicator /> should match the snapshot 1`] = `
 }
 
 .c12:before {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 15%;

@@ -47,15 +47,15 @@ import headerLinksStyle from "assets/jss/material-kit-pro-react/components/heade
 function HeaderLinks({ ...props }) {
   const easeInOutQuad = (t, b, c, d) => {
     t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
+    if (t < 1) return (c / 2) * t * t + b;
     t--;
-    return -c / 2 * (t * (t - 2) - 1) + b;
+    return (-c / 2) * (t * (t - 2) - 1) + b;
   };
 
   const smoothScroll = (e, target) => {
     if (window.location.pathname === "/sections") {
       var isMobile = navigator.userAgent.match(
-        /(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i
+        /(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i,
       );
       if (isMobile) {
         // if we are on mobile device the scroll into view will be managed by the browser
@@ -72,7 +72,7 @@ function HeaderLinks({ ...props }) {
       currentTime = 0,
       increment = 20;
 
-    var animateScroll = function () {
+    var animateScroll = function() {
       currentTime += increment;
       var val = easeInOutQuad(currentTime, start, change, duration);
       element.scrollTop = val;
@@ -95,7 +95,7 @@ function HeaderLinks({ ...props }) {
           buttonText="Components"
           buttonProps={{
             className: classes.navLink,
-            color: "transparent"
+            color: "transparent",
           }}
           buttonIcon={Apps}
           dropdownList={[
@@ -111,7 +111,7 @@ function HeaderLinks({ ...props }) {
               className={classes.dropdownLink}
             >
               <ContentPaste className={classes.dropdownIcons} />Documentation
-            </a>
+            </a>,
           ]}
         />
       </ListItem>
@@ -123,7 +123,7 @@ function HeaderLinks({ ...props }) {
           buttonText="Sections"
           buttonProps={{
             className: classes.navLink,
-            color: "transparent"
+            color: "transparent",
           }}
           buttonIcon={ViewDay}
           dropdownList={[
@@ -182,7 +182,7 @@ function HeaderLinks({ ...props }) {
               onClick={e => smoothScroll(e, "contacts")}
             >
               <Call className={classes.dropdownIcons} /> Contacts
-            </Link>
+            </Link>,
           ]}
         />
       </ListItem>
@@ -194,7 +194,7 @@ function HeaderLinks({ ...props }) {
           buttonText="Examples"
           buttonProps={{
             className: classes.navLink,
-            color: "transparent"
+            color: "transparent",
           }}
           buttonIcon={ViewCarousel}
           dropdownList={[
@@ -233,7 +233,7 @@ function HeaderLinks({ ...props }) {
             </Link>,
             <Link to="/signup-page" className={classes.dropdownLink}>
               <PersonAdd className={classes.dropdownIcons} /> Signup Page
-            </Link>
+            </Link>,
           ]}
         />
       </ListItem>
@@ -253,7 +253,7 @@ function HeaderLinks({ ...props }) {
 }
 
 HeaderLinks.defaultProps = {
-  hoverColor: "primary"
+  hoverColor: "primary",
 };
 
 HeaderLinks.propTypes = {
@@ -264,8 +264,8 @@ HeaderLinks.propTypes = {
     "success",
     "warning",
     "danger",
-    "rose"
-  ])
+    "rose",
+  ]),
 };
 
 export default withStyles(headerLinksStyle)(HeaderLinks);

@@ -13,8 +13,8 @@ import {
   roseColor,
   transition,
   boxShadow,
-  drawerWidth
-} from "assets/jss/material-kit-pro-react.jsx";
+  drawerWidth,
+} from "../../material-kit-pro-react";
 
 const headerStyle = theme => ({
   appBar: {
@@ -32,14 +32,14 @@ const headerStyle = theme => ({
     alignItems: "center",
     flexFlow: "row nowrap",
     justifyContent: "flex-start",
-    position: "relative"
+    position: "relative",
   },
   absolute: {
     position: "absolute",
-    top: "auto"
+    top: "auto",
   },
   fixed: {
-    position: "fixed"
+    position: "fixed",
   },
   container: {
     ...container,
@@ -47,7 +47,7 @@ const headerStyle = theme => ({
     alignItems: "center",
     justifyContent: "space-between",
     display: "flex",
-    flexWrap: "nowrap"
+    flexWrap: "nowrap",
   },
   title: {
     "&,& a": {
@@ -60,9 +60,9 @@ const headerStyle = theme => ({
       color: "inherit",
       "&:hover,&:focus": {
         color: "inherit",
-        background: "transparent"
-      }
-    }
+        background: "transparent",
+      },
+    },
   },
   appResponsive: {
     margin: "20px 10px",
@@ -72,49 +72,49 @@ const headerStyle = theme => ({
     backgroundColor: primaryColor,
     color: "#FFFFFF",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46)",
   },
   info: {
     backgroundColor: infoColor,
     color: "#FFFFFF",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(0, 188, 212, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(0, 188, 212, 0.46)",
   },
   success: {
     backgroundColor: successColor,
     color: "#FFFFFF",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(76, 175, 80, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(76, 175, 80, 0.46)",
   },
   warning: {
     backgroundColor: warningColor,
     color: "#FFFFFF",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(255, 152, 0, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(255, 152, 0, 0.46)",
   },
   danger: {
     backgroundColor: dangerColor,
     color: "#FFFFFF",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(244, 67, 54, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(244, 67, 54, 0.46)",
   },
   rose: {
     backgroundColor: roseColor,
     color: "#FFFFFF",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(233, 30, 99, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(233, 30, 99, 0.46)",
   },
   transparent: {
     backgroundColor: "transparent !important",
     boxShadow: "none",
     paddingTop: "25px",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   dark: {
     color: "#FFFFFF",
     backgroundColor: "#212121 !important",
     boxShadow:
-      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(33, 33, 33, 0.46)"
+      "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(33, 33, 33, 0.46)",
   },
   white: {
     border: "0",
@@ -123,7 +123,7 @@ const headerStyle = theme => ({
     color: "#555",
     backgroundColor: "#fff !important",
     boxShadow:
-      "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)"
+      "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)",
   },
   drawerPaper: {
     border: "none",
@@ -146,30 +146,30 @@ const headerStyle = theme => ({
     textAlign: "left",
     paddingRight: "0px",
     paddingLeft: "0",
-    ...transition
+    ...transition,
   },
   hidden: {
-    width: "100%"
+    width: "100%",
   },
   collapse: {
     [theme.breakpoints.up("md")]: {
       display: "flex !important",
       MsFlexPreferredSize: "auto",
-      flexBasis: "auto"
+      flexBasis: "auto",
     },
     WebkitBoxFlex: "1",
     MsFlexPositive: "1",
     flexGrow: "1",
     WebkitBoxAlign: "center",
     MsFlexAlign: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   closeButtonDrawer: {
     position: "absolute",
     right: "8px",
     top: "9px",
-    zIndex: "1"
-  }
+    zIndex: "1",
+  },
 });
 
 export default headerStyle;

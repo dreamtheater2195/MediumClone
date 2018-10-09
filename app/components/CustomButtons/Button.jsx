@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 
-import buttonStyle from "assets/jss/material-kit-pro-react/components/buttonStyle.jsx";
+import buttonStyle from "assets/jss/material-kit-pro-react/components/buttonStyle";
 function RegularButton(props) {
   const {
     classes,
@@ -38,7 +38,7 @@ function RegularButton(props) {
     [classes.link]: link,
     [classes.justIcon]: justIcon,
     [classes.fileButton]: fileButton,
-    [className]: className
+    [className]: className,
   });
   return (
     <Button {...rest} className={btnClasses}>
@@ -70,7 +70,7 @@ RegularButton.propTypes = {
     "dribbble",
     "reddit",
     "instagram",
-    "transparent"
+    "transparent",
   ]),
   size: PropTypes.oneOf(["sm", "lg"]),
   simple: PropTypes.bool,
@@ -80,7 +80,9 @@ RegularButton.propTypes = {
   block: PropTypes.bool,
   link: PropTypes.bool,
   justIcon: PropTypes.bool,
-  fileButton: PropTypes.bool
+  fileButton: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default withStyles(buttonStyle)(RegularButton);

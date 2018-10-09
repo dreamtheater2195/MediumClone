@@ -6,17 +6,17 @@ const style = {
       zIndex: "5",
       textAlign: "center",
       width: "100%",
-      height: "100%"
+      height: "100%",
     },
     "&:not($manualRotate):hover $cardRotate": {
-      transform: "rotateY(180deg)"
+      transform: "rotateY(180deg)",
     },
     "&$manualRotate$activateRotate $cardRotate": {
-      transform: "rotateY(180deg)"
+      transform: "rotateY(180deg)",
     },
     "& $cardRotate $front": {
       zIndex: "2",
-      position: "relative"
+      position: "relative",
     },
     "& $cardRotate $front, & $cardRotate $back": {
       backfaceVisibility: "hidden",
@@ -35,8 +35,8 @@ const style = {
       display: "flex",
       WebkitBoxOrient: "vertical",
       WebkitBoxDirection: "normal",
-      flexDirection: "column"
-    }
+      flexDirection: "column",
+    },
   },
   activateRotate: {},
   manualRotate: {},
@@ -44,7 +44,7 @@ const style = {
     transition: "all 0.8s cubic-bezier(0.34, 1.45, 0.7, 1)",
     transformStyle: "preserve-3d",
     position: "relative",
-    background: "transparent"
+    background: "transparent",
   },
   front: {},
   back: {},
@@ -62,8 +62,8 @@ const style = {
       top: "0",
       content: "''",
       backgroundColor: "rgba(0, 0, 0, 0.56)",
-      borderRadius: "6px"
-    }
+      borderRadius: "6px",
+    },
   },
   cardBodyRotate: {
     WebkitBoxPack: "center",
@@ -74,35 +74,35 @@ const style = {
     display: "flex",
     WebkitBoxOrient: "vertical",
     WebkitBoxDirection: "normal",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   wrapperPrimary: {
     background: "linear-gradient(60deg,#ab47bc,#7b1fa2)",
     "& h1 small": {
-      color: "rgba(255, 255, 255, 0.8)"
+      color: "rgba(255, 255, 255, 0.8)",
     },
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   wrapperInfo: {
     background: "linear-gradient(60deg,#26c6da,#0097a7)",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   wrapperSuccess: {
     background: "linear-gradient(60deg,#66bb6a,#388e3c)",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   wrapperWarning: {
     background: "linear-gradient(60deg,#ffa726,#f57c00)",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   wrapperDanger: {
     background: "linear-gradient(60deg,#ef5350,#d32f2f)",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   wrapperRose: {
     background: "linear-gradient(60deg,#ec407a,#c2185b)",
-    color: "#FFFFFF"
-  }
+    color: "#FFFFFF",
+  },
 };
 
 export default style;

@@ -15,23 +15,23 @@ import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
 
 // core components
-import Button from "components/CustomButtons/Button.jsx";
+import Button from "components/CustomButtons/Button";
 
-import customDropdownStyle from "assets/jss/material-kit-pro-react/components/customDropdownStyle.jsx";
+import customDropdownStyle from "assets/jss/material-kit-pro-react/components/customDropdownStyle";
 
 class CustomDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      clicks: 0
+      clicks: 0,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
   handleClick() {
-    var x = (this.state.clicks + 1) % 2;
+    const x = (this.state.clicks + 1) % 2;
     this.setState({ open: true, clicks: x });
   }
   handleClose() {
@@ -53,19 +53,19 @@ class CustomDropdown extends React.Component {
       rtlActive,
       noLiPadding,
       innerDropDown,
-      navDropdown
+      navDropdown,
     } = this.props;
     const caretClasses = classNames({
       [classes.caret]: true,
       [classes.caretDropup]: dropup && !open,
       [classes.caretActive]: open && !dropup,
-      [classes.caretRTL]: rtlActive
+      [classes.caretRTL]: rtlActive,
     });
     const dropdownItem = classNames({
       [classes.dropdownItem]: true,
-      [classes[hoverColor + "Hover"]]: true,
+      [classes[`${hoverColor}Hover`]]: true,
       [classes.noLiPadding]: noLiPadding,
-      [classes.dropdownItemRTL]: rtlActive
+      [classes.dropdownItemRTL]: rtlActive,
     });
     const dropDownMenu = (
       <Grow
@@ -122,7 +122,9 @@ class CustomDropdown extends React.Component {
       </Grow>
     );
     return (
-      <Manager className={innerDropDown ? classes.innerManager:classes.manager}>
+      <Manager
+        className={innerDropDown ? classes.innerManager : classes.manager}
+      >
         <Target className={buttonText !== undefined ? "" : classes.target}>
           <Button
             aria-label="Notifications"
@@ -144,7 +146,7 @@ class CustomDropdown extends React.Component {
           className={classNames({
             [classes.popperClose]: !open,
             [classes.pooperResponsive]: true,
-            [classes.pooperNav]: open && navDropdown
+            [classes.pooperNav]: open && navDropdown,
           })}
         >
           {innerDropDown ? (
@@ -163,7 +165,7 @@ class CustomDropdown extends React.Component {
 CustomDropdown.defaultProps = {
   caret: true,
   dropup: false,
-  hoverColor: "primary"
+  hoverColor: "primary",
 };
 
 CustomDropdown.propTypes = {
@@ -175,7 +177,7 @@ CustomDropdown.propTypes = {
     "success",
     "warning",
     "danger",
-    "rose"
+    "rose",
   ]),
   buttonText: PropTypes.node,
   buttonIcon: PropTypes.func,

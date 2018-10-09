@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import hoistNonReactStatics from 'hoist-non-react-statics';
+import React from "react";
+import PropTypes from "prop-types";
+import hoistNonReactStatics from "hoist-non-react-statics";
 
-import getInjectors from './sagaInjectors';
+import getInjectors from "./sagaInjectors";
 
 /**
  * Dynamically injects a saga, passes component's props as saga arguments
@@ -23,7 +23,7 @@ export default ({ key, saga, mode }) => WrappedComponent => {
     };
     static displayName = `withSaga(${WrappedComponent.displayName ||
       WrappedComponent.name ||
-      'Component'})`;
+      "Component"})`;
 
     componentWillMount() {
       const { injectSaga } = this.injectors;

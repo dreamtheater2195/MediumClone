@@ -4,37 +4,38 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
+import React from "react";
+import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
+import { FormattedMessage } from "react-intl";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { createStructuredSelector } from "reselect";
 import withStyles from "@material-ui/core/styles/withStyles";
-import classNames from 'classnames';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
+import classNames from "classnames";
+import injectReducer from "utils/injectReducer";
+import injectSaga from "utils/injectSaga";
 import {
   makeSelectRepos,
   makeSelectLoading,
   makeSelectError,
-} from 'containers/App/selectors';
+} from "containers/App/selectors";
 
-import Header from 'components/Header/Header';
-import HeaderLinks from 'components/Header/HeaderLinks';
-import Parallax from "components/Parallax/Parallax.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import SectionRepoList from './Sections/SectionRepoList.jsx';
-import messages from './messages';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle.jsx";
+import Header from "components/Header/Header";
+import HeaderLinks from "components/Header/HeaderLinks";
+import Parallax from "components/Parallax/Parallax";
+import GridContainer from "components/Grid/GridContainer";
+import GridItem from "components/Grid/GridItem";
+import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
 
+import SectionRepoList from "./Sections/SectionRepoList";
+import messages from "./messages";
+import { loadRepos } from "../App/actions";
+import { changeUsername } from "./actions";
+import { makeSelectUsername } from "./selectors";
+import reducer from "./reducer";
+import saga from "./saga";
+import coverImage from "../../assets/img/bg2.jpg";
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   /**
@@ -73,13 +74,10 @@ export class HomePage extends React.PureComponent {
           color="transparent"
           changeColorOnScroll={{
             height: 400,
-            color: "primary"
+            color: "primary",
           }}
         />
-        <Parallax
-          image={require("assets/img/bg2.jpg")}
-          className={classes.parallax}
-        >
+        <Parallax image={coverImage} className={classes.parallax}>
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem md={8} className={classes.textCenter}>
@@ -113,6 +111,7 @@ HomePage.propTypes = {
   onSubmitForm: PropTypes.func,
   username: PropTypes.string,
   onChangeUsername: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -135,12 +134,12 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
-const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
+const withReducer = injectReducer({ key: "home", reducer });
+const withSaga = injectSaga({ key: "home", saga });
 const withStyle = withStyles(homePageStyle);
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-  withStyle
+  withStyle,
 )(HomePage);

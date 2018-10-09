@@ -10,33 +10,33 @@ import {
   infoColor,
   roseColor,
   grayColor,
-  defaultFont
-} from "assets/jss/material-kit-pro-react.jsx";
+  defaultFont,
+} from "assets/jss/material-kit-pro-react";
 
-const tableStyle = theme => ({
+const tableStyle = {
   warning: {
-    color: warningColor
+    color: warningColor,
   },
   primary: {
-    color: primaryColor
+    color: primaryColor,
   },
   danger: {
-    color: dangerColor
+    color: dangerColor,
   },
   success: {
-    color: successColor
+    color: successColor,
   },
   info: {
-    color: infoColor
+    color: infoColor,
   },
   rose: {
-    color: roseColor
+    color: roseColor,
   },
   gray: {
-    color: grayColor
+    color: grayColor,
   },
   right: {
-    textAlign: "right"
+    textAlign: "right",
   },
   table: {
     marginBottom: "0",
@@ -47,12 +47,12 @@ const tableStyle = theme => ({
     borderCollapse: "collapse",
     overflow: "auto",
     "& > tbody > tr, & > thead > tr": {
-      height: "auto"
-    }
+      height: "auto",
+    },
   },
   tableShoppingHead: {
     fontSize: "0.75em !important",
-    textTransform: "uppercase !important"
+    textTransform: "uppercase !important",
   },
   tableCell: {
     ...defaultFont,
@@ -63,63 +63,63 @@ const tableStyle = theme => ({
     borderBottom: "none",
     borderTop: "1px solid #ddd",
     position: "relative",
-    color: "#3C4858"
+    color: "#3C4858",
   },
   tableHeadCell: {
     fontSize: "1.063rem",
     borderBottomWidth: "1px",
     fontWeight: "300",
     color: "#555",
-    borderTopWidth: "0 !important"
+    borderTopWidth: "0 !important",
   },
   tableCellTotal: {
     fontWeight: "500",
     fontSize: "1.0625rem",
     paddingTop: "20px",
-    textAlign: "right"
+    textAlign: "right",
   },
   tableCellAmount: {
     fontSize: "26px",
     fontWeight: "300",
     marginTop: "5px",
-    textAlign: "right"
+    textAlign: "right",
   },
   tableResponsive: {
     minHeight: "0.1%",
-    overflowX: "auto"
+    overflowX: "auto",
   },
   tableStripedRow: {
-    backgroundColor: "#f9f9f9"
+    backgroundColor: "#f9f9f9",
   },
   tableRowHover: {
     "&:hover": {
-      backgroundColor: "#f5f5f5"
-    }
+      backgroundColor: "#f5f5f5",
+    },
   },
   warningRow: {
     backgroundColor: "#fcf8e3",
     "&:hover": {
-      backgroundColor: "#faf2cc"
-    }
+      backgroundColor: "#faf2cc",
+    },
   },
   dangerRow: {
     backgroundColor: "#f2dede",
     "&:hover": {
-      backgroundColor: "#ebcccc"
-    }
+      backgroundColor: "#ebcccc",
+    },
   },
   successRow: {
     backgroundColor: "#dff0d8",
     "&:hover": {
-      backgroundColor: "#d0e9c6"
-    }
+      backgroundColor: "#d0e9c6",
+    },
   },
   infoRow: {
     backgroundColor: "#d9edf7",
     "&:hover": {
-      backgroundColor: "#c4e3f3"
-    }
-  }
-});
+      backgroundColor: "#c4e3f3",
+    },
+  },
+};
 
 export default tableStyle;

@@ -1,17 +1,29 @@
 import React from "react";
-import classNames from "classnames";
-import withStyles from "@material-ui/core/styles/withStyles";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import repoListStyle from "assets/jss/material-kit-pro-react/views/homePageSections/repoListStyle.jsx";
-import { FormattedMessage } from 'react-intl';
-import messages from '../messages.js';
-import Table from "components/Table/Table.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import LoadingIndicator from 'components/LoadingIndicator';
+import PropTypes from "prop-types";
 import moment from "moment";
+import withStyles from "@material-ui/core/styles/withStyles";
+import GridContainer from "components/Grid/GridContainer";
+import GridItem from "components/Grid/GridItem";
+import CustomInput from "components/CustomInput/CustomInput";
+import repoListStyle from "assets/jss/material-kit-pro-react/views/homePageSections/repoListStyle";
+import { FormattedMessage } from "react-intl";
+import Table from "components/Table/Table";
+import Button from "components/CustomButtons/Button";
+import LoadingIndicator from "components/LoadingIndicator";
+import messages from "../messages";
+
 class SectionRepoList extends React.PureComponent {
+  static propTypes = {
+    reposListProps: PropTypes.shape({
+      loading: PropTypes.bool,
+      error: PropTypes.bool,
+      repos: PropTypes.array,
+    }),
+    classes: PropTypes.object.isRequired,
+    onSubmitForm: PropTypes.func,
+    inputValue: PropTypes.string,
+    onChangeInput: PropTypes.func,
+  };
   renderReposList = () => {
     const { classes, reposListProps } = this.props;
     const { loading, error, repos } = reposListProps;
@@ -20,14 +32,14 @@ class SectionRepoList extends React.PureComponent {
         <GridItem>
           <LoadingIndicator />
         </GridItem>
-      )
+      );
     }
     if (error) {
       return (
         <GridItem>
           <h4 className={classes.title}>No repositories found</h4>
         </GridItem>
-      )
+      );
     }
     if (repos) {
       return (
@@ -40,43 +52,46 @@ class SectionRepoList extends React.PureComponent {
               "Language",
               "Created Date",
               "Description",
-              "Issues"
+              "Issues",
             ]}
             tableData={repos.map((repo, index) => {
-              const { name, description, language, open_issues_count, created_at } = repo;
+              const {
+                name,
+                description,
+                language,
+                open_issues_count: openIssuesCount,
+                created_at: createdAt,
+              } = repo;
               return [
                 index,
                 name,
                 language,
-                moment(created_at).format("MMM Do YY"),
+                moment(createdAt).format("MMM Do YY"),
                 description,
-                open_issues_count
-              ]
+                openIssuesCount,
+              ];
             })}
             customHeadCellClasses={[
               classes.tdName,
-              classes.tdDate + " " + classes.textCenter,
-              classes.description
+              `${classes.tdDate} ${classes.textCenter}`,
+              classes.description,
             ]}
-            customHeadClassesForCells={[
-              1, 3, 4
-            ]}
+            customHeadClassesForCells={[1, 3, 4]}
             customCellClasses={[
               classes.tdName,
-              classes.tdDate + " " + classes.textCenter,
-              classes.description
+              `${classes.tdDate} ${classes.textCenter}`,
+              classes.description,
             ]}
-            customClassesForCells={[
-              1, 3, 4
-            ]}
+            customClassesForCells={[1, 3, 4]}
           />
         </GridItem>
-      )
+      );
     }
-  }
+    return null;
+  };
+
   render() {
-    const { classes, onSubmitForm, inputValue, onChangeInput, reposListProps } = this.props;
-    const { loading, error, repos } = reposListProps;
+    const { classes, onSubmitForm, inputValue, onChangeInput } = this.props;
     return (
       <div className={classes.section}>
         <div className={classes.container}>
@@ -90,10 +105,10 @@ class SectionRepoList extends React.PureComponent {
                 inputProps={{
                   placeholder: "@dreamtheater2195",
                   value: inputValue,
-                  onChange: onChangeInput
+                  onChange: onChangeInput,
                 }}
                 formControlProps={{
-                  fullWidth: true
+                  fullWidth: true,
                 }}
                 labelText="Show Github repositories by"
               />
@@ -107,7 +122,7 @@ class SectionRepoList extends React.PureComponent {
           </GridContainer>
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -7,21 +7,21 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import parallaxStyle from "assets/jss/material-kit-pro-react/components/parallaxStyle.jsx";
+import parallaxStyle from "assets/jss/material-kit-pro-react/components/parallaxStyle";
 
 class Parallax extends React.Component {
   constructor(props) {
     super(props);
-    var windowScrollTop = window.pageYOffset / 3;
+    const windowScrollTop = window.pageYOffset / 3;
     this.state = {
-      transform: "translate3d(0," + windowScrollTop + "px,0)"
+      transform: `translate3d(0,${windowScrollTop}px,0)`,
     };
     this.resetTransform = this.resetTransform.bind(this);
   }
   componentDidMount() {
-    var windowScrollTop = window.pageYOffset / 3;
+    const windowScrollTop = window.pageYOffset / 3;
     this.setState({
-      transform: "translate3d(0," + windowScrollTop + "px,0)"
+      transform: `translate3d(0,${windowScrollTop}px,0)`,
     });
     window.addEventListener("scroll", this.resetTransform);
   }
@@ -29,9 +29,9 @@ class Parallax extends React.Component {
     window.removeEventListener("scroll", this.resetTransform);
   }
   resetTransform() {
-    var windowScrollTop = window.pageYOffset / 3;
+    const windowScrollTop = window.pageYOffset / 3;
     this.setState({
-      transform: "translate3d(0," + windowScrollTop + "px,0)"
+      transform: `translate3d(0,${windowScrollTop}px,0)`,
     });
   }
   render() {
@@ -42,21 +42,21 @@ class Parallax extends React.Component {
       children,
       style,
       image,
-      small
+      small,
     } = this.props;
     const parallaxClasses = classNames({
       [classes.parallax]: true,
-      [classes[filter + "Color"]]: filter !== undefined,
+      [classes[`${filter}Color`]]: filter !== undefined,
       [classes.small]: small,
-      [className]: className !== undefined
+      [className]: className !== undefined,
     });
     return (
       <div
         className={parallaxClasses}
         style={{
           ...style,
-          backgroundImage: "url(" + image + ")",
-          ...this.state
+          backgroundImage: `url(${image})`,
+          ...this.state,
         }}
         ref="parallax"
       >
@@ -76,12 +76,12 @@ Parallax.propTypes = {
     "info",
     "success",
     "warning",
-    "danger"
+    "danger",
   ]),
   children: PropTypes.node,
   style: PropTypes.string,
   image: PropTypes.string,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 };
 
 export default withStyles(parallaxStyle)(Parallax);
