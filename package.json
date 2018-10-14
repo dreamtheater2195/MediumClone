@@ -163,6 +163,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.4",
     "ip": "1.1.5",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "4.17.10",
     "minimist": "1.2.0",
     "moment": "^2.22.2",
@@ -191,6 +192,8 @@
     "reselect": "3.0.1",
     "sanitize.css": "4.1.0",
     "styled-components": "3.3.2",
+    "superagent": "^4.0.0-beta.5",
+    "superagent-promise": "^1.1.0",
     "warning": "4.0.1",
     "whatwg-fetch": "2.0.4"
   },
