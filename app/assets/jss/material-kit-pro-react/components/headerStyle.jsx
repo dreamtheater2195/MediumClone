@@ -45,7 +45,7 @@ const headerStyle = theme => ({
     ...container,
     minHeight: "50px",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     display: "flex",
     flexWrap: "nowrap",
   },
@@ -53,7 +53,8 @@ const headerStyle = theme => ({
     "&,& a": {
       ...defaultFont,
       lineHeight: "30px",
-      fontSize: "18px",
+      fontSize: "20px",
+      fontWeight: 500,
       borderRadius: "3px",
       textTransform: "none",
       whiteSpace: "nowrap",

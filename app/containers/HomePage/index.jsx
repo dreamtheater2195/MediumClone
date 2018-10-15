@@ -7,7 +7,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
-import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
@@ -21,21 +20,18 @@ import {
   makeSelectError,
 } from "containers/App/selectors";
 
-import Header from "components/Header/Header";
-import HeaderLinks from "components/Header/HeaderLinks";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
 
 import SectionRepoList from "./Sections/SectionRepoList";
-import messages from "./messages";
 import { loadRepos } from "../App/actions";
 import { changeUsername } from "./actions";
 import { makeSelectUsername } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
-import coverImage from "../../assets/img/bg2.jpg";
+import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   /**
@@ -66,27 +62,18 @@ export class HomePage extends React.PureComponent {
             content="A React.js Boilerplate application homepage"
           />
         </Helmet>
-
-        <Header
-          brand="React Boilerplate"
-          links={<HeaderLinks dropdownHoverColor="info" />}
-          fixed
-          color="transparent"
-          changeColorOnScroll={{
-            height: 400,
-            color: "primary",
-          }}
-        />
-        <Parallax image={coverImage} className={classes.parallax}>
+        <Parallax
+          image={coverImage}
+          className={classes.parallax}
+          filter="dark"
+          small
+        >
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem md={8} className={classes.textCenter}>
-                <h1 className={classes.title}>
-                  <FormattedMessage {...messages.startProjectHeader} />
-                </h1>
-                <h4 className={classes.subtitle}>
-                  <FormattedMessage {...messages.startProjectMessage} />
-                </h4>
+                <h2 className={classes.title}>
+                  A Place for Entrepreneurs to Share and Discover New Stories
+                </h2>
               </GridItem>
             </GridContainer>
           </div>
