@@ -38,7 +38,9 @@ const AppHeader = props => {
               onClick={e => e.preventDefault()}
               color="transparent"
             >
-              Sign in
+              <Link to="/login" style={{ color: "inherit" }}>
+                Sign in
+              </Link>
             </Button>
           </ListItem>
           <ListItem className={classes.listItem}>
@@ -47,7 +49,9 @@ const AppHeader = props => {
               onClick={e => e.preventDefault()}
               color="transparent"
             >
-              Sign up
+              <Link to="/register" style={{ color: "inherit" }}>
+                Sign up
+              </Link>
             </Button>
           </ListItem>
         </List>

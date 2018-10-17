@@ -57,11 +57,11 @@ const SignUpForm = ({ classes }) => (
       <Button round color="primary">
         Sign up
       </Button>
+      <h5>
+        Already have an account?
+        <Link to="/login"> Click here to sign in.</Link>
+      </h5>
     </div>
-    <h5 className={classes.textCenter}>
-      Already have an account?
-      <Link to="/login"> Click here to sign in.</Link>
-    </h5>
   </form>
 );
 

@@ -6,7 +6,8 @@ import HomePage from "containers/HomePage/Loadable";
 import FeaturePage from "containers/FeaturePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import RegisterPage from "containers/RegisterPage";
-import AppHeader from "components/Header/AppHeader";
+import LoginPage from "containers/LoginPage";
+import AppHeader from "./AppHeader";
 
 export default function App() {
   return (
@@ -20,8 +21,7 @@ export default function App() {
       <AppHeader />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        {/* <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} /> */}
+        <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />

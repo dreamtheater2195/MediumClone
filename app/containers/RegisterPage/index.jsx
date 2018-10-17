@@ -40,7 +40,7 @@ export class RegisterPage extends Component {
         >
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={10} md={10}>
+              <GridItem xs={12} sm={10} md={5}>
                 <Card className={classes.cardSignup}>
                   <h2 className={classes.cardTitle}>Register</h2>
                   <CardBody>
