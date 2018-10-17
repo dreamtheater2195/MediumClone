@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "containers/HomePage/Loadable";
 import FeaturePage from "containers/FeaturePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
-
+import RegisterPage from "containers/RegisterPage";
 import AppHeader from "components/Header/AppHeader";
 
 export default function App() {
@@ -20,6 +20,9 @@ export default function App() {
       <AppHeader />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        {/* <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} /> */}
+        <Route path="/register" component={RegisterPage} />
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>

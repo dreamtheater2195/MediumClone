@@ -34,19 +34,23 @@ function CustomInput({ ...props }) {
     [` ${classes.labelRootError}`]: error,
     [` ${classes.labelRootSuccess}`]: success && !error,
   });
+
   const underlineClasses = classNames({
     [classes.underlineError]: error,
     [classes.underlineSuccess]: success && !error,
     [classes.underline]: true,
     [classes.whiteUnderline]: white,
   });
+
   const marginTop = classNames({
     [inputRootCustomClasses]: inputRootCustomClasses !== undefined,
   });
+
   const inputClasses = classNames({
     [classes.input]: true,
     [classes.whiteInput]: white,
   });
+
   let formControlClasses;
   if (formControlProps !== undefined) {
     formControlClasses = classNames(

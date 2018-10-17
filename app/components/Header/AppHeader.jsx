@@ -5,9 +5,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header";
-import Settings from "@material-ui/icons/Settings";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Explore from "@material-ui/icons/Explore";
 import Button from "components/CustomButtons/Button";
 import headerLinksStyle from "assets/jss/material-kit-pro-react/components/headerLinksStyle";
 
@@ -16,7 +13,7 @@ const AppHeader = props => {
   return (
     <Header
       brand="Conduit"
-      fixed
+      absolute
       color="transparent"
       changeColorOnScroll={{
         height: 400,
