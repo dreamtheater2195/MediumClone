@@ -4,19 +4,12 @@ import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import image from "assets/img/bg7.jpg";
 import registerPageStyle from "assets/jss/material-kit-pro-react/views/registerPageStyle";
-
-import InputAdornment from "@material-ui/core/InputAdornment";
-
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import Button from "components/CustomButtons/Button";
-import CustomInput from "components/CustomInput/CustomInput";
-// @material-ui/icons
-import Face from "@material-ui/icons/Face";
-import Email from "@material-ui/icons/Email";
-import LockOutline from "@material-ui/icons/LockOutline";
+import SignUpForm from "./SignUpForm";
 
 export class RegisterPage extends Component {
   static propTypes = {
@@ -72,68 +65,7 @@ export class RegisterPage extends Component {
                             or be classical
                           </h4>
                         </div>
-                        <form className={classes.form}>
-                          <CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <Face
-                                    className={classes.inputAdornmentIcon}
-                                  />
-                                </InputAdornment>
-                              ),
-                              placeholder: "User name...",
-                            }}
-                          />
-                          <CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <Email
-                                    className={classes.inputAdornmentIcon}
-                                  />
-                                </InputAdornment>
-                              ),
-                              placeholder: "Email...",
-                            }}
-                          />
-                          <CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                              className: classes.customFormControlClasses,
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <LockOutline
-                                    className={classes.inputAdornmentIcon}
-                                  />
-                                </InputAdornment>
-                              ),
-                              placeholder: "Password...",
-                            }}
-                          />
-                          <div className={classes.textCenter}>
-                            <Button round color="primary">
-                              Get started
-                            </Button>
-                          </div>
-                        </form>
+                        <SignUpForm classes={classes} />
                       </GridItem>
                     </GridContainer>
                   </CardBody>
