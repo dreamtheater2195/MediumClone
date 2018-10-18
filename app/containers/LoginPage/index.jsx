@@ -14,6 +14,14 @@ import image from "assets/img/bg7.jpg";
 import SignInForm from "./SignInForm";
 
 class LoginPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      password: "",
+      email: "",
+      errors: null,
+    };
+  }
   static propTypes = {
     classes: PropTypes.object.isRequired,
   };
@@ -22,8 +30,41 @@ class LoginPage extends React.Component {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }
+
+  handleInputChange = field => event => {
+    this.setState({
+      [field]: event.target.value,
+    });
+    const { email, password } = this.state;
+    this.validate({ email, password, [field]: event.target.value });
+  };
+
+  validate = values => {
+    const errors = {};
+    const requiredFields = ["email", "password"];
+    requiredFields.forEach(field => {
+      if (!values[field]) {
+        errors[field] = "Required";
+      }
+    });
+
+    if (
+      values.email &&
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+    this.setState({ errors });
+  };
+
+  handleSubmit = () => {
+    const { email, password } = this.state;
+  };
+
   render() {
     const { classes } = this.props;
+    const { password, email, errors } = this.state;
+    console.log(this.state);
     return (
       <div>
         <Helmet>
@@ -79,7 +120,14 @@ class LoginPage extends React.Component {
                     Or Be Classical
                   </p>
                   <CardBody signup>
-                    <SignInForm classes={classes} />
+                    <SignInForm
+                      classes={classes}
+                      password={password}
+                      email={email}
+                      onInputChange={this.handleInputChange}
+                      errors={errors}
+                      onSubmit={this.handleSubmit}
+                    />
                   </CardBody>
                 </Card>
               </GridItem>
