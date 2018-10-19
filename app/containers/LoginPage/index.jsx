@@ -35,8 +35,6 @@ class LoginPage extends React.Component {
     this.setState({
       [field]: event.target.value,
     });
-    const { email, password } = this.state;
-    this.validate({ email, password, [field]: event.target.value });
   };
 
   validate = values => {
@@ -58,13 +56,12 @@ class LoginPage extends React.Component {
   };
 
   handleSubmit = () => {
-    const { email, password } = this.state;
+    this.validate(this.state);
   };
 
   render() {
     const { classes } = this.props;
     const { password, email, errors } = this.state;
-    console.log(this.state);
     return (
       <div>
         <Helmet>

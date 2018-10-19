@@ -11,13 +11,26 @@ import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
 
-const SignUpForm = ({ classes }) => (
+const SignUpForm = ({
+  classes,
+  username,
+  email,
+  password,
+  errors,
+  onInputChange,
+  onSubmit,
+}) => (
   <form className={classes.form}>
     <CustomInput
+      id="username"
+      labelText={errors && errors.username}
+      error={errors && errors.username}
       formControlProps={{
         fullWidth: true,
       }}
       inputProps={{
+        value: username,
+        onChange: onInputChange("username"),
         startAdornment: (
           <InputAdornment position="start" className={classes.inputAdornment}>
             <Face className={classes.inputAdornmentIcon} />
@@ -27,6 +40,9 @@ const SignUpForm = ({ classes }) => (
       }}
     />
     <CustomInput
+      id="email"
+      labelText={errors && errors.email}
+      error={errors && errors.email}
       formControlProps={{
         fullWidth: true,
       }}
@@ -36,10 +52,16 @@ const SignUpForm = ({ classes }) => (
             <Email className={classes.inputAdornmentIcon} />
           </InputAdornment>
         ),
+        type: "email",
+        value: email,
+        onChange: onInputChange("email"),
         placeholder: "Email...",
       }}
     />
     <CustomInput
+      id="pass"
+      labelText={errors && errors.password}
+      error={errors && errors.password}
       formControlProps={{
         fullWidth: true,
         className: classes.customFormControlClasses,
@@ -50,11 +72,14 @@ const SignUpForm = ({ classes }) => (
             <LockOutline className={classes.inputAdornmentIcon} />
           </InputAdornment>
         ),
+        type: "password",
+        value: password,
+        onChange: onInputChange("password"),
         placeholder: "Password...",
       }}
     />
     <div className={classes.textCenter}>
-      <Button round color="primary">
+      <Button round color="primary" onClick={onSubmit}>
         Sign up
       </Button>
       <h5>
@@ -67,6 +92,16 @@ const SignUpForm = ({ classes }) => (
 
 SignUpForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  username: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  errors: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }),
+  onInputChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 export default SignUpForm;

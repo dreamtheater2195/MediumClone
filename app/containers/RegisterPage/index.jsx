@@ -12,8 +12,45 @@ import Button from "components/CustomButtons/Button";
 import SignUpForm from "./SignUpForm";
 
 export class RegisterPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+      email: "",
+      errors: null,
+    };
+  }
   static propTypes = {
     classes: PropTypes.object.isRequired,
+  };
+
+  handleInputChange = field => event => {
+    this.setState({
+      [field]: event.target.value,
+    });
+  };
+
+  validate = values => {
+    const errors = {};
+    const requiredFields = ["username", "email", "password"];
+    requiredFields.forEach(field => {
+      if (!values[field]) {
+        errors[field] = "Required";
+      }
+    });
+
+    if (
+      values.email &&
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+    this.setState({ errors });
+  };
+
+  handleSubmit = () => {
+    this.validate(this.state);
   };
 
   componentDidMount() {
@@ -23,7 +60,7 @@ export class RegisterPage extends Component {
 
   render() {
     const { classes } = this.props;
-
+    const { username, password, email, errors } = this.state;
     return (
       <div>
         <Helmet>
@@ -40,12 +77,12 @@ export class RegisterPage extends Component {
         >
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={10} md={5}>
+              <GridItem xs={10} sm={8} md={8}>
                 <Card className={classes.cardSignup}>
                   <h2 className={classes.cardTitle}>Register</h2>
                   <CardBody>
                     <GridContainer justify="center">
-                      <GridItem xs={12} sm={8} md={7}>
+                      <GridItem xs={10} sm={10} md={8}>
                         <div className={classes.textCenter}>
                           <Button justIcon round color="google">
                             <i className={`${classes.socials} fab fa-google`} />
@@ -65,7 +102,15 @@ export class RegisterPage extends Component {
                             or be classical
                           </h4>
                         </div>
-                        <SignUpForm classes={classes} />
+                        <SignUpForm
+                          classes={classes}
+                          username={username}
+                          password={password}
+                          email={email}
+                          onInputChange={this.handleInputChange}
+                          errors={errors}
+                          onSubmit={this.handleSubmit}
+                        />
                       </GridItem>
                     </GridContainer>
                   </CardBody>
