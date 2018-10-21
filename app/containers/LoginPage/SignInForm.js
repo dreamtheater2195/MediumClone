@@ -16,12 +16,13 @@ const SignInForm = ({
   errors,
   onInputChange,
   onSubmit,
+  loading,
 }) => (
   <form className={classes.form}>
     <CustomInput
       id="email"
       labelText={errors && errors.email}
-      error={errors && errors.email}
+      error={!!errors && !!errors.email}
       formControlProps={{
         fullWidth: true,
       }}
@@ -40,7 +41,7 @@ const SignInForm = ({
     <CustomInput
       id="pass"
       labelText={errors && errors.password}
-      error={errors && errors.password}
+      error={!!errors && !!errors.password}
       formControlProps={{
         fullWidth: true,
       }}
@@ -57,7 +58,7 @@ const SignInForm = ({
       }}
     />
     <div className={classes.textCenter}>
-      <Button round color="primary" onClick={onSubmit}>
+      <Button round color="primary" onClick={onSubmit} disabled={loading}>
         Sign in
       </Button>
       <h5>
@@ -78,6 +79,7 @@ SignInForm.propTypes = {
   }),
   onInputChange: PropTypes.func,
   onSubmit: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default SignInForm;

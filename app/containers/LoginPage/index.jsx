@@ -1,5 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
+import toastr from "toastr";
+import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import loginPageStyle from "assets/jss/material-kit-pro-react/views/loginPageStyle";
@@ -9,7 +12,11 @@ import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
 import Button from "components/CustomButtons/Button";
-
+import {
+  makeSelectAuth,
+  makeSelectCurrentUser,
+} from "containers/App/selectors";
+import { changeAuthField, loginUser } from "containers/App/actions";
 import image from "assets/img/bg7.jpg";
 import SignInForm from "./SignInForm";
 
@@ -17,14 +24,25 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: "",
-      email: "",
       errors: null,
     };
   }
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    changeAuthField: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    currentUser: PropTypes.object,
+    loginUser: PropTypes.func.isRequired,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.errors) {
+      console.log(nextProps.auth.errors);
+      toastr.error("Email or password is invalid");
+    } else if (nextProps.currentUser) {
+      this.props.history.push("/"); // eslint-disable-line
+    }
+  }
 
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -32,17 +50,17 @@ class LoginPage extends React.Component {
   }
 
   handleInputChange = field => event => {
-    this.setState({
-      [field]: event.target.value,
-    });
+    this.props.changeAuthField({ field, value: event.target.value });
   };
 
   validate = values => {
+    let valid = true;
     const errors = {};
     const requiredFields = ["email", "password"];
     requiredFields.forEach(field => {
       if (!values[field]) {
         errors[field] = "Required";
+        valid = false;
       }
     });
 
@@ -51,17 +69,26 @@ class LoginPage extends React.Component {
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
       errors.email = "Invalid email address";
+      valid = false;
     }
     this.setState({ errors });
+    return valid;
   };
 
   handleSubmit = () => {
-    this.validate(this.state);
+    if (!this.validate(this.props.auth)) return;
+    const {
+      auth: { email, password },
+    } = this.props;
+    this.props.loginUser({ email, password });
   };
 
   render() {
-    const { classes } = this.props;
-    const { password, email, errors } = this.state;
+    const {
+      classes,
+      auth: { email, password, loading },
+    } = this.props;
+    const { errors } = this.state;
     return (
       <div>
         <Helmet>
@@ -124,6 +151,7 @@ class LoginPage extends React.Component {
                       onInputChange={this.handleInputChange}
                       errors={errors}
                       onSubmit={this.handleSubmit}
+                      loading={loading}
                     />
                   </CardBody>
                 </Card>
@@ -136,4 +164,14 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withStyles(loginPageStyle)(LoginPage);
+const mapStateToProps = createStructuredSelector({
+  auth: makeSelectAuth(),
+  currentUser: makeSelectCurrentUser(),
+});
+
+export default withStyles(loginPageStyle)(
+  connect(
+    mapStateToProps,
+    { loginUser, changeAuthField },
+  )(LoginPage),
+);

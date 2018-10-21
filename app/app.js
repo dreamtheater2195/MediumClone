@@ -17,9 +17,10 @@ import createHistory from "history/createBrowserHistory";
 // Import root app
 import App from "containers/App";
 
-// Import plugin css
+// Import plugin scss
 import "assets/scss/material-kit-pro-react.scss";
-
+// import toastr scss
+import "assets/scss/toastr.scss";
 // Import Language Provider
 import LanguageProvider from "containers/LanguageProvider";
 
