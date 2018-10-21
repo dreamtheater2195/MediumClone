@@ -13,12 +13,6 @@ import { createStructuredSelector } from "reselect";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 import injectReducer from "utils/injectReducer";
-import injectSaga from "utils/injectSaga";
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from "containers/App/selectors";
 
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
@@ -26,11 +20,7 @@ import GridItem from "components/Grid/GridItem";
 import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
 
 import SectionRepoList from "./Sections/SectionRepoList";
-import { loadRepos } from "../App/actions";
-import { changeUsername } from "./actions";
-import { makeSelectUsername } from "./selectors";
 import reducer from "./reducer";
-import saga from "./saga";
 import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -101,32 +91,16 @@ HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: () => {
-      dispatch(loadRepos());
-    },
-  };
-}
-
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapStateToProps = createStructuredSelector({});
 
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  {},
 );
 const withReducer = injectReducer({ key: "home", reducer });
-const withSaga = injectSaga({ key: "home", saga });
 const withStyle = withStyles(homePageStyle);
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
   withStyle,
 )(HomePage);

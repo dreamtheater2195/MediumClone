@@ -19,12 +19,13 @@ const SignUpForm = ({
   errors,
   onInputChange,
   onSubmit,
+  loading,
 }) => (
   <form className={classes.form}>
     <CustomInput
       id="username"
       labelText={errors && errors.username}
-      error={errors && errors.username}
+      error={!!errors && !!errors.username}
       formControlProps={{
         fullWidth: true,
       }}
@@ -42,7 +43,7 @@ const SignUpForm = ({
     <CustomInput
       id="email"
       labelText={errors && errors.email}
-      error={errors && errors.email}
+      error={!!errors && !!errors.email}
       formControlProps={{
         fullWidth: true,
       }}
@@ -61,7 +62,7 @@ const SignUpForm = ({
     <CustomInput
       id="pass"
       labelText={errors && errors.password}
-      error={errors && errors.password}
+      error={!!errors && !!errors.password}
       formControlProps={{
         fullWidth: true,
         className: classes.customFormControlClasses,
@@ -79,7 +80,7 @@ const SignUpForm = ({
       }}
     />
     <div className={classes.textCenter}>
-      <Button round color="primary" onClick={onSubmit}>
+      <Button round color="primary" onClick={onSubmit} disabled={loading}>
         Sign up
       </Button>
       <h5>
@@ -100,8 +101,9 @@ SignUpForm.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
   }),
-  onInputChange: PropTypes.func,
-  onSubmit: PropTypes.func,
+  onInputChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default SignUpForm;

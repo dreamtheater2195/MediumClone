@@ -1,31 +1,43 @@
 import { fromJS } from "immutable";
 
-import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR } from "./constants";
+import {
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
+  UPDATE_AUTH_FIELD,
+} from "./constants";
 
 // The initial state of the App
 const initialState = fromJS({
-  loading: false,
-  error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
+  token: localStorage.getItem("jwt"),
+  currentUser: null,
+  auth: {
+    loading: false,
+    errors: null,
+    username: "",
+    email: "",
+    password: "",
   },
 });
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_REPOS:
+    case UPDATE_AUTH_FIELD:
+      return state.setIn(["auth", `${action.field}`], action.value);
+    case REGISTER_USER:
       return state
-        .set("loading", true)
-        .set("error", false)
-        .setIn(["userData", "repositories"], false);
-    case LOAD_REPOS_SUCCESS:
+        .setIn(["auth", "loading"], true)
+        .setIn(["auth", "errors"], null);
+    case REGISTER_USER_SUCCESS:
       return state
-        .setIn(["userData", "repositories"], action.repos)
-        .set("loading", false)
-        .set("currentUser", action.username);
-    case LOAD_REPOS_ERROR:
-      return state.set("error", action.error).set("loading", false);
+        .set("token", action.user.token)
+        .set("currentUser", action.user)
+        .setIn(["auth", "loading"], false)
+        .setIn(["auth", "errors"], null);
+    case REGISTER_USER_FAILURE:
+      return state
+        .setIn(["auth", "loading"], false)
+        .setIn(["auth", "errors"], action.errors);
     default:
       return state;
   }

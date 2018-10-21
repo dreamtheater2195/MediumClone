@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
+import { createStructuredSelector } from "reselect";
 import image from "assets/img/bg7.jpg";
 import registerPageStyle from "assets/jss/material-kit-pro-react/views/registerPageStyle";
 import GridContainer from "components/Grid/GridContainer";
@@ -9,34 +11,70 @@ import GridItem from "components/Grid/GridItem";
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import Button from "components/CustomButtons/Button";
+import {
+  makeSelectAuth,
+  makeSelectCurrentUser,
+} from "containers/App/selectors";
+import { registerUser, changeAuthField } from "containers/App/actions";
 import SignUpForm from "./SignUpForm";
 
 export class RegisterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      email: "",
       errors: null,
     };
   }
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    registerUser: PropTypes.func.isRequired,
+    changeAuthField: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    currentUser: PropTypes.object,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.errors) {
+      const nextState = {
+        ...this.state,
+      };
+      const {
+        auth: { errors },
+      } = nextProps;
+
+      if (nextProps.auth.errors.email) {
+        nextState.errors.email = `email ${errors.email[0]}`;
+      }
+      if (nextProps.auth.errors.password) {
+        nextState.errors.password = `password ${errors.password[0]}`;
+      }
+      if (nextProps.auth.errors.username) {
+        nextState.errors.username = `username ${errors.username[0]}`;
+      }
+
+      this.setState(nextState);
+    } else if (nextProps.currentUser) {
+      this.props.history.push("/"); // eslint-disable-line
+    }
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  }
+
   handleInputChange = field => event => {
-    this.setState({
-      [field]: event.target.value,
-    });
+    this.props.changeAuthField({ field, value: event.target.value });
   };
 
   validate = values => {
+    let valid = true;
     const errors = {};
     const requiredFields = ["username", "email", "password"];
     requiredFields.forEach(field => {
       if (!values[field]) {
         errors[field] = "Required";
+        valid = false;
       }
     });
 
@@ -45,22 +83,26 @@ export class RegisterPage extends Component {
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
       errors.email = "Invalid email address";
+      valid = false;
     }
     this.setState({ errors });
+    return valid;
   };
 
   handleSubmit = () => {
-    this.validate(this.state);
+    if (!this.validate(this.props.auth)) return;
+    const {
+      auth: { username, email, password },
+    } = this.props;
+    this.props.registerUser({ username, email, password });
   };
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  }
-
   render() {
-    const { classes } = this.props;
-    const { username, password, email, errors } = this.state;
+    const {
+      classes,
+      auth: { username, password, email, loading },
+    } = this.props;
+    const { errors } = this.state;
     return (
       <div>
         <Helmet>
@@ -110,6 +152,7 @@ export class RegisterPage extends Component {
                           onInputChange={this.handleInputChange}
                           errors={errors}
                           onSubmit={this.handleSubmit}
+                          loading={loading}
                         />
                       </GridItem>
                     </GridContainer>
@@ -124,4 +167,13 @@ export class RegisterPage extends Component {
   }
 }
 
-export default withStyles(registerPageStyle)(RegisterPage);
+const mapStateToProps = createStructuredSelector({
+  auth: makeSelectAuth(),
+  currentUser: makeSelectCurrentUser(),
+});
+export default withStyles(registerPageStyle)(
+  connect(
+    mapStateToProps,
+    { registerUser, changeAuthField },
+  )(RegisterPage),
+);

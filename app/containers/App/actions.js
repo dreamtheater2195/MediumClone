@@ -1,22 +1,36 @@
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from "./constants";
+import {
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
+  UPDATE_AUTH_FIELD,
+} from "./constants";
 
-export function loadRepos() {
+export function changeAuthField({ field, value }) {
   return {
-    type: LOAD_REPOS,
+    type: UPDATE_AUTH_FIELD,
+    field,
+    value,
   };
 }
-
-export function reposLoaded(repos, username) {
+export function registerUser({ username, email, password }) {
   return {
-    type: LOAD_REPOS_SUCCESS,
-    repos,
+    type: REGISTER_USER,
     username,
+    email,
+    password,
   };
 }
 
-export function repoLoadingError(error) {
+export function registerUserSuccess({ user }) {
   return {
-    type: LOAD_REPOS_ERROR,
-    error,
+    type: REGISTER_USER_SUCCESS,
+    user,
+  };
+}
+
+export function registerUserFailure({ errors }) {
+  return {
+    type: REGISTER_USER_FAILURE,
+    errors,
   };
 }
