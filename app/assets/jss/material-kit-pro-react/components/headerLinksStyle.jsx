@@ -207,6 +207,11 @@ const headerLinksStyle = theme => ({
     alignItems: "center",
   },
   mlAuto,
+  img: {
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+  },
 });
 
 export default headerLinksStyle;

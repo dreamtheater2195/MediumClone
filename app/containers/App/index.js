@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
+import { createStructuredSelector } from "reselect";
 import { Switch, Route } from "react-router-dom";
-
+import { connect } from "react-redux";
 import { DAEMON } from "utils/constants";
 import injectSaga from "utils/injectSaga";
 import API from "api";
@@ -10,16 +12,22 @@ import FeaturePage from "containers/FeaturePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
+import { getCurrentUser } from "containers/App/actions";
+import { makeSelectCurrentUser } from "containers/App/selectors";
 import AppHeader from "./AppHeader";
 import saga from "./sagas";
 
 class App extends Component {
+  static propTypes = {
+    getCurrentUser: PropTypes.func.isRequired,
+    currentUser: PropTypes.object,
+  };
   async componentDidMount() {
     const token = await localStorage.getItem("jwt");
     if (token) {
       API.setToken(token);
     }
-    // load app && set current user
+    this.props.getCurrentUser();
   }
   render() {
     return (
@@ -33,7 +41,7 @@ class App extends Component {
             content="A React.js Boilerplate application"
           />
         </Helmet>
-        <AppHeader />
+        <AppHeader currentUser={this.props.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
@@ -45,7 +53,15 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = createStructuredSelector({
+  currentUser: makeSelectCurrentUser(),
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  { getCurrentUser },
+);
 
 const withSaga = injectSaga({ key: "appDaemons", saga, mode: DAEMON });
 
-export default withSaga(App);
+export default withConnect(withSaga(App));

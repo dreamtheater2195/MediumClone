@@ -9,12 +9,13 @@ import {
 } from "redux-saga/effects";
 import { LOCATION_CHANGE } from "react-router-redux";
 import API from "../../api";
-import { REGISTER_USER, LOGIN_USER } from "./constants";
+import { REGISTER_USER, LOGIN_USER, GET_CURRENT_USER } from "./constants";
 import {
   registerUserSuccess,
   registerUserFailure,
   loginUserSuccess,
   loginUserFailure,
+  setCurrentUser,
 } from "./actions";
 
 function* signup({ username, email, password }) {
@@ -45,6 +46,12 @@ function* signin({ email, password }) {
   }
 }
 
+export function* currentUserSaga() {
+  yield take(GET_CURRENT_USER);
+  const user = yield call(API.Auth.current);
+  yield put(setCurrentUser(user));
+}
+
 export function* userSigin() {
   const watcher = yield takeLatest(LOGIN_USER, signin);
   yield take(LOCATION_CHANGE);
@@ -52,5 +59,5 @@ export function* userSigin() {
 }
 
 export default function* rootSaga() {
-  yield all([fork(userSignup), fork(userSigin)]);
+  yield all([fork(userSignup), fork(userSigin), fork(currentUserSaga)]);
 }

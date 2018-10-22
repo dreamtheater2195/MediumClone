@@ -8,11 +8,12 @@ import {
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
+  SET_CURRENT_USER,
 } from "./constants";
 
 // The initial state of the App
 const initialState = fromJS({
-  token: localStorage.getItem("jwt"),
+  token: null,
   currentUser: null,
   auth: {
     loading: false,
@@ -44,6 +45,10 @@ function appReducer(state = initialState, action) {
       return state
         .setIn(["auth", "loading"], false)
         .setIn(["auth", "errors"], action.errors);
+    case SET_CURRENT_USER:
+      return state
+        .set("token", action.user.token)
+        .set("currentUser", action.user);
     default:
       return state;
   }
