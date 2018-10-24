@@ -12,6 +12,7 @@ import FeaturePage from "containers/FeaturePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import RegisterPage from "containers/RegisterPage/Loadable";
 import LoginPage from "containers/LoginPage/Loadable";
+import SettingPage from "containers/SettingPage/Loadable";
 import { getCurrentUser, logoutUser } from "containers/App/actions";
 import { makeSelectCurrentUser } from "containers/App/selectors";
 import AppHeader from "./AppHeader";
@@ -50,6 +51,7 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/settings" component={SettingPage} />
           <Route path="/features" component={FeaturePage} />
           <Route component={NotFoundPage} />
         </Switch>

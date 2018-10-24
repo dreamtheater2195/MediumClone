@@ -2,22 +2,22 @@ import {
   container,
   title,
   main,
-  mainRaised
-} from "assets/jss/material-kit-pro-react.jsx";
+  mainRaised,
+} from "assets/jss/material-kit-pro-react";
 
 const homePageStyle = {
   main: {
-    ...main
-    /*overflow: "hidden"*/
+    ...main,
+    /* overflow: "hidden" */
   },
   mainRaised,
   parallax: {
     height: "90vh",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   container: {
     ...container,
-    zIndex: 1
+    zIndex: 1,
   },
   brand: {
     color: "#fff",
@@ -26,19 +26,19 @@ const homePageStyle = {
       fontSize: "4.2rem",
       fontWeight: "600",
       display: "inline-block",
-      position: "relative"
-    }
+      position: "relative",
+    },
   },
   title: {
     ...title,
-    color: "#FFF"
+    color: "#FFF",
   },
   textCenter: {
-    textAlign: "center"
+    textAlign: "center",
   },
   subtitle: {
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
-}
+};
 
 export default homePageStyle;
