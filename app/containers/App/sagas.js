@@ -1,15 +1,11 @@
-import {
-  takeLatest,
-  take,
-  put,
-  call,
-  cancel,
-  all,
-  fork,
-} from "redux-saga/effects";
-import { LOCATION_CHANGE } from "react-router-redux";
+import { takeLatest, take, put, call, all, fork } from "redux-saga/effects";
 import API from "../../api";
-import { REGISTER_USER, LOGIN_USER, GET_CURRENT_USER } from "./constants";
+import {
+  REGISTER_USER,
+  LOGIN_USER,
+  GET_CURRENT_USER,
+  LOGOUT_USER,
+} from "./constants";
 import {
   registerUserSuccess,
   registerUserFailure,
@@ -18,46 +14,69 @@ import {
   setCurrentUser,
 } from "./actions";
 
-function* signup({ username, email, password }) {
-  try {
-    const { user } = yield call(API.Auth.register, username, email, password);
-    yield localStorage.setItem("jwt", user.token);
-    API.setToken(user.token);
-    yield put(registerUserSuccess({ user }));
-  } catch (err) {
-    yield put(registerUserFailure({ errors: err.response.body.errors }));
-  }
+function setAuthToken(token) {
+  localStorage.setItem("jwt", token);
+  API.setToken(token);
 }
 
-export function* userSignup() {
-  const watcher = yield takeLatest(REGISTER_USER, signup);
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+function removeAuthToken() {
+  localStorage.removeItem("jwt");
+  API.setToken(null);
 }
 
 function* signin({ email, password }) {
   try {
     const { user } = yield call(API.Auth.login, email, password);
-    yield localStorage.setItem("jwt", user.token);
-    API.setToken(user.token);
+    yield call(setAuthToken, user.token);
     yield put(loginUserSuccess({ user }));
   } catch (err) {
+    yield call(signout);
     yield put(loginUserFailure({ errors: err.response.body.errors }));
   }
 }
 
-export function* currentUserSaga() {
-  yield take(GET_CURRENT_USER);
-  const user = yield call(API.Auth.current);
-  yield put(setCurrentUser(user));
+function* signout() {
+  yield call(removeAuthToken);
 }
 
-export function* userSigin() {
-  const watcher = yield takeLatest(LOGIN_USER, signin);
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+function* signup({ username, email, password }) {
+  try {
+    const { user } = yield call(API.Auth.register, username, email, password);
+    yield call(setAuthToken, user.token);
+    yield put(registerUserSuccess({ user }));
+  } catch (err) {
+    yield call(signout);
+    yield put(registerUserFailure({ errors: err.response.body.errors }));
+  }
+}
+
+export function* userSigninSaga() {
+  yield takeLatest(LOGIN_USER, signin);
+}
+
+export function* userSignupSaga() {
+  yield takeLatest(REGISTER_USER, signup);
+}
+
+export function* userSignoutSaga() {
+  yield takeLatest(LOGOUT_USER, signout);
+}
+
+export function* currentUserSaga() {
+  yield take(GET_CURRENT_USER);
+  try {
+    const user = yield call(API.Auth.current);
+    yield put(setCurrentUser(user));
+  } catch (err) {
+    console.log("Cannot get current user info", err);
+  }
 }
 
 export default function* rootSaga() {
-  yield all([fork(userSignup), fork(userSigin), fork(currentUserSaga)]);
+  yield all([
+    fork(userSignupSaga),
+    fork(userSigninSaga),
+    fork(currentUserSaga),
+    fork(userSignoutSaga),
+  ]);
 }

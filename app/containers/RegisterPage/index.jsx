@@ -3,6 +3,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
+import toastr from "toastr";
 import { createStructuredSelector } from "reselect";
 import image from "assets/img/bg7.jpg";
 import registerPageStyle from "assets/jss/material-kit-pro-react/views/registerPageStyle";
@@ -54,6 +55,7 @@ export class RegisterPage extends Component {
 
       this.setState(nextState);
     } else if (nextProps.currentUser) {
+      toastr.success("Sign up successfully!");
       this.props.history.push("/"); // eslint-disable-line
     }
   }

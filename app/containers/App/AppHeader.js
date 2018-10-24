@@ -10,7 +10,7 @@ import CustomDropdown from "components/CustomDropdown/CustomDropdown";
 import headerLinksStyle from "assets/jss/material-kit-pro-react/components/headerLinksStyle";
 
 const AppHeader = props => {
-  const { classes, currentUser } = props;
+  const { classes, currentUser, onSignout } = props;
   const renderHeaderLinks = () => {
     if (currentUser) {
       return (
@@ -33,11 +33,15 @@ const AppHeader = props => {
               hoverColor="dark"
               dropdownHeader={currentUser.username}
               buttonText={
-                <img
-                  src={currentUser.image}
-                  className={classes.img}
-                  alt="profile"
-                />
+                currentUser.image ? (
+                  <img
+                    src={currentUser.image}
+                    className={classes.img}
+                    alt="profile"
+                  />
+                ) : (
+                  currentUser.username
+                )
               }
               buttonProps={{
                 className: `${classes.navLink} ${classes.imageDropdownButton}`,
@@ -47,7 +51,7 @@ const AppHeader = props => {
                 <Link to="/profile" style={{ color: "inherit" }}>
                   My Profile
                 </Link>,
-                <Link to="/signout" style={{ color: "inherit" }}>
+                <Link to="/" style={{ color: "inherit" }} onClick={onSignout}>
                   Sign out
                 </Link>,
               ]}
@@ -115,5 +119,6 @@ const AppHeader = props => {
 AppHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
+  onSignout: PropTypes.func.isRequired,
 };
 export default withStyles(headerLinksStyle)(AppHeader);

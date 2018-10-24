@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import toastr from "toastr";
 import { createStructuredSelector } from "reselect";
@@ -35,11 +36,17 @@ class LoginPage extends React.Component {
     loginUser: PropTypes.func.isRequired,
   };
 
+  componentWillMount() {
+    if (this.props.currentUser) {
+      this.props.history.push("/"); // eslint-disable-line
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.errors) {
-      console.log(nextProps.auth.errors);
       toastr.error("Email or password is invalid");
     } else if (nextProps.currentUser) {
+      toastr.success("Sign in successfully!");
       this.props.history.push("/"); // eslint-disable-line
     }
   }
@@ -169,9 +176,13 @@ const mapStateToProps = createStructuredSelector({
   currentUser: makeSelectCurrentUser(),
 });
 
-export default withStyles(loginPageStyle)(
-  connect(
-    mapStateToProps,
-    { loginUser, changeAuthField },
-  )(LoginPage),
+const withStyle = withStyles(loginPageStyle);
+const withConnect = connect(
+  mapStateToProps,
+  { loginUser, changeAuthField },
 );
+
+export default compose(
+  withStyle,
+  withConnect,
+)(LoginPage);

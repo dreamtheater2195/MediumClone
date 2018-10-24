@@ -9,6 +9,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   SET_CURRENT_USER,
+  LOGOUT_USER,
 } from "./constants";
 
 // The initial state of the App
@@ -49,6 +50,8 @@ function appReducer(state = initialState, action) {
       return state
         .set("token", action.user.token)
         .set("currentUser", action.user);
+    case LOGOUT_USER:
+      return initialState;
     default:
       return state;
   }

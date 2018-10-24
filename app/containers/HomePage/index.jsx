@@ -13,7 +13,6 @@ import { createStructuredSelector } from "reselect";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 import injectReducer from "utils/injectReducer";
-
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";

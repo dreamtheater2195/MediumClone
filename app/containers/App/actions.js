@@ -8,6 +8,7 @@ import {
   LOGIN_USER_FAILURE,
   GET_CURRENT_USER,
   SET_CURRENT_USER,
+  LOGOUT_USER,
 } from "./constants";
 
 export function getCurrentUser() {
@@ -71,5 +72,11 @@ export function loginUserFailure({ errors }) {
   return {
     type: LOGIN_USER_FAILURE,
     errors,
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOGOUT_USER,
   };
 }

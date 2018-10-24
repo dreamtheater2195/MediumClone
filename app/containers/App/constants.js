@@ -8,5 +8,7 @@ export const LOGIN_USER = "App/LOGIN_USER";
 export const LOGIN_USER_SUCCESS = "App/LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAILURE = "App/LOGIN_USER_FAILURE";
 
+export const LOGOUT_USER = "App/LOGOUT_USER";
+
 export const GET_CURRENT_USER = "App/GET_CURRENT_USER";
 export const SET_CURRENT_USER = "App/SET_CURRENT_USER";
