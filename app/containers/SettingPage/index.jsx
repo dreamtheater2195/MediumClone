@@ -1,28 +1,37 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { createStructuredSelector } from "reselect";
+import { makeSelectCurrentUser } from "containers/App/selectors";
 import { Helmet } from "react-helmet";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
-import CustomInput from "components/CustomInput/CustomInput";
-import Button from "components/CustomButtons/Button";
 import coverImage from "assets/img/examples/city.jpg";
 import withStyles from "@material-ui/core/styles/withStyles";
 import settingPageStyle from "assets/jss/material-kit-pro-react/views/settingPageStyle";
 import image from "assets/img/faces/avatar.jpg";
+import ProfileUpdateForm from "./ProfileUpdateForm";
+
 export class SettingPage extends Component {
   static propTypes = {
     classes: PropTypes.object,
+    currentUser: PropTypes.object,
   };
 
   componentDidMount() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
+
+    if (!this.props.currentUser) {
+      this.props.history.push("/"); // eslint-disable-line
+    }
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, currentUser } = this.props;
     return (
       <div>
         <Helmet>
@@ -40,46 +49,7 @@ export class SettingPage extends Component {
               <h2 className={classes.title}>Your profile</h2>
               <GridContainer>
                 <GridItem md={6} sm={6}>
-                  <form>
-                    <CustomInput
-                      labelText="Your username"
-                      id="float"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Email address"
-                      id="float"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                    <CustomInput
-                      labelText="URL of profile picture"
-                      id="float"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Your bio"
-                      id="float"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        placeholder: "Tell us a little bit about yourself",
-                        multiline: true,
-                        rows: 6,
-                      }}
-                    />
-                    <div className={classes.textCenter}>
-                      <Button color="primary" round>
-                        Update profile
-                      </Button>
-                    </div>
-                  </form>
+                  <ProfileUpdateForm classes={classes} user={currentUser} />
                 </GridItem>
                 <GridItem md={4} sm={4} className={classes.mlAuto}>
                   <h5 className={`${classes.title}`}>Profile picture</h5>
@@ -100,4 +70,14 @@ export class SettingPage extends Component {
   }
 }
 
-export default withStyles(settingPageStyle)(SettingPage);
+const mapStateToProps = createStructuredSelector({
+  currentUser: makeSelectCurrentUser(),
+});
+
+const withStyle = withStyles(settingPageStyle);
+const withConnect = connect(mapStateToProps);
+
+export default compose(
+  withConnect,
+  withStyle,
+)(SettingPage);

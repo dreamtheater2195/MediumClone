@@ -10,12 +10,14 @@ import {
   LOGIN_USER_FAILURE,
   SET_CURRENT_USER,
   LOGOUT_USER,
+  SET_APP_LOADED,
 } from "./constants";
 
 // The initial state of the App
 const initialState = fromJS({
   token: null,
   currentUser: null,
+  appLoaded: true,
   auth: {
     loading: false,
     errors: null,
@@ -52,6 +54,8 @@ function appReducer(state = initialState, action) {
         .set("currentUser", action.user);
     case LOGOUT_USER:
       return initialState;
+    case SET_APP_LOADED:
+      return state.set("appLoaded", action.loaded);
     default:
       return state;
   }

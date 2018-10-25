@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { createStructuredSelector } from "reselect";
@@ -13,8 +13,15 @@ import NotFoundPage from "containers/NotFoundPage/Loadable";
 import RegisterPage from "containers/RegisterPage/Loadable";
 import LoginPage from "containers/LoginPage/Loadable";
 import SettingPage from "containers/SettingPage/Loadable";
-import { getCurrentUser, logoutUser } from "containers/App/actions";
-import { makeSelectCurrentUser } from "containers/App/selectors";
+import {
+  getCurrentUser,
+  logoutUser,
+  setAppLoaded,
+} from "containers/App/actions";
+import {
+  makeSelectCurrentUser,
+  makeSelectAppLoaded,
+} from "containers/App/selectors";
 import AppHeader from "./AppHeader";
 import saga from "./sagas";
 
@@ -22,14 +29,18 @@ class App extends Component {
   static propTypes = {
     getCurrentUser: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
+    setAppLoaded: PropTypes.func.isRequired,
     currentUser: PropTypes.object,
+    appLoaded: PropTypes.bool.isRequired,
   };
   async componentDidMount() {
+    this.props.setAppLoaded(false);
     const token = await localStorage.getItem("jwt");
     API.setToken(token);
     if (token) {
       this.props.getCurrentUser();
     }
+    this.props.setAppLoaded(true);
   }
   render() {
     return (
@@ -43,29 +54,34 @@ class App extends Component {
             content="A React.js Boilerplate application"
           />
         </Helmet>
-        <AppHeader
-          currentUser={this.props.currentUser}
-          onSignout={this.props.logoutUser}
-        />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/settings" component={SettingPage} />
-          <Route path="/features" component={FeaturePage} />
-          <Route component={NotFoundPage} />
-        </Switch>
+        {this.props.appLoaded ? (
+          <Fragment>
+            <AppHeader
+              currentUser={this.props.currentUser}
+              onSignout={this.props.logoutUser}
+            />
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/settings" component={SettingPage} />
+              <Route path="/features" component={FeaturePage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </Fragment>
+        ) : null}
       </div>
     );
   }
 }
 const mapStateToProps = createStructuredSelector({
   currentUser: makeSelectCurrentUser(),
+  appLoaded: makeSelectAppLoaded(),
 });
 
 const withConnect = connect(
   mapStateToProps,
-  { getCurrentUser, logoutUser },
+  { getCurrentUser, logoutUser, setAppLoaded },
 );
 
 const withSaga = injectSaga({ key: "appDaemons", saga, mode: DAEMON });

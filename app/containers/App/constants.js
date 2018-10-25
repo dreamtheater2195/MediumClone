@@ -1,3 +1,5 @@
+export const SET_APP_LOADED = "App/SET_APP_LOADED";
+
 export const UPDATE_AUTH_FIELD = "App/UPDATE_AUTH_FIELD";
 
 export const REGISTER_USER = "App/REGISTER_USER";
