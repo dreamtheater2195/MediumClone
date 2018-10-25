@@ -51,6 +51,9 @@ const AppHeader = props => {
                 <Link to="/profile" style={{ color: "inherit" }}>
                   My Profile
                 </Link>,
+                <Link to="/settings" style={{ color: "inherit" }}>
+                  Settings
+                </Link>,
                 <Link to="/" style={{ color: "inherit" }} onClick={onSignout}>
                   Sign out
                 </Link>,

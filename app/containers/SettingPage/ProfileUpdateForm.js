@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import CustomInput from "components/CustomInput/CustomInput";
 import Button from "components/CustomButtons/Button";
 
-const ProfileUpdateForm = ({ classes, user }) => (
+const ProfileUpdateForm = ({
+  classes,
+  user,
+  onInputChange,
+  onSubmit,
+  saving,
+}) => (
   <form>
     <CustomInput
       labelText="Your username"
@@ -13,6 +19,7 @@ const ProfileUpdateForm = ({ classes, user }) => (
       }}
       inputProps={{
         value: user.username,
+        onChange: onInputChange("username"),
       }}
     />
     <CustomInput
@@ -23,6 +30,7 @@ const ProfileUpdateForm = ({ classes, user }) => (
       }}
       inputProps={{
         value: user.email,
+        onChange: onInputChange("email"),
       }}
     />
     <CustomInput
@@ -32,7 +40,8 @@ const ProfileUpdateForm = ({ classes, user }) => (
         fullWidth: true,
       }}
       inputProps={{
-        value: user.image,
+        value: user.image || "",
+        onChange: onInputChange("image"),
       }}
     />
     <CustomInput
@@ -44,13 +53,14 @@ const ProfileUpdateForm = ({ classes, user }) => (
       inputProps={{
         placeholder: "Tell us a little bit about yourself",
         multiline: true,
-        value: user.bio,
-        rows: 6,
+        value: user.bio || "",
+        onChange: onInputChange("bio"),
+        rows: 8,
       }}
     />
     <div className={classes.textCenter}>
-      <Button color="primary" round>
-        Update profile
+      <Button color="primary" round disabled={saving} onClick={onSubmit}>
+        {saving ? "Saving..." : "Update Profile"}
       </Button>
     </div>
   </form>
@@ -58,6 +68,9 @@ const ProfileUpdateForm = ({ classes, user }) => (
 
 ProfileUpdateForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  saving: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,

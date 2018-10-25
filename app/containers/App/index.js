@@ -37,10 +37,7 @@ class App extends Component {
     this.props.setAppLoaded(false);
     const token = await localStorage.getItem("jwt");
     API.setToken(token);
-    if (token) {
-      this.props.getCurrentUser();
-    }
-    this.props.setAppLoaded(true);
+    this.props.getCurrentUser();
   }
   render() {
     return (

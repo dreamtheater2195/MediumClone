@@ -12,6 +12,7 @@ import {
   loginUserSuccess,
   loginUserFailure,
   setCurrentUser,
+  setAppLoaded,
 } from "./actions";
 
 function setAuthToken(token) {
@@ -70,6 +71,7 @@ export function* currentUserSaga() {
   } catch (err) {
     console.log("Cannot get current user info", err);
   }
+  yield put(setAppLoaded(true));
 }
 
 export default function* rootSaga() {
