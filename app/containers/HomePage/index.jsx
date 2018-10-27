@@ -46,10 +46,7 @@ export class HomePage extends React.PureComponent {
       <div>
         <Helmet>
           <title>Home Page</title>
-          <meta
-            name="description"
-            content="A React.js Boilerplate application homepage"
-          />
+          <meta name="description" content="application homepage" />
         </Helmet>
         <Parallax
           image={coverImage}

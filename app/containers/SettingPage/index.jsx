@@ -96,7 +96,7 @@ export class SettingPage extends Component {
                 <GridItem md={4} sm={4} className={classes.mlAuto}>
                   <h5 className={`${classes.title}`}>Profile picture</h5>
                   <img
-                    src={currentUser.image}
+                    src={currentUser.image || image}
                     alt="..."
                     className={`${classes.imgRaised} ${classes.imgRounded} ${
                       classes.profilePicture
