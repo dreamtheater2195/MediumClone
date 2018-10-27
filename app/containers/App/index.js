@@ -63,7 +63,7 @@ class App extends Component {
               <Route exact path="/" component={HomePage} />
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
-              <Route path="/profile" component={ProfilePage} />
+              <Route path="/profile/@:username" component={ProfilePage} />
               <Route path="/settings" component={SettingPage} />
               <Route path="/features" component={FeaturePage} />
               <Route component={NotFoundPage} />

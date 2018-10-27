@@ -5,18 +5,15 @@ import { initialState } from "./reducer";
  * Direct selector to the profilePage state domain
  */
 
-const selectProfilePageDomain = state => state.get("profilePage", initialState);
+const selectProfileDomain = state => state.get("profile", initialState);
 
-/**
- * Other specific selectors
- */
+const makeSelectProfile = () =>
+  createSelector(selectProfileDomain, substate => substate.get("profile"));
 
-/**
- * Default selector used by ProfilePage
- */
+const makeSelectLoading = () =>
+  createSelector(selectProfileDomain, substate => substate.get("loading"));
 
-const makeSelectProfilePage = () =>
-  createSelector(selectProfilePageDomain, substate => substate.toJS());
+const makeSelectErrors = () =>
+  createSelector(selectProfileDomain, substate => substate.get("errors"));
 
-export default makeSelectProfilePage;
-export { selectProfilePageDomain };
+export { makeSelectProfile, makeSelectLoading, makeSelectErrors };

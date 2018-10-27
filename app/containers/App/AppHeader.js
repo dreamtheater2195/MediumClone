@@ -48,7 +48,10 @@ const AppHeader = props => {
                 color: "transparent",
               }}
               dropdownList={[
-                <Link to="/profile" style={{ color: "inherit" }}>
+                <Link
+                  to={`/profile/@${currentUser.username}`}
+                  style={{ color: "inherit" }}
+                >
                   My Profile
                 </Link>,
                 <Link to="/settings" style={{ color: "inherit" }}>

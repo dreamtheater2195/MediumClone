@@ -12,7 +12,7 @@ import injectSaga from "utils/injectSaga";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
-import coverImage from "assets/img/examples/city.jpg";
+import coverImage from "assets/img/bg9.jpg";
 import withStyles from "@material-ui/core/styles/withStyles";
 import settingPageStyle from "assets/jss/material-kit-pro-react/views/settingPageStyle";
 import image from "assets/img/faces/avatar.jpg";
