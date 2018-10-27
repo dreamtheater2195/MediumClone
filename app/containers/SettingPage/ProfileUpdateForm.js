@@ -9,6 +9,7 @@ const ProfileUpdateForm = ({
   onInputChange,
   onSubmit,
   saving,
+  history,
 }) => (
   <form>
     <CustomInput
@@ -59,6 +60,9 @@ const ProfileUpdateForm = ({
       }}
     />
     <div className={classes.textCenter}>
+      <Button round onClick={() => history.push(`/profile/@${user.username}`)}>
+        Go Back
+      </Button>{" "}
       <Button color="primary" round disabled={saving} onClick={onSubmit}>
         {saving ? "Saving..." : "Update Profile"}
       </Button>
@@ -71,6 +75,7 @@ ProfileUpdateForm.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   saving: PropTypes.bool.isRequired,
+  history: PropTypes.object,
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,

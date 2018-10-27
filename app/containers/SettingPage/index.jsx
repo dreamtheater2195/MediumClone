@@ -63,7 +63,7 @@ export class SettingPage extends Component {
   };
 
   render() {
-    const { classes, saving } = this.props;
+    const { classes, saving, ...rest } = this.props;
     const { currentUser } = this.state;
     if (!currentUser) {
       return null;
@@ -91,6 +91,7 @@ export class SettingPage extends Component {
                     onInputChange={this.handleInputChange}
                     onSubmit={this.handleSubmit}
                     saving={saving}
+                    {...rest}
                   />
                 </GridItem>
                 <GridItem md={4} sm={4} className={classes.mlAuto}>
