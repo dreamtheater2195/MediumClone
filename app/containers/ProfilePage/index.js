@@ -21,6 +21,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "components/CustomButtons/Button";
 import Add from "@material-ui/icons/Add";
+import Clear from "@material-ui/icons/Clear";
 import Settings from "@material-ui/icons/Settings";
 import coverImage from "assets/img/examples/city.jpg";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
@@ -34,7 +35,7 @@ import {
 } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
-import { loadProfile } from "./actions";
+import { loadProfile, followUser, unfollowUser } from "./actions";
 /* eslint-disable react/prefer-stateless-function */
 export class ProfilePage extends React.Component {
   componentDidMount() {
@@ -96,12 +97,21 @@ export class ProfilePage extends React.Component {
   }
 
   renderFollowButton() {
-    const { classes } = this.props;
+    const { classes, profile, follow, unfollow } = this.props;
+    const following = profile.get("following");
+    const username = profile.get("username");
+    const handleClick = () => {
+      if (following) {
+        unfollow(username);
+      } else {
+        follow(username);
+      }
+    };
     return (
       <div className={classes.follow}>
         <Tooltip
           id="tooltip-top"
-          title="Follow this user"
+          title={`${following ? "Unfollow" : "Follow"} this user`}
           placement="top"
           classes={{ tooltip: classes.tooltip }}
         >
@@ -110,8 +120,13 @@ export class ProfilePage extends React.Component {
             round
             color="primary"
             className={classes.followButton}
+            onClick={handleClick}
           >
-            <Add className={classes.followIcon} />
+            {following ? (
+              <Clear className={classes.followIcon} />
+            ) : (
+              <Add className={classes.followIcon} />
+            )}
           </Button>
         </Tooltip>
       </div>
@@ -136,7 +151,7 @@ export class ProfilePage extends React.Component {
       return null;
     }
 
-    const isCurrentUser = currentUser.username === profile.username;
+    const isCurrentUser = currentUser.username === profile.get("username");
     return (
       <div>
         {this.renderHelmetAndParallax()}
@@ -147,7 +162,7 @@ export class ProfilePage extends React.Component {
                 <div className={classes.profile}>
                   <div>
                     <img
-                      src={profile.image}
+                      src={profile.get("image")}
                       alt="..."
                       className={classNames(
                         classes.imgRaised,
@@ -157,13 +172,13 @@ export class ProfilePage extends React.Component {
                     />
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}>{profile.username}</h3>
+                    <h3 className={classes.title}>{profile.get("username")}</h3>
                   </div>
                   {isCurrentUser
                     ? this.renderEditProfileButton()
                     : this.renderFollowButton()}
                   <div className={classes.description}>
-                    <p>{profile.bio}</p>
+                    <p>{profile.get("bio")}</p>
                   </div>
                 </div>
               </GridItem>
@@ -181,6 +196,8 @@ ProfilePage.propTypes = {
   match: PropTypes.object,
   loadProfile: PropTypes.func.isRequired,
   redirectTo: PropTypes.func.isRequired,
+  follow: PropTypes.func.isRequired,
+  unfollow: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   profile: PropTypes.object,
   errors: PropTypes.object,
@@ -199,6 +216,12 @@ const mapDispatchToProps = dispatch => ({
   },
   redirectTo: location => {
     dispatch(push(location));
+  },
+  follow: username => {
+    dispatch(followUser({ username }));
+  },
+  unfollow: username => {
+    dispatch(unfollowUser({ username }));
   },
 });
 

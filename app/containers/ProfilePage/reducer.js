@@ -9,6 +9,8 @@ import {
   LOAD_PROFILE,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_ERROR,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
 } from "./constants";
 
 export const initialState = fromJS({
@@ -25,12 +27,16 @@ function profilePageReducer(state = initialState, action) {
       return state
         .set("loading", false)
         .set("errors", null)
-        .set("profile", action.profile);
+        .set("profile", fromJS(action.profile));
     case LOAD_PROFILE_ERROR:
       return state
         .set("loading", false)
-        .set("errors", action.errors)
+        .set("errors", fromJS(action.errors))
         .set("profile", null);
+    case FOLLOW_USER:
+      return state.setIn(["profile", "following"], true);
+    case UNFOLLOW_USER:
+      return state.setIn(["profile", "following"], false);
     default:
       return state;
   }
