@@ -10,7 +10,6 @@ import classNames from "classnames";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { makeSelectCurrentUser } from "containers/App/selectors";
 import { compose } from "redux";
 import { push } from "react-router-redux";
 import { Helmet } from "react-helmet";
@@ -27,6 +26,7 @@ import coverImage from "assets/img/examples/city.jpg";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import injectSaga from "utils/injectSaga";
 import injectReducer from "utils/injectReducer";
+import withAuth from "utils/withAuth";
 import profilePageStyle from "assets/jss/material-kit-pro-react/views/profilePageStyle";
 import {
   makeSelectProfile,
@@ -205,7 +205,6 @@ ProfilePage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfile(),
-  currentUser: makeSelectCurrentUser(),
   loading: makeSelectLoading(),
   errors: makeSelectErrors(),
 });
@@ -230,11 +229,11 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
-
 const withReducer = injectReducer({ key: "profile", reducer });
 const withSaga = injectSaga({ key: "profile", saga });
 
 export default compose(
+  withAuth,
   withStyle,
   withReducer,
   withSaga,

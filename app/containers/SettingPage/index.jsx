@@ -4,11 +4,11 @@ import classNames from "classnames";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import { makeSelectCurrentUser } from "containers/App/selectors";
 import { Helmet } from "react-helmet";
 import toastr from "toastr";
 import injectReducer from "utils/injectReducer";
 import injectSaga from "utils/injectSaga";
+import withAuth from "utils/withAuth";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
@@ -37,10 +37,6 @@ export class SettingPage extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
-
-    if (!this.props.currentUser) {
-      this.props.history.push("/"); // eslint-disable-line
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -114,7 +110,6 @@ export class SettingPage extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: makeSelectCurrentUser(),
   saving: makeSelectSaving(),
   errors: makeSelectErrors(),
 });
@@ -127,6 +122,7 @@ const withConnect = connect(
 );
 
 export default compose(
+  withAuth,
   withConnect,
   withSaga,
   withReducer,
