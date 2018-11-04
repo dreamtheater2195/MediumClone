@@ -44,14 +44,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Helmet
-          titleTemplate="%s - React.js Boilerplate"
-          defaultTitle="React.js Boilerplate"
-        >
-          <meta
-            name="description"
-            content="A React.js Boilerplate application"
-          />
+        <Helmet titleTemplate="%s - React.js" defaultTitle="React.js">
+          <meta name="description" content="A React.js  application" />
         </Helmet>
         {this.props.appLoaded ? (
           <Fragment>

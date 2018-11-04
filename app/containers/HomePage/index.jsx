@@ -32,12 +32,8 @@ export class HomePage extends React.Component {
     document.body.scrollTop = 0;
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.articles);
-  }
   render() {
     const { classes, loading, articles } = this.props;
-    console.log(loading, articles);
     return (
       <div>
         <Helmet>

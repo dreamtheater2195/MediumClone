@@ -12,7 +12,7 @@ const homePageStyle = {
   },
   mainRaised,
   parallax: {
-    height: "90vh",
+    height: "40vh",
     overflow: "hidden",
   },
   container: {
@@ -33,6 +33,11 @@ const homePageStyle = {
     ...title,
     color: "#FFF",
   },
+  articleTitle: {
+    ...title,
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
   textCenter: {
     textAlign: "center",
   },
@@ -42,6 +47,12 @@ const homePageStyle = {
   progress: {
     textAlign: "center",
     margin: "50px 0",
+  },
+  footerButtons: {
+    float: "right",
+  },
+  articleTags: {
+    float: "right",
   },
 };
 

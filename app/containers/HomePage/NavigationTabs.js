@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 // @material-ui/icons
 import Public from "@material-ui/icons/Public";
 import Person from "@material-ui/icons/Person";
 import People from "@material-ui/icons/People";
-
+import Favorite from "@material-ui/icons/Favorite";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // core components
+import Clearfix from "components/Clearfix/Clearfix";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import NavPills from "components/NavPills/NavPills";
-
+import Media from "components/Media/Media";
+import Button from "components/CustomButtons/Button";
+import Badge from "components/Badge/Badge";
+import Muted from "components/Typography/Muted";
+import moment from "moment";
 /* eslint-disable react/prefer-stateless-function */
 class NavigationTabs extends Component {
   static propTypes = {
@@ -32,10 +38,55 @@ class NavigationTabs extends Component {
       return (
         <div>
           {articles.map((article, index) => (
-            <div key={index}>
-              <h2>{article.get("title")}</h2>
-              <p>{article.get("body")}</p>
-            </div>
+            <Media
+              key={index}
+              avatar={article.get("author").get("image")}
+              avatarAlt={article.get("author").get("username")}
+              title={
+                <span>
+                  <Link
+                    to={`/profile/@${article.get("author").get("username")}`}
+                  >
+                    {article.get("author").get("username")}
+                  </Link>{" "}
+                  <small>
+                    · {moment(article.get("createdAt")).format("lll")}
+                  </small>
+                </span>
+              }
+              body={
+                <div>
+                  <div style={{ float: "left" }}>
+                    <h4 className={classes.articleTitle}>
+                      {article.get("title")}
+                    </h4>
+                    <h5>{article.get("description")}</h5>
+                  </div>
+                  <Button
+                    color="danger"
+                    simple={!article.get("favorited")}
+                    size="sm"
+                    round
+                    className={classes.footerButtons}
+                  >
+                    <Favorite />
+                    {article.get("favoritesCount")}
+                  </Button>
+                </div>
+              }
+              footer={
+                <div>
+                  <Clearfix />
+                  <Muted>Read more...</Muted>
+                  <div className={classes.articleTags}>
+                    {article
+                      .get("tagList")
+                      .map((tag, i) => <Badge key={i}>{tag}</Badge>)}
+                  </div>
+                  <hr />
+                </div>
+              }
+            />
           ))}
         </div>
       );
@@ -47,6 +98,7 @@ class NavigationTabs extends Component {
       <GridContainer justify="center">
         <GridItem xs={12} sm={10} md={8}>
           <NavPills
+            alignCenter
             color="primary"
             tabs={[
               {
