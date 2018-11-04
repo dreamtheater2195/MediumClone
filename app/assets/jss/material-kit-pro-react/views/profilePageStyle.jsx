@@ -16,7 +16,7 @@ const styles = {
   main,
   mainRaised,
   parallax: {
-    height: "550px",
+    height: "380px",
     backgroundPosition: "center",
   },
   profile: {

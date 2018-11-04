@@ -5,9 +5,12 @@
 import { createSelector } from "reselect";
 import { initialState } from "./reducer";
 
-const selectHome = state => state.get("home", initialState);
+const selectArticlesList = state => state.get("articlesList", initialState);
 
-const makeSelectUsername = () =>
-  createSelector(selectHome, homeState => homeState.get("username"));
+const makeSelectArticles = () =>
+  createSelector(selectArticlesList, state => state.get("articles"));
 
-export { selectHome, makeSelectUsername };
+const makeSelectLoading = () =>
+  createSelector(selectArticlesList, state => state.get("loading"));
+
+export { selectArticlesList, makeSelectArticles, makeSelectLoading };

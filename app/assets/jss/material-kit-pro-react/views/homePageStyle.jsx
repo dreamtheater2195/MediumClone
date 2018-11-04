@@ -39,6 +39,10 @@ const homePageStyle = {
   subtitle: {
     color: "#FFFFFF",
   },
+  progress: {
+    textAlign: "center",
+    margin: "50px 0",
+  },
 };
 
 export default homePageStyle;

@@ -13,35 +13,31 @@ import { createStructuredSelector } from "reselect";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 import injectReducer from "utils/injectReducer";
+import injectSaga from "utils/injectSaga";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
-
-import SectionRepoList from "./Sections/SectionRepoList";
 import reducer from "./reducer";
+import saga from "./saga";
+import { makeSelectArticles, makeSelectLoading } from "./selectors";
+import { loadGlobalArticles } from "./actions";
+import NavigationTabs from "./NavigationTabs";
 import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
-export class HomePage extends React.PureComponent {
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
+export class HomePage extends React.Component {
   componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
+    this.props.loadGlobalArticles();
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.articles);
+  }
   render() {
-    const { loading, error, repos, classes } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
-
+    const { classes, loading, articles } = this.props;
+    console.log(loading, articles);
     return (
       <div>
         <Helmet>
@@ -65,11 +61,10 @@ export class HomePage extends React.PureComponent {
           </div>
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
-          <SectionRepoList
-            onSubmitForm={this.props.onSubmitForm}
-            inputValue={this.props.username}
-            onChangeInput={this.props.onChangeUsername}
-            reposListProps={reposListProps}
+          <NavigationTabs
+            classes={classes}
+            loading={loading}
+            articles={articles}
           />
         </div>
       </div>
@@ -78,25 +73,27 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
   classes: PropTypes.object.isRequired,
+  loadGlobalArticles: PropTypes.func.isRequired,
+  articles: PropTypes.object,
+  loading: PropTypes.bool,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  articles: makeSelectArticles(),
+  loading: makeSelectLoading(),
+});
 
 const withConnect = connect(
   mapStateToProps,
-  {},
+  { loadGlobalArticles },
 );
-const withReducer = injectReducer({ key: "home", reducer });
+const withReducer = injectReducer({ key: "articlesList", reducer });
+const withSaga = injectSaga({ key: "articlesList", saga });
 const withStyle = withStyles(homePageStyle);
 export default compose(
-  withReducer,
   withConnect,
+  withReducer,
+  withSaga,
   withStyle,
 )(HomePage);
