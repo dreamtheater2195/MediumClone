@@ -3,7 +3,12 @@
  */
 import { call, put, takeLatest, fork, all } from "redux-saga/effects";
 import API from "../../api";
-import { LOAD_ARTICLES, LOAD_POPULAR_TAGS } from "./constants";
+import {
+  LOAD_ARTICLES,
+  LOAD_POPULAR_TAGS,
+  LIKE_ARTICLE,
+  UNLIKE_ARTICLE,
+} from "./constants";
 import {
   loadArticlesSuccess,
   loadArticlesFailure,
@@ -27,6 +32,14 @@ export function* loadTags() {
   yield put(loadTagsSuccess(tags));
 }
 
+export function* likeArticle({ slug }) {
+  yield call(API.Article.favorite, slug);
+}
+
+export function* unlikeArticle({ slug }) {
+  yield call(API.Article.unfavorite, slug);
+}
+
 export function* loadArticlesSaga() {
   yield takeLatest(LOAD_ARTICLES, loadArticles);
 }
@@ -35,6 +48,18 @@ export function* loadTagsSaga() {
   yield takeLatest(LOAD_POPULAR_TAGS, loadTags);
 }
 
+export function* likeArticleSaga() {
+  yield takeLatest(LIKE_ARTICLE, likeArticle);
+}
+
+export function* unlikeArticleSaga() {
+  yield takeLatest(UNLIKE_ARTICLE, unlikeArticle);
+}
 export default function* articlesSaga() {
-  yield all([fork(loadArticlesSaga), fork(loadTagsSaga)]);
+  yield all([
+    fork(loadArticlesSaga),
+    fork(loadTagsSaga),
+    fork(likeArticleSaga),
+    fork(unlikeArticleSaga),
+  ]);
 }

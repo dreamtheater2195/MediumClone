@@ -29,7 +29,12 @@ import {
   makeSelectTab,
 } from "./selectors";
 import { makeSelectToken } from "./../App/selectors";
-import { loadArticles, loadPopularTags } from "./actions";
+import {
+  loadArticles,
+  loadPopularTags,
+  likeArticle,
+  unlikeArticle,
+} from "./actions";
 import NavigationTabs from "./NavigationTabs";
 import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
@@ -109,6 +114,8 @@ export class HomePage extends React.Component {
                 tab={tab}
                 onTabChange={this.handleTabChange}
                 token={token}
+                onLikeArticle={this.props.likeArticle}
+                onUnlikeArticle={this.props.unlikeArticle}
               />
             </GridItem>
             <GridItem xs={12} sm={3}>
@@ -126,6 +133,8 @@ HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
   loadArticles: PropTypes.func.isRequired,
   loadPopularTags: PropTypes.func.isRequired,
+  likeArticle: PropTypes.func.isRequired,
+  unlikeArticle: PropTypes.func.isRequired,
   articles: PropTypes.object,
   tags: PropTypes.object,
   loading: PropTypes.bool,
@@ -145,7 +154,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(
   mapStateToProps,
-  { loadArticles, loadPopularTags },
+  { loadArticles, loadPopularTags, likeArticle, unlikeArticle },
 );
 const withReducer = injectReducer({ key: "articlesList", reducer });
 const withSaga = injectSaga({ key: "articlesList", saga });

@@ -9,6 +9,8 @@ import {
   LOAD_ARTICLES_FAILURE,
   LOAD_POPULAR_TAGS,
   LOAD_POPULAR_TAGS_SUCCESS,
+  LIKE_ARTICLE,
+  UNLIKE_ARTICLE,
 } from "./constants";
 
 export function changeUsername(name) {
@@ -51,5 +53,19 @@ export function loadTagsSuccess(tags) {
   return {
     type: LOAD_POPULAR_TAGS_SUCCESS,
     tags,
+  };
+}
+
+export function likeArticle(slug) {
+  return {
+    type: LIKE_ARTICLE,
+    slug,
+  };
+}
+
+export function unlikeArticle(slug) {
+  return {
+    type: UNLIKE_ARTICLE,
+    slug,
   };
 }

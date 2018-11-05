@@ -8,6 +8,8 @@ import {
   LOAD_ARTICLES_SUCCESS,
   LOAD_ARTICLES_FAILURE,
   LOAD_POPULAR_TAGS_SUCCESS,
+  LIKE_ARTICLE,
+  UNLIKE_ARTICLE,
 } from "./constants";
 
 export const initialState = fromJS({
@@ -41,6 +43,30 @@ function homeReducer(state = initialState, action) {
       return state.set("errors", fromJS(action.errors)).set("loading", false);
     case LOAD_POPULAR_TAGS_SUCCESS:
       return state.set("tags", fromJS(action.tags));
+    case LIKE_ARTICLE:
+      return state.set(
+        "articles",
+        state.get("articles").map(article => {
+          if (article.get("slug") === action.slug) {
+            return article
+              .set("favorited", true)
+              .set("favoritesCount", article.get("favoritesCount") + 1);
+          }
+          return article;
+        }),
+      );
+    case UNLIKE_ARTICLE:
+      return state.set(
+        "articles",
+        state.get("articles").map(article => {
+          if (article.get("slug") === action.slug) {
+            return article
+              .set("favorited", false)
+              .set("favoritesCount", article.get("favoritesCount") - 1);
+          }
+          return article;
+        }),
+      );
     default:
       return state;
   }
