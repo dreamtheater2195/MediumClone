@@ -25,21 +25,34 @@ import {
   makeSelectArticles,
   makeSelectLoading,
   makeSelectTags,
+  makeSelectCurrentPage,
+  makeSelectTab,
 } from "./selectors";
-import { loadGlobalArticles, loadPopularTags } from "./actions";
+import { loadArticles, loadPopularTags } from "./actions";
 import NavigationTabs from "./NavigationTabs";
 import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleTabChange = this.handleTabChange.bind(this);
+  }
   componentDidMount() {
-    this.props.loadGlobalArticles();
+    this.props.loadArticles("all");
     this.props.loadPopularTags();
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }
 
+  handleTabChange(index) {
+    if (index === 0) {
+      this.props.loadArticles("feed");
+    } else if (index === 1) {
+      this.props.loadArticles("all");
+    }
+  }
   render() {
-    const { classes, loading, articles, tags } = this.props;
+    const { classes, loading, articles, tags, currentPage, tab } = this.props;
     return (
       <div>
         <Helmet>
@@ -75,6 +88,9 @@ export class HomePage extends React.Component {
                 classes={classes}
                 loading={loading}
                 articles={articles}
+                currentPage={currentPage}
+                tab={tab}
+                onTabChange={this.handleTabChange}
               />
             </GridItem>
             <GridItem xs={12} sm={3}>
@@ -90,22 +106,26 @@ export class HomePage extends React.Component {
 
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
-  loadGlobalArticles: PropTypes.func.isRequired,
+  loadArticles: PropTypes.func.isRequired,
   loadPopularTags: PropTypes.func.isRequired,
   articles: PropTypes.object,
   tags: PropTypes.object,
   loading: PropTypes.bool,
+  currentPage: PropTypes.number,
+  tab: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   articles: makeSelectArticles(),
   loading: makeSelectLoading(),
   tags: makeSelectTags(),
+  currentPage: makeSelectCurrentPage(),
+  tab: makeSelectTab(),
 });
 
 const withConnect = connect(
   mapStateToProps,
-  { loadGlobalArticles, loadPopularTags },
+  { loadArticles, loadPopularTags },
 );
 const withReducer = injectReducer({ key: "articlesList", reducer });
 const withSaga = injectSaga({ key: "articlesList", saga });

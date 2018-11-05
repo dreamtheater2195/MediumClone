@@ -22,9 +22,12 @@ class NavigationTabs extends Component {
     classes: PropTypes.object.isRequired,
     articles: PropTypes.object,
     loading: PropTypes.bool.isRequired,
+    tab: PropTypes.string,
+    onTabChange: PropTypes.func,
   };
-  renderArticles() {
-    const { classes, loading, articles } = this.props;
+  renderArticles(tab) {
+    const { classes, loading, articles, tab: currentTab } = this.props;
+    if (tab !== currentTab) return null;
     if (loading) {
       return (
         <div className={classes.progress}>
@@ -93,37 +96,24 @@ class NavigationTabs extends Component {
     return null;
   }
   render() {
+    const { tab, onTabChange } = this.props;
+    const activeIndex = tab === "feed" ? 0 : tab === "all" ? 1 : 2;
     return (
       <NavPills
         alignCenter
         color="primary"
+        active={activeIndex}
+        onTabChange={onTabChange}
         tabs={[
           {
             tabButton: "Your Feed",
             tabIcon: Person,
-            tabContent: this.renderArticles(),
+            tabContent: this.renderArticles("feed"),
           },
           {
             tabButton: "Global Feed",
             tabIcon: Public,
-            tabContent: (
-              <span>
-                <p>
-                  Efficiently unleash cross-media information without
-                  cross-media value. Quickly maximize timely deliverables for
-                  real-time schemas.
-                </p>
-                <br />
-                <p>
-                  Dramatically maintain clicks-and-mortar solutions without
-                  functional solutions. Dramatically visualize customer directed
-                  convergence without revolutionary ROI. Collaboratively
-                  administrate empowered markets via plug-and-play networks.
-                  Dynamically procrastinate B2C users after installed base
-                  benefits.
-                </p>
-              </span>
-            ),
+            tabContent: this.renderArticles("all"),
           },
           {
             tabButton: "#dragons",

@@ -4,9 +4,9 @@
 */
 import {
   CHANGE_USERNAME,
-  LOAD_GLOBAL_ARTICLES_SUCCESS,
-  LOAD_GLOBAL_ARTICLES,
-  LOAD_GLOBAL_ARTICLES_FAILURE,
+  LOAD_ARTICLES_SUCCESS,
+  LOAD_ARTICLES,
+  LOAD_ARTICLES_FAILURE,
   LOAD_POPULAR_TAGS,
   LOAD_POPULAR_TAGS_SUCCESS,
 } from "./constants";
@@ -18,24 +18,25 @@ export function changeUsername(name) {
   };
 }
 
-export function loadGlobalArticles(page) {
+export function loadArticles(tab, page) {
   return {
-    type: LOAD_GLOBAL_ARTICLES,
+    type: LOAD_ARTICLES,
+    tab,
     page,
   };
 }
 
-export function loadGlobalArticlesSuccess(articles, articlesCount) {
+export function loadArticlesSuccess(articles, articlesCount) {
   return {
-    type: LOAD_GLOBAL_ARTICLES_SUCCESS,
+    type: LOAD_ARTICLES_SUCCESS,
     articles,
     articlesCount,
   };
 }
 
-export function loadGlobalArticlesFailure(errors) {
+export function loadArticlesFailure(errors) {
   return {
-    type: LOAD_GLOBAL_ARTICLES_FAILURE,
+    type: LOAD_ARTICLES_FAILURE,
     errors,
   };
 }

@@ -16,9 +16,16 @@ const makeSelectLoading = () =>
 const makeSelectTags = () =>
   createSelector(selectArticlesList, state => state.get("tags"));
 
+const makeSelectCurrentPage = () =>
+  createSelector(selectArticlesList, state => state.get("currentPage"));
+
+const makeSelectTab = () =>
+  createSelector(selectArticlesList, state => state.get("tab"));
 export {
   selectArticlesList,
   makeSelectArticles,
   makeSelectLoading,
   makeSelectTags,
+  makeSelectCurrentPage,
+  makeSelectTab,
 };

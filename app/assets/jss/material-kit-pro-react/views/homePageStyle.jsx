@@ -12,7 +12,7 @@ const homePageStyle = {
   },
   mainRaised,
   parallax: {
-    height: "40vh",
+    height: "65vh",
     overflow: "hidden",
   },
   container: {

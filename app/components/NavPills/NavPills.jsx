@@ -25,9 +25,11 @@ class NavPills extends React.Component {
   }
   handleChange = (event, active) => {
     this.setState({ active });
+    this.props.onTabChange(active);
   };
   handleChangeIndex = index => {
     this.setState({ active: index });
+    this.props.onTabChange(index);
   };
   render() {
     const {
@@ -139,6 +141,7 @@ NavPills.propTypes = {
     contentGrid: PropTypes.object,
   }),
   alignCenter: PropTypes.bool,
+  onTabChange: PropTypes.func,
 };
 
 export default withStyles(navPillsStyle)(NavPills);

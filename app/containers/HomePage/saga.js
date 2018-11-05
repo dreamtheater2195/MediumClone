@@ -3,19 +3,22 @@
  */
 import { call, put, takeLatest, fork, all } from "redux-saga/effects";
 import API from "../../api";
-import { LOAD_GLOBAL_ARTICLES, LOAD_POPULAR_TAGS } from "./constants";
+import { LOAD_ARTICLES, LOAD_POPULAR_TAGS } from "./constants";
 import {
-  loadGlobalArticlesSuccess,
-  loadGlobalArticlesFailure,
+  loadArticlesSuccess,
+  loadArticlesFailure,
   loadTagsSuccess,
 } from "./actions";
 
-export function* loadGlobalFeed(page) {
+export function* loadArticles(action) {
   try {
-    const { articles, articlesCount } = yield call(API.Article.all, page);
-    yield put(loadGlobalArticlesSuccess(articles, articlesCount));
+    const { articles, articlesCount } = yield call(
+      action.tab === "all" ? API.Article.all : API.Article.feed,
+      action.page,
+    );
+    yield put(loadArticlesSuccess(articles, articlesCount));
   } catch (err) {
-    yield put(loadGlobalArticlesFailure(err));
+    yield put(loadArticlesFailure(err));
   }
 }
 
@@ -24,8 +27,8 @@ export function* loadTags() {
   yield put(loadTagsSuccess(tags));
 }
 
-export function* loadGlobalFeedSaga() {
-  yield takeLatest(LOAD_GLOBAL_ARTICLES, loadGlobalFeed);
+export function* loadArticlesSaga() {
+  yield takeLatest(LOAD_ARTICLES, loadArticles);
 }
 
 export function* loadTagsSaga() {
@@ -33,5 +36,5 @@ export function* loadTagsSaga() {
 }
 
 export default function* articlesSaga() {
-  yield all([fork(loadGlobalFeedSaga), fork(loadTagsSaga)]);
+  yield all([fork(loadArticlesSaga), fork(loadTagsSaga)]);
 }
