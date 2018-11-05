@@ -7,6 +7,8 @@ import {
   LOAD_GLOBAL_ARTICLES_SUCCESS,
   LOAD_GLOBAL_ARTICLES,
   LOAD_GLOBAL_ARTICLES_FAILURE,
+  LOAD_POPULAR_TAGS,
+  LOAD_POPULAR_TAGS_SUCCESS,
 } from "./constants";
 
 export function changeUsername(name) {
@@ -35,5 +37,18 @@ export function loadGlobalArticlesFailure(errors) {
   return {
     type: LOAD_GLOBAL_ARTICLES_FAILURE,
     errors,
+  };
+}
+
+export function loadPopularTags() {
+  return {
+    type: LOAD_POPULAR_TAGS,
+  };
+}
+
+export function loadTagsSuccess(tags) {
+  return {
+    type: LOAD_POPULAR_TAGS_SUCCESS,
+    tags,
   };
 }

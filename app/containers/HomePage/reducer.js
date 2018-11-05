@@ -7,6 +7,7 @@ import {
   LOAD_GLOBAL_ARTICLES,
   LOAD_GLOBAL_ARTICLES_SUCCESS,
   LOAD_GLOBAL_ARTICLES_FAILURE,
+  LOAD_POPULAR_TAGS_SUCCESS,
 } from "./constants";
 
 export const initialState = fromJS({
@@ -38,6 +39,8 @@ function homeReducer(state = initialState, action) {
         .set("tag", "");
     case LOAD_GLOBAL_ARTICLES_FAILURE:
       return state.set("errors", fromJS(action.errors)).set("loading", false);
+    case LOAD_POPULAR_TAGS_SUCCESS:
+      return state.set("tags", fromJS(action.tags));
     default:
       return state;
   }

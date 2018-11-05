@@ -10,8 +10,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 // core components
 import Clearfix from "components/Clearfix/Clearfix";
-import GridContainer from "components/Grid/GridContainer";
-import GridItem from "components/Grid/GridItem";
 import NavPills from "components/NavPills/NavPills";
 import Media from "components/Media/Media";
 import Button from "components/CustomButtons/Button";
@@ -56,7 +54,7 @@ class NavigationTabs extends Component {
               }
               body={
                 <div>
-                  <div style={{ float: "left" }}>
+                  <div style={{ float: "left", maxWidth: "60%" }}>
                     <h4 className={classes.articleTitle}>
                       {article.get("title")}
                     </h4>
@@ -83,6 +81,7 @@ class NavigationTabs extends Component {
                       .get("tagList")
                       .map((tag, i) => <Badge key={i}>{tag}</Badge>)}
                   </div>
+                  <Clearfix />
                   <hr />
                 </div>
               }
@@ -95,70 +94,66 @@ class NavigationTabs extends Component {
   }
   render() {
     return (
-      <GridContainer justify="center">
-        <GridItem xs={12} sm={10} md={8}>
-          <NavPills
-            alignCenter
-            color="primary"
-            tabs={[
-              {
-                tabButton: "Your Feed",
-                tabIcon: Person,
-                tabContent: this.renderArticles(),
-              },
-              {
-                tabButton: "Global Feed",
-                tabIcon: Public,
-                tabContent: (
-                  <span>
-                    <p>
-                      Efficiently unleash cross-media information without
-                      cross-media value. Quickly maximize timely deliverables
-                      for real-time schemas.
-                    </p>
-                    <br />
-                    <p>
-                      Dramatically maintain clicks-and-mortar solutions without
-                      functional solutions. Dramatically visualize customer
-                      directed convergence without revolutionary ROI.
-                      Collaboratively administrate empowered markets via
-                      plug-and-play networks. Dynamically procrastinate B2C
-                      users after installed base benefits.
-                    </p>
-                  </span>
-                ),
-              },
-              {
-                tabButton: "#dragons",
-                tabIcon: People,
-                tabContent: (
-                  <span>
-                    <p>
-                      Collaboratively administrate empowered markets via
-                      plug-and-play networks. Dynamically procrastinate B2C
-                      users after installed base benefits.
-                    </p>
-                    <br />
-                    <p>
-                      Dramatically visualize customer directed convergence
-                      without revolutionary ROI. Collaboratively administrate
-                      empowered markets via plug-and-play networks. Dynamically
-                      procrastinate B2C users after installed base benefits.
-                    </p>
-                    <br />
-                    <p>
-                      Dramatically visualize customer directed convergence
-                      without revolutionary ROI. Collaboratively administrate
-                      empowered markets via plug-and-play networks. Dynamically
-                      procrastinate B2C users after installed base benefits.
-                    </p>
-                  </span>
-                ),
-              },
-            ]}
-          />
-        </GridItem>
-      </GridContainer>
+      <NavPills
+        alignCenter
+        color="primary"
+        tabs={[
+          {
+            tabButton: "Your Feed",
+            tabIcon: Person,
+            tabContent: this.renderArticles(),
+          },
+          {
+            tabButton: "Global Feed",
+            tabIcon: Public,
+            tabContent: (
+              <span>
+                <p>
+                  Efficiently unleash cross-media information without
+                  cross-media value. Quickly maximize timely deliverables for
+                  real-time schemas.
+                </p>
+                <br />
+                <p>
+                  Dramatically maintain clicks-and-mortar solutions without
+                  functional solutions. Dramatically visualize customer directed
+                  convergence without revolutionary ROI. Collaboratively
+                  administrate empowered markets via plug-and-play networks.
+                  Dynamically procrastinate B2C users after installed base
+                  benefits.
+                </p>
+              </span>
+            ),
+          },
+          {
+            tabButton: "#dragons",
+            tabIcon: People,
+            tabContent: (
+              <span>
+                <p>
+                  Collaboratively administrate empowered markets via
+                  plug-and-play networks. Dynamically procrastinate B2C users
+                  after installed base benefits.
+                </p>
+                <br />
+                <p>
+                  Dramatically visualize customer directed convergence without
+                  revolutionary ROI. Collaboratively administrate empowered
+                  markets via plug-and-play networks. Dynamically procrastinate
+                  B2C users after installed base benefits.
+                </p>
+                <br />
+                <p>
+                  Dramatically visualize customer directed convergence without
+                  revolutionary ROI. Collaboratively administrate empowered
+                  markets via plug-and-play networks. Dynamically procrastinate
+                  B2C users after installed base benefits.
+                </p>
+              </span>
+            ),
+          },
+        ]}
+      />
     );
   }
 }

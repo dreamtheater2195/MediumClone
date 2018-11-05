@@ -38,6 +38,9 @@ const homePageStyle = {
     marginTop: "10px",
     marginBottom: "10px",
   },
+  tagTitle: {
+    ...title,
+  },
   textCenter: {
     textAlign: "center",
   },

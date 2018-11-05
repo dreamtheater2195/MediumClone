@@ -95,7 +95,7 @@ const AppHeader = props => {
   };
   return (
     <Header
-      brand="Conduit"
+      brand="Medium"
       absolute
       color="transparent"
       changeColorOnScroll={{

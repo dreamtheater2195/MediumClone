@@ -13,4 +13,12 @@ const makeSelectArticles = () =>
 const makeSelectLoading = () =>
   createSelector(selectArticlesList, state => state.get("loading"));
 
-export { selectArticlesList, makeSelectArticles, makeSelectLoading };
+const makeSelectTags = () =>
+  createSelector(selectArticlesList, state => state.get("tags"));
+
+export {
+  selectArticlesList,
+  makeSelectArticles,
+  makeSelectLoading,
+  makeSelectTags,
+};

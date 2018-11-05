@@ -15,3 +15,6 @@ export const LOAD_GLOBAL_ARTICLES_SUCCESS =
   "boilerplate/Home/LOAD_GLOBAL_ARTICLES_SUCCESS";
 export const LOAD_GLOBAL_ARTICLES_FAILURE =
   "boilerplate/Home/LOAD_GLOBAL_ARTICLES_FAILURE";
+export const LOAD_POPULAR_TAGS = "boilerplate/Home/LOAD_POPULAR_TAGS";
+export const LOAD_POPULAR_TAGS_SUCCESS =
+  "boilerplate/Home/LOAD_POPULAR_TAGS_SUCCESS";

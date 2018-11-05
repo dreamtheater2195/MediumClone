@@ -17,23 +17,29 @@ import injectSaga from "utils/injectSaga";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
+import Badge from "components/Badge/Badge";
 import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
 import reducer from "./reducer";
 import saga from "./saga";
-import { makeSelectArticles, makeSelectLoading } from "./selectors";
-import { loadGlobalArticles } from "./actions";
+import {
+  makeSelectArticles,
+  makeSelectLoading,
+  makeSelectTags,
+} from "./selectors";
+import { loadGlobalArticles, loadPopularTags } from "./actions";
 import NavigationTabs from "./NavigationTabs";
 import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.Component {
   componentDidMount() {
     this.props.loadGlobalArticles();
+    this.props.loadPopularTags();
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }
 
   render() {
-    const { classes, loading, articles } = this.props;
+    const { classes, loading, articles, tags } = this.props;
     return (
       <div>
         <Helmet>
@@ -56,12 +62,26 @@ export class HomePage extends React.Component {
             </GridContainer>
           </div>
         </Parallax>
-        <div className={classNames(classes.main, classes.mainRaised)}>
-          <NavigationTabs
-            classes={classes}
-            loading={loading}
-            articles={articles}
-          />
+        <div
+          className={classNames(
+            classes.container,
+            classes.main,
+            classes.mainRaised,
+          )}
+        >
+          <GridContainer justify="center">
+            <GridItem xs={12} sm={8}>
+              <NavigationTabs
+                classes={classes}
+                loading={loading}
+                articles={articles}
+              />
+            </GridItem>
+            <GridItem xs={12} sm={3}>
+              <h4 className={classes.tagTitle}>Popular Tags</h4>
+              {tags.map((tag, i) => <Badge key={i}>{tag}</Badge>)}
+            </GridItem>
+          </GridContainer>
         </div>
       </div>
     );
@@ -71,18 +91,21 @@ export class HomePage extends React.Component {
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
   loadGlobalArticles: PropTypes.func.isRequired,
+  loadPopularTags: PropTypes.func.isRequired,
   articles: PropTypes.object,
+  tags: PropTypes.object,
   loading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   articles: makeSelectArticles(),
   loading: makeSelectLoading(),
+  tags: makeSelectTags(),
 });
 
 const withConnect = connect(
   mapStateToProps,
-  { loadGlobalArticles },
+  { loadGlobalArticles, loadPopularTags },
 );
 const withReducer = injectReducer({ key: "articlesList", reducer });
 const withSaga = injectSaga({ key: "articlesList", saga });
