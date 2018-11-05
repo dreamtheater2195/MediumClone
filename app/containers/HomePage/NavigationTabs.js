@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // @material-ui/icons
 import Public from "@material-ui/icons/Public";
 import Person from "@material-ui/icons/Person";
-import People from "@material-ui/icons/People";
+// import People from "@material-ui/icons/People";
 import Favorite from "@material-ui/icons/Favorite";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -24,6 +24,7 @@ class NavigationTabs extends Component {
     loading: PropTypes.bool.isRequired,
     tab: PropTypes.string,
     onTabChange: PropTypes.func,
+    token: PropTypes.string,
   };
   renderArticles(tab) {
     const { classes, loading, articles, tab: currentTab } = this.props;
@@ -96,53 +97,27 @@ class NavigationTabs extends Component {
     return null;
   }
   render() {
-    const { tab, onTabChange } = this.props;
-    const activeIndex = tab === "feed" ? 0 : tab === "all" ? 1 : 2;
+    const { onTabChange, token } = this.props;
+    const tabs = [
+      {
+        tabButton: "Global Feed",
+        tabIcon: Public,
+        tabContent: this.renderArticles("all"),
+      },
+    ];
+    if (token) {
+      tabs.unshift({
+        tabButton: "Your Feed",
+        tabIcon: Person,
+        tabContent: this.renderArticles("feed"),
+      });
+    }
     return (
       <NavPills
         alignCenter
         color="primary"
-        active={activeIndex}
         onTabChange={onTabChange}
-        tabs={[
-          {
-            tabButton: "Your Feed",
-            tabIcon: Person,
-            tabContent: this.renderArticles("feed"),
-          },
-          {
-            tabButton: "Global Feed",
-            tabIcon: Public,
-            tabContent: this.renderArticles("all"),
-          },
-          {
-            tabButton: "#dragons",
-            tabIcon: People,
-            tabContent: (
-              <span>
-                <p>
-                  Collaboratively administrate empowered markets via
-                  plug-and-play networks. Dynamically procrastinate B2C users
-                  after installed base benefits.
-                </p>
-                <br />
-                <p>
-                  Dramatically visualize customer directed convergence without
-                  revolutionary ROI. Collaboratively administrate empowered
-                  markets via plug-and-play networks. Dynamically procrastinate
-                  B2C users after installed base benefits.
-                </p>
-                <br />
-                <p>
-                  Dramatically visualize customer directed convergence without
-                  revolutionary ROI. Collaboratively administrate empowered
-                  markets via plug-and-play networks. Dynamically procrastinate
-                  B2C users after installed base benefits.
-                </p>
-              </span>
-            ),
-          },
-        ]}
+        tabs={tabs}
       />
     );
   }

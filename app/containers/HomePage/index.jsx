@@ -28,6 +28,7 @@ import {
   makeSelectCurrentPage,
   makeSelectTab,
 } from "./selectors";
+import { makeSelectToken } from "./../App/selectors";
 import { loadArticles, loadPopularTags } from "./actions";
 import NavigationTabs from "./NavigationTabs";
 import coverImage from "../../assets/img/bg10.jpg";
@@ -38,10 +39,18 @@ export class HomePage extends React.Component {
     this.handleTabChange = this.handleTabChange.bind(this);
   }
   componentDidMount() {
-    this.props.loadArticles("all");
+    const tab = this.props.token ? "feed" : "all";
+    this.props.loadArticles(tab);
     this.props.loadPopularTags();
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.token !== this.props.token) {
+      const tab = this.props.token ? "feed" : "all";
+      this.props.loadArticles(tab);
+    }
   }
 
   handleTabChange(index) {
@@ -52,7 +61,15 @@ export class HomePage extends React.Component {
     }
   }
   render() {
-    const { classes, loading, articles, tags, currentPage, tab } = this.props;
+    const {
+      classes,
+      loading,
+      articles,
+      tags,
+      currentPage,
+      tab,
+      token,
+    } = this.props;
     return (
       <div>
         <Helmet>
@@ -91,6 +108,7 @@ export class HomePage extends React.Component {
                 currentPage={currentPage}
                 tab={tab}
                 onTabChange={this.handleTabChange}
+                token={token}
               />
             </GridItem>
             <GridItem xs={12} sm={3}>
@@ -113,6 +131,7 @@ HomePage.propTypes = {
   loading: PropTypes.bool,
   currentPage: PropTypes.number,
   tab: PropTypes.string,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -121,6 +140,7 @@ const mapStateToProps = createStructuredSelector({
   tags: makeSelectTags(),
   currentPage: makeSelectCurrentPage(),
   tab: makeSelectTab(),
+  token: makeSelectToken(),
 });
 
 const withConnect = connect(
