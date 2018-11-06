@@ -17,6 +17,7 @@ import injectSaga from "utils/injectSaga";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
+import Paginations from "components/Pagination/Pagination";
 import Badge from "components/Badge/Badge";
 import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
 import reducer from "./reducer";
@@ -27,6 +28,7 @@ import {
   makeSelectTags,
   makeSelectCurrentPage,
   makeSelectTab,
+  makeSelectArticlesCount,
 } from "./selectors";
 import { makeSelectToken } from "./../App/selectors";
 import {
@@ -65,6 +67,9 @@ export class HomePage extends React.Component {
       this.props.loadArticles("all");
     }
   }
+  handlePageChange = page => () => {
+    this.props.loadArticles(this.props.tab, page);
+  };
   render() {
     const {
       classes,
@@ -74,7 +79,18 @@ export class HomePage extends React.Component {
       currentPage,
       tab,
       token,
+      articlesCount,
     } = this.props;
+
+    const perPage = 10;
+    const pages = [];
+    for (let i = 0; i < Math.ceil(articlesCount / perPage); i += 1) {
+      pages.push({
+        text: i + 1,
+        active: i === currentPage,
+        onClick: this.handlePageChange(i),
+      });
+    }
     return (
       <div>
         <Helmet>
@@ -117,6 +133,7 @@ export class HomePage extends React.Component {
                 onLikeArticle={this.props.likeArticle}
                 onUnlikeArticle={this.props.unlikeArticle}
               />
+              <Paginations pages={pages} color="danger" />
             </GridItem>
             <GridItem xs={12} sm={3}>
               <h4 className={classes.tagTitle}>Popular Tags</h4>
@@ -141,6 +158,7 @@ HomePage.propTypes = {
   currentPage: PropTypes.number,
   tab: PropTypes.string,
   token: PropTypes.string,
+  articlesCount: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -150,6 +168,7 @@ const mapStateToProps = createStructuredSelector({
   currentPage: makeSelectCurrentPage(),
   tab: makeSelectTab(),
   token: makeSelectToken(),
+  articlesCount: makeSelectArticlesCount(),
 });
 
 const withConnect = connect(

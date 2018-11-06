@@ -14,7 +14,7 @@ export default {
   favorite: slug => request.post(`/articles/${slug}/favorite`),
   favoritedBy: (author, page) =>
     request.get(`/articles?favorited=${encode(author)}&${limit(5, page)}`),
-  feed: () => request.get("/articles/feed?limit=10&offset=0"),
+  feed: page => request.get(`/articles/feed?${limit(10, page)}`),
   get: slug => request.get(`/articles/${slug}`),
   unfavorite: slug => request.del(`/articles/${slug}/favorite`),
   update: article =>
