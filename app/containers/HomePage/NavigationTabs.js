@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // @material-ui/icons
 import Public from "@material-ui/icons/Public";
 import Person from "@material-ui/icons/Person";
-// import People from "@material-ui/icons/People";
+import People from "@material-ui/icons/People";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // core components
@@ -15,13 +15,14 @@ class NavigationTabs extends Component {
     classes: PropTypes.object.isRequired,
     articles: PropTypes.object,
     loading: PropTypes.bool.isRequired,
-    tab: PropTypes.string,
+    tab: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    tag: PropTypes.string,
     onTabChange: PropTypes.func,
     onLikeArticle: PropTypes.func,
     onUnlikeArticle: PropTypes.func,
     token: PropTypes.string,
   };
-  renderArticles(tab) {
+  renderArticles(tab, tag) {
     const {
       classes,
       loading,
@@ -30,7 +31,8 @@ class NavigationTabs extends Component {
       onLikeArticle,
       onUnlikeArticle,
     } = this.props;
-    if (tab !== currentTab) return null;
+    if (tab && currentTab && tab !== currentTab) return null;
+    else if (tag && currentTab) return null;
     if (loading) {
       return (
         <div className={classes.progress}>
@@ -56,7 +58,8 @@ class NavigationTabs extends Component {
     return null;
   }
   render() {
-    const { onTabChange, token } = this.props;
+    const { onTabChange, token, tag, tab } = this.props;
+    let active = 0;
     const tabs = [
       {
         tabButton: "Global Feed",
@@ -71,12 +74,24 @@ class NavigationTabs extends Component {
         tabContent: this.renderArticles("feed"),
       });
     }
+    if (tag) {
+      tabs.push({
+        tabButton: tag,
+        tabIcon: People,
+        tabContent: this.renderArticles(null, tag),
+      });
+    }
+
+    if (token && tab === "all") active = 1;
+    if (!tab) active = tabs.length - 1;
+
     return (
       <NavPills
         alignCenter
         color="primary"
         onTabChange={onTabChange}
         tabs={tabs}
+        active={active}
       />
     );
   }

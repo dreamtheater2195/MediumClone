@@ -23,6 +23,16 @@ class NavPills extends React.Component {
       active: props.active,
     };
   }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.active !== state.active) {
+      return {
+        active: props.active,
+      };
+    }
+    return null;
+  }
+
   handleChange = (event, active) => {
     this.setState({ active });
     this.props.onTabChange(active);

@@ -25,6 +25,9 @@ const makeSelectTab = () =>
 const makeSelectArticlesCount = () =>
   createSelector(selectArticlesList, state => state.get("articlesCount"));
 
+const makeSelectCurrentTag = () =>
+  createSelector(selectArticlesList, state => state.get("tag"));
+
 export {
   selectArticlesList,
   makeSelectArticles,
@@ -33,4 +36,5 @@ export {
   makeSelectCurrentPage,
   makeSelectTab,
   makeSelectArticlesCount,
+  makeSelectCurrentTag,
 };

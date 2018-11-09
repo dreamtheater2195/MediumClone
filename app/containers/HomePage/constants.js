@@ -19,3 +19,9 @@ export const LOAD_POPULAR_TAGS_SUCCESS =
 
 export const LIKE_ARTICLE = "boilerplate/Home/LIKE_ARTICLE";
 export const UNLIKE_ARTICLE = "boilerplate/Home/UNLIKE_ARTICLE";
+
+export const LOAD_ARTICLE_WITH_TAG = "boilerplate/Home/LOAD_ARTICLE_WITH_TAG";
+export const LOAD_ARTICLE_WITH_TAG_SUCCESS =
+  "boilerplate/Home/LOAD_ARTICLE_WITH_TAG_SUCCESS";
+export const LOAD_ARTICLE_WITH_TAG_FAILURE =
+  "boilerplate/Home/LOAD_ARTICLE_WITH_TAG_FAILURE";

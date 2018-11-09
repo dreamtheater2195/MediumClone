@@ -11,6 +11,9 @@ import {
   LOAD_POPULAR_TAGS_SUCCESS,
   LIKE_ARTICLE,
   UNLIKE_ARTICLE,
+  LOAD_ARTICLE_WITH_TAG,
+  LOAD_ARTICLE_WITH_TAG_SUCCESS,
+  LOAD_ARTICLE_WITH_TAG_FAILURE,
 } from "./constants";
 
 export function changeUsername(name) {
@@ -67,5 +70,28 @@ export function unlikeArticle(slug) {
   return {
     type: UNLIKE_ARTICLE,
     slug,
+  };
+}
+
+export function loadArticlesWithTag(tag, page) {
+  return {
+    type: LOAD_ARTICLE_WITH_TAG,
+    tag,
+    page,
+  };
+}
+
+export function loadArticlesWithTagSuccess(articles, articlesCount) {
+  return {
+    type: LOAD_ARTICLE_WITH_TAG_SUCCESS,
+    articles,
+    articlesCount,
+  };
+}
+
+export function loadArticlesWithTagFailure(errors) {
+  return {
+    type: LOAD_ARTICLE_WITH_TAG_FAILURE,
+    errors,
   };
 }

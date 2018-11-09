@@ -17,7 +17,7 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
 - Home page (URL: /#/ )
   - List of tags
   - List of articles pulled from either Feed, Global, or by Tag
-  - Pagination for list of articles
+  - [x] Pagination for list of articles
 - [x] Sign in/Sign up pages (URL: /#/login, /#/register )
   - [x] Use JWT (store the token in localStorage)
 - [x] Settings page (URL: /#/settings )

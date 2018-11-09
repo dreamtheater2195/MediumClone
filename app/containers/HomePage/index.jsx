@@ -29,10 +29,12 @@ import {
   makeSelectCurrentPage,
   makeSelectTab,
   makeSelectArticlesCount,
+  makeSelectCurrentTag,
 } from "./selectors";
 import { makeSelectToken } from "./../App/selectors";
 import {
   loadArticles,
+  loadArticlesWithTag,
   loadPopularTags,
   likeArticle,
   unlikeArticle,
@@ -45,6 +47,7 @@ export class HomePage extends React.Component {
     super(props);
     this.handleTabChange = this.handleTabChange.bind(this);
   }
+
   componentDidMount() {
     const tab = this.props.token ? "feed" : "all";
     this.props.loadArticles(tab);
@@ -61,13 +64,36 @@ export class HomePage extends React.Component {
   }
 
   handleTabChange(index) {
-    if (index === 0) {
-      this.props.loadArticles("feed");
-    } else if (index === 1) {
-      this.props.loadArticles("all");
+    const { token, tag } = this.props;
+    switch (index) {
+      case 0:
+        if (token) {
+          this.props.loadArticles("feed");
+        } else {
+          this.props.loadArticles("all");
+        }
+        break;
+      case 1:
+        if (token) {
+          this.props.loadArticles("all");
+        } else {
+          this.props.loadArticlesWithTag(tag);
+        }
+        break;
+      case 2:
+        this.props.loadArticlesWithTag(this.props.tag);
+        break;
+      default:
+        break;
     }
   }
-  handlePageChange = page => () => {
+
+  makeHandleTagSelect = tag => () => {
+    this.props.loadArticlesWithTag(tag);
+  };
+
+  makeHandlePageChange = page => () => {
+    if (this.props.currentPage === page) return;
     this.props.loadArticles(this.props.tab, page);
   };
   render() {
@@ -76,6 +102,7 @@ export class HomePage extends React.Component {
       loading,
       articles,
       tags,
+      tag: currentTag,
       currentPage,
       tab,
       token,
@@ -88,7 +115,7 @@ export class HomePage extends React.Component {
       pages.push({
         text: i + 1,
         active: i === currentPage,
-        onClick: this.handlePageChange(i),
+        onClick: this.makeHandlePageChange(i),
       });
     }
     return (
@@ -128,6 +155,7 @@ export class HomePage extends React.Component {
                 articles={articles}
                 currentPage={currentPage}
                 tab={tab}
+                tag={currentTag}
                 onTabChange={this.handleTabChange}
                 token={token}
                 onLikeArticle={this.props.likeArticle}
@@ -137,7 +165,15 @@ export class HomePage extends React.Component {
             </GridItem>
             <GridItem xs={12} sm={3}>
               <h4 className={classes.tagTitle}>Popular Tags</h4>
-              {tags.map((tag, i) => <Badge key={i}>{tag}</Badge>)}
+              {tags.map((tag, i) => (
+                <Badge
+                  key={i}
+                  tabIndex={i}
+                  onClick={this.makeHandleTagSelect(tag)}
+                >
+                  {tag}
+                </Badge>
+              ))}
             </GridItem>
           </GridContainer>
         </div>
@@ -149,11 +185,13 @@ export class HomePage extends React.Component {
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
   loadArticles: PropTypes.func.isRequired,
+  loadArticlesWithTag: PropTypes.func.isRequired,
   loadPopularTags: PropTypes.func.isRequired,
   likeArticle: PropTypes.func.isRequired,
   unlikeArticle: PropTypes.func.isRequired,
   articles: PropTypes.object,
   tags: PropTypes.object,
+  tag: PropTypes.string,
   loading: PropTypes.bool,
   currentPage: PropTypes.number,
   tab: PropTypes.string,
@@ -169,11 +207,18 @@ const mapStateToProps = createStructuredSelector({
   tab: makeSelectTab(),
   token: makeSelectToken(),
   articlesCount: makeSelectArticlesCount(),
+  tag: makeSelectCurrentTag(),
 });
 
 const withConnect = connect(
   mapStateToProps,
-  { loadArticles, loadPopularTags, likeArticle, unlikeArticle },
+  {
+    loadArticles,
+    loadArticlesWithTag,
+    loadPopularTags,
+    likeArticle,
+    unlikeArticle,
+  },
 );
 const withReducer = injectReducer({ key: "articlesList", reducer });
 const withSaga = injectSaga({ key: "articlesList", saga });

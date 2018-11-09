@@ -10,13 +10,23 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import badgeStyle from "assets/jss/material-kit-pro-react/components/badgeStyle";
 
 function Badge({ ...props }) {
-  const { classes, color, children, className } = props;
+  const { classes, color, children, className, onClick, tabIndex } = props;
   const badgeClasses = classNames({
     [classes.badge]: true,
     [classes[color]]: true,
     [className]: className !== undefined,
   });
-  return <span className={badgeClasses}>{children}</span>;
+  return (
+    <span
+      role="button"
+      tabIndex={tabIndex}
+      className={badgeClasses}
+      onClick={onClick}
+      onKeyUp={onClick}
+    >
+      {children}
+    </span>
+  );
 }
 
 Badge.defaultProps = {
@@ -36,6 +46,8 @@ Badge.propTypes = {
   ]),
   className: PropTypes.string,
   children: PropTypes.node,
+  onClick: PropTypes.func,
+  tabIndex: PropTypes.number,
 };
 
 export default withStyles(badgeStyle)(Badge);

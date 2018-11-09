@@ -10,6 +10,8 @@ import {
   LOAD_POPULAR_TAGS_SUCCESS,
   LIKE_ARTICLE,
   UNLIKE_ARTICLE,
+  LOAD_ARTICLE_WITH_TAG,
+  LOAD_ARTICLE_WITH_TAG_SUCCESS,
 } from "./constants";
 
 export const initialState = fromJS({
@@ -17,7 +19,6 @@ export const initialState = fromJS({
   articlesCount: 0,
   currentPage: 0,
   tab: "all",
-  pager: undefined,
   tag: "",
   tags: [],
   errors: null,
@@ -37,10 +38,22 @@ function homeReducer(state = initialState, action) {
         .set("articles", fromJS(action.articles))
         .set("articlesCount", action.articlesCount)
         .set("errors", null)
-        .set("loading", false)
-        .set("tag", "");
+        .set("loading", false);
     case LOAD_ARTICLES_FAILURE:
       return state.set("errors", fromJS(action.errors)).set("loading", false);
+    case LOAD_ARTICLE_WITH_TAG:
+      return state
+        .set("loading", true)
+        .set("errors", null)
+        .set("currentPage", action.page || 0)
+        .set("tab", null)
+        .set("tag", action.tag);
+    case LOAD_ARTICLE_WITH_TAG_SUCCESS:
+      return state
+        .set("loading", false)
+        .set("errors", null)
+        .set("articles", fromJS(action.articles))
+        .set("articlesCount", action.articlesCount);
     case LOAD_POPULAR_TAGS_SUCCESS:
       return state.set("tags", fromJS(action.tags));
     case LIKE_ARTICLE:
