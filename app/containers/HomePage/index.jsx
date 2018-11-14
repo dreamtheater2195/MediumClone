@@ -170,6 +170,7 @@ export class HomePage extends React.Component {
                   key={i}
                   tabIndex={i}
                   onClick={this.makeHandleTagSelect(tag)}
+                  className={classes.tag}
                 >
                   {tag}
                 </Badge>

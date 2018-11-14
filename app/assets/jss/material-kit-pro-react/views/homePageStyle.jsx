@@ -57,6 +57,9 @@ const homePageStyle = {
   articleTags: {
     float: "right",
   },
+  tag: {
+    cursor: "pointer",
+  },
 };
 
 export default homePageStyle;

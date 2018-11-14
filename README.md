@@ -15,8 +15,8 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
 **The general page breakdown looks like this:**
 
 - Home page (URL: /#/ )
-  - List of tags
-  - List of articles pulled from either Feed, Global, or by Tag
+  - [x] List of tags
+  - [x] List of articles pulled from either Feed, Global, or by Tag
   - [x] Pagination for list of articles
 - [x] Sign in/Sign up pages (URL: /#/login, /#/register )
   - [x] Use JWT (store the token in localStorage)
