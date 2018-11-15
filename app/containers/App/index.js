@@ -14,6 +14,7 @@ import RegisterPage from "containers/RegisterPage/Loadable";
 import LoginPage from "containers/LoginPage/Loadable";
 import SettingPage from "containers/SettingPage/Loadable";
 import ProfilePage from "containers/ProfilePage/Loadable";
+import ArticlePage from "containers/ArticlePage/Loadable";
 
 import {
   getCurrentUser,
@@ -58,9 +59,11 @@ class App extends Component {
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/profile/@:username" component={ProfilePage} />
+              <Route path="/article/:slug" component={ArticlePage} />
               <Route path="/settings" component={SettingPage} />
               <Route path="/features" component={FeaturePage} />
               <Route component={NotFoundPage} />
+              <Route />
             </Switch>
           </Fragment>
         ) : null}

@@ -6,10 +6,7 @@ import {
 } from "assets/jss/material-kit-pro-react";
 
 const homePageStyle = {
-  main: {
-    ...main,
-    /* overflow: "hidden" */
-  },
+  main,
   mainRaised,
   parallax: {
     height: "65vh",
@@ -17,6 +14,9 @@ const homePageStyle = {
   },
   container: {
     ...container,
+    "@media (min-width: 1200px)": {
+      maxWidth: "80%",
+    },
     zIndex: 1,
   },
   brand: {
@@ -59,6 +59,9 @@ const homePageStyle = {
   },
   tag: {
     cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "#899097",
+    },
   },
 };
 

@@ -140,43 +140,39 @@ export class HomePage extends React.Component {
             </GridContainer>
           </div>
         </Parallax>
-        <div
-          className={classNames(
-            classes.container,
-            classes.main,
-            classes.mainRaised,
-          )}
-        >
-          <GridContainer justify="center">
-            <GridItem xs={12} sm={8}>
-              <NavigationTabs
-                classes={classes}
-                loading={loading}
-                articles={articles}
-                currentPage={currentPage}
-                tab={tab}
-                tag={currentTag}
-                onTabChange={this.handleTabChange}
-                token={token}
-                onLikeArticle={this.props.likeArticle}
-                onUnlikeArticle={this.props.unlikeArticle}
-              />
-              <Paginations pages={pages} color="danger" />
-            </GridItem>
-            <GridItem xs={12} sm={3}>
-              <h4 className={classes.tagTitle}>Popular Tags</h4>
-              {tags.map((tag, i) => (
-                <Badge
-                  key={i}
-                  tabIndex={i}
-                  onClick={this.makeHandleTagSelect(tag)}
-                  className={classes.tag}
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </GridItem>
-          </GridContainer>
+        <div className={classNames(classes.main, classes.mainRaised)}>
+          <div className={classes.container}>
+            <GridContainer justify="center">
+              <GridItem xs={12} sm={8}>
+                <NavigationTabs
+                  classes={classes}
+                  loading={loading}
+                  articles={articles}
+                  currentPage={currentPage}
+                  tab={tab}
+                  tag={currentTag}
+                  onTabChange={this.handleTabChange}
+                  token={token}
+                  onLikeArticle={this.props.likeArticle}
+                  onUnlikeArticle={this.props.unlikeArticle}
+                />
+                <Paginations pages={pages} color="danger" />
+              </GridItem>
+              <GridItem xs={12} sm={3}>
+                <h4 className={classes.tagTitle}>Popular Tags</h4>
+                {tags.map((tag, i) => (
+                  <Badge
+                    key={i}
+                    tabIndex={i}
+                    onClick={this.makeHandleTagSelect(tag)}
+                    className={classes.tag}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </GridItem>
+            </GridContainer>
+          </div>
         </div>
       </div>
     );
