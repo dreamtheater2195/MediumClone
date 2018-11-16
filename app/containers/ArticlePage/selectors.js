@@ -5,7 +5,7 @@ import { initialState } from "./reducer";
  * Direct selector to the articlePage state domain
  */
 
-const selectArticlePageDomain = state => state.get("articlePage", initialState);
+const selectArticlePageDomain = state => state.get("article", initialState);
 
 /**
  * Other specific selectors
@@ -15,8 +15,9 @@ const selectArticlePageDomain = state => state.get("articlePage", initialState);
  * Default selector used by ArticlePage
  */
 
-const makeSelectArticlePage = () =>
-  createSelector(selectArticlePageDomain, substate => substate.toJS());
+const makeSelectLoading = () =>
+  createSelector(selectArticlePageDomain, substate => substate.get("loading"));
 
-export default makeSelectArticlePage;
-export { selectArticlePageDomain };
+const makeSelectArticle = () =>
+  createSelector(selectArticlePageDomain, substate => substate.get("article"));
+export { makeSelectLoading, makeSelectArticle };

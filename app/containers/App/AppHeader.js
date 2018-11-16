@@ -31,16 +31,16 @@ const AppHeader = props => {
               left
               caret={false}
               hoverColor="dark"
-              dropdownHeader={currentUser.username}
+              dropdownHeader={currentUser.get("username")}
               buttonText={
-                currentUser.image ? (
+                currentUser.get("image") ? (
                   <img
-                    src={currentUser.image}
+                    src={currentUser.get("image")}
                     className={classes.img}
                     alt="profile"
                   />
                 ) : (
-                  currentUser.username
+                  currentUser.get("username")
                 )
               }
               buttonProps={{
@@ -49,7 +49,7 @@ const AppHeader = props => {
               }}
               dropdownList={[
                 <Link
-                  to={`/profile/@${currentUser.username}`}
+                  to={`/profile/@${currentUser.get("username")}`}
                   style={{ color: "inherit" }}
                 >
                   My Profile

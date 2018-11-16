@@ -40,7 +40,7 @@ function appReducer(state = initialState, action) {
     case LOGIN_USER_SUCCESS:
       return state
         .set("token", action.user.token)
-        .set("currentUser", action.user)
+        .set("currentUser", fromJS(action.user))
         .setIn(["auth", "loading"], false)
         .setIn(["auth", "errors"], null);
     case REGISTER_USER_FAILURE:
@@ -51,7 +51,7 @@ function appReducer(state = initialState, action) {
     case SET_CURRENT_USER:
       return state
         .set("token", action.user.token)
-        .set("currentUser", action.user);
+        .set("currentUser", fromJS(action.user));
     case LOGOUT_USER:
       return initialState;
     case SET_APP_LOADED:
