@@ -28,6 +28,7 @@ import injectSaga from "utils/injectSaga";
 import injectReducer from "utils/injectReducer";
 import withAuth from "utils/withAuth";
 import profilePageStyle from "assets/jss/material-kit-pro-react/views/profilePageStyle";
+import { followUser, unfollowUser } from "containers/App/actions";
 import {
   makeSelectProfile,
   makeSelectLoading,
@@ -35,7 +36,7 @@ import {
 } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
-import { loadProfile, followUser, unfollowUser } from "./actions";
+import { loadProfile } from "./actions";
 /* eslint-disable react/prefer-stateless-function */
 export class ProfilePage extends React.Component {
   componentDidMount() {

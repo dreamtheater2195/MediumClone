@@ -7,6 +7,8 @@ import {
   LOGOUT_USER,
   LIKE_ARTICLE,
   UNLIKE_ARTICLE,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
 } from "./constants";
 import {
   registerUserSuccess,
@@ -92,6 +94,22 @@ export function* unlikeArticleSaga() {
   yield takeLatest(UNLIKE_ARTICLE, unlikeArticle);
 }
 
+export function* followUser({ username }) {
+  yield call(API.Profile.follow, username);
+}
+
+export function* followUserSaga() {
+  yield takeLatest(FOLLOW_USER, followUser);
+}
+
+export function* unfollowUser({ username }) {
+  yield call(API.Profile.follow, username);
+}
+
+export function* unfollowUserSaga() {
+  yield takeLatest(UNFOLLOW_USER, unfollowUser);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(userSignupSaga),
@@ -100,5 +118,7 @@ export default function* rootSaga() {
     fork(userSignoutSaga),
     fork(likeArticleSaga),
     fork(unlikeArticleSaga),
+    fork(followUserSaga),
+    fork(unfollowUserSaga),
   ]);
 }

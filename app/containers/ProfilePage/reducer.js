@@ -5,12 +5,11 @@
  */
 
 import { fromJS } from "immutable";
+import { FOLLOW_USER, UNFOLLOW_USER } from "containers/App/constants";
 import {
   LOAD_PROFILE,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_ERROR,
-  FOLLOW_USER,
-  UNFOLLOW_USER,
 } from "./constants";
 
 export const initialState = fromJS({

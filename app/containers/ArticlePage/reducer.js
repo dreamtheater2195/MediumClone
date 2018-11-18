@@ -6,6 +6,12 @@
 
 import { fromJS } from "immutable";
 import {
+  LIKE_ARTICLE,
+  UNLIKE_ARTICLE,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
+} from "containers/App/constants";
+import {
   LOAD_ARTICLE,
   LOAD_ARTICLE_SUCCESS,
   LOAD_ARTICLE_FAILURE,
@@ -28,6 +34,28 @@ function articlePageReducer(state = initialState, action) {
         .set("errors", null);
     case LOAD_ARTICLE_FAILURE:
       return state.set("loading", false).set("errors", fromJS(action.errors));
+    case LIKE_ARTICLE:
+      return state
+        .setIn(["article", "favorited"], true)
+        .setIn(
+          ["article", "favoritesCount"],
+          state.getIn(["article", "favoritesCount"]) + 1,
+        );
+    case UNLIKE_ARTICLE:
+      return state
+        .setIn(["article", "favorited"], false)
+        .setIn(
+          ["article", "favoritesCount"],
+          state.getIn(["article", "favoritesCount"]) - 1,
+        );
+    case FOLLOW_USER: {
+      const author = state.getIn(["article", "author"]);
+      return state.setIn(["article", "author"], author.set("following", true));
+    }
+    case UNFOLLOW_USER: {
+      const author = state.getIn(["article", "author"]);
+      return state.setIn(["article", "author"], author.set("following", false));
+    }
     default:
       return state;
   }

@@ -18,6 +18,12 @@ import articlePageStyle from "assets/jss/material-kit-pro-react/views/articlePag
 import injectSaga from "utils/injectSaga";
 import injectReducer from "utils/injectReducer";
 import { makeSelectCurrentUser } from "containers/App/selectors";
+import {
+  likeArticle,
+  unlikeArticle,
+  followUser,
+  unfollowUser,
+} from "containers/App/actions";
 import { makeSelectLoading, makeSelectArticle } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
@@ -64,6 +70,10 @@ export class ArticlePage extends React.Component {
                 article={article}
                 classes={classes}
                 currentUser={currentUser}
+                onLikeArticle={this.props.likeArticle}
+                onUnlikeArticle={this.props.unlikeArticle}
+                onFollowUser={this.props.followUser}
+                onUnfollowUser={this.props.unfollowUser}
               />
             )}
           </div>
@@ -80,6 +90,10 @@ ArticlePage.propTypes = {
   loading: PropTypes.bool.isRequired,
   article: PropTypes.object,
   currentUser: PropTypes.object,
+  likeArticle: PropTypes.func,
+  unlikeArticle: PropTypes.func,
+  followUser: PropTypes.func,
+  unfollowUser: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -90,7 +104,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(
   mapStateToProps,
-  { loadArticle },
+  { loadArticle, likeArticle, unlikeArticle, unfollowUser, followUser },
 );
 
 const withReducer = injectReducer({ key: "article", reducer });

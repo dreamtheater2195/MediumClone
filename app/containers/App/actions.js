@@ -12,6 +12,8 @@ import {
   SET_APP_LOADED,
   LIKE_ARTICLE,
   UNLIKE_ARTICLE,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
 } from "./constants";
 
 export function getCurrentUser() {
@@ -102,5 +104,19 @@ export function unlikeArticle(slug) {
   return {
     type: UNLIKE_ARTICLE,
     slug,
+  };
+}
+
+export function followUser({ username }) {
+  return {
+    type: FOLLOW_USER,
+    username,
+  };
+}
+
+export function unfollowUser({ username }) {
+  return {
+    type: UNFOLLOW_USER,
+    username,
   };
 }

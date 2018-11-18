@@ -17,3 +17,6 @@ export const SET_CURRENT_USER = "App/SET_CURRENT_USER";
 
 export const LIKE_ARTICLE = "App/LIKE_ARTICLE";
 export const UNLIKE_ARTICLE = "App/UNLIKE_ARTICLE";
+
+export const FOLLOW_USER = "App/FOLLOW_USER";
+export const UNFOLLOW_USER = "App/UNFOLLOW_USER";

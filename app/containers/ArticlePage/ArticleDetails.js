@@ -12,7 +12,15 @@ import CardAvatar from "components/Card/CardAvatar";
 import profileImage from "assets/img/faces/avatar.jpg";
 import Favorite from "@material-ui/icons/Favorite";
 
-const ArticleDetails = ({ classes, article, currentUser }) => {
+const ArticleDetails = ({
+  classes,
+  article,
+  currentUser,
+  onLikeArticle,
+  onUnlikeArticle,
+  onFollowUser,
+  onUnfollowUser,
+}) => {
   const renderer = new marked.Renderer();
   marked.setOptions({
     renderer,
@@ -29,17 +37,38 @@ const ArticleDetails = ({ classes, article, currentUser }) => {
   const renderFollowButton = () => {
     const currentUsername = currentUser ? currentUser.get("username") : "";
     const authorUsername = article.getIn(["author", "username"]);
-    if (
-      currentUsername !== authorUsername &&
-      !article.getIn(["author", "following"])
-    ) {
+    if (currentUsername !== authorUsername) {
       return (
         <GridItem xs={12} sm={2} md={2}>
-          <Button round>Follow</Button>
+          <Button
+            round
+            onClick={toggleFollowUser}
+            color={article.getIn(["author", "following"]) ? "info" : "github"}
+            className={classes.pullRight}
+          >
+            {article.getIn(["author", "following"]) ? "Following" : "Follow"}
+          </Button>
         </GridItem>
       );
     }
     return null;
+  };
+
+  const toggleLikeArticle = () => {
+    if (article.get("favorited")) {
+      onUnlikeArticle(article.get("slug"));
+    } else {
+      onLikeArticle(article.get("slug"));
+    }
+  };
+
+  const toggleFollowUser = () => {
+    const username = article.getIn(["author", "username"]);
+    if (article.getIn(["author", "following"])) {
+      onUnfollowUser({ username });
+    } else {
+      onFollowUser({ username });
+    }
   };
   return (
     <div>
@@ -70,6 +99,7 @@ const ArticleDetails = ({ classes, article, currentUser }) => {
                   color="rose"
                   className={classes.favoriteButton}
                   simple={!article.get("favorited")}
+                  onClick={toggleLikeArticle}
                 >
                   <Favorite />
                   {article.get("favoritesCount")}
@@ -111,6 +141,10 @@ ArticleDetails.propTypes = {
   article: PropTypes.object,
   classes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
+  onUnlikeArticle: PropTypes.func,
+  onLikeArticle: PropTypes.func,
+  onFollowUser: PropTypes.func,
+  onUnfollowUser: PropTypes.func,
 };
 
 export default ArticleDetails;
