@@ -23,6 +23,7 @@ import reducer from "./reducer";
 import saga from "./saga";
 import { loadArticle } from "./actions";
 import ArticleMeta from "./ArticleMeta";
+import ArticleDetails from "./ArticleDetails";
 /* eslint-disable react/prefer-stateless-function */
 export class ArticlePage extends React.Component {
   componentDidMount() {
@@ -54,9 +55,17 @@ export class ArticlePage extends React.Component {
         />
         <div className={classnames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <div className={classes.progress}>
-              <CircularProgress color="secondary" />
-            </div>
+            {loading ? (
+              <div className={classes.progress}>
+                <CircularProgress color="secondary" />
+              </div>
+            ) : (
+              <ArticleDetails
+                article={article}
+                classes={classes}
+                currentUser={currentUser}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ const ArticleMeta = ({ currentUser, loading, classes, article }) => {
   const currentUsername = currentUser ? currentUser.get("username") : "";
   const authorUsername = article ? article.getIn(["author", "username"]) : "";
   return (
-    <Parallax image={coverImg} filter="dark">
+    <Parallax className={classes.parallax} image={coverImg} filter="dark">
       <div className={classes.container}>
         <GridContainer justify="center">
           <GridItem md={8} className={classes.textCenter}>
