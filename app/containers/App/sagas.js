@@ -5,6 +5,8 @@ import {
   LOGIN_USER,
   GET_CURRENT_USER,
   LOGOUT_USER,
+  LIKE_ARTICLE,
+  UNLIKE_ARTICLE,
 } from "./constants";
 import {
   registerUserSuccess,
@@ -74,11 +76,29 @@ export function* currentUserSaga() {
   yield put(setAppLoaded(true));
 }
 
+export function* likeArticle({ slug }) {
+  yield call(API.Article.favorite, slug);
+}
+
+export function* unlikeArticle({ slug }) {
+  yield call(API.Article.unfavorite, slug);
+}
+
+export function* likeArticleSaga() {
+  yield takeLatest(LIKE_ARTICLE, likeArticle);
+}
+
+export function* unlikeArticleSaga() {
+  yield takeLatest(UNLIKE_ARTICLE, unlikeArticle);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(userSignupSaga),
     fork(userSigninSaga),
     fork(currentUserSaga),
     fork(userSignoutSaga),
+    fork(likeArticleSaga),
+    fork(unlikeArticleSaga),
   ]);
 }

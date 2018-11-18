@@ -9,8 +9,6 @@ import {
   LOAD_ARTICLES_FAILURE,
   LOAD_POPULAR_TAGS,
   LOAD_POPULAR_TAGS_SUCCESS,
-  LIKE_ARTICLE,
-  UNLIKE_ARTICLE,
   LOAD_ARTICLE_WITH_TAG,
   LOAD_ARTICLE_WITH_TAG_SUCCESS,
   LOAD_ARTICLE_WITH_TAG_FAILURE,
@@ -56,20 +54,6 @@ export function loadTagsSuccess(tags) {
   return {
     type: LOAD_POPULAR_TAGS_SUCCESS,
     tags,
-  };
-}
-
-export function likeArticle(slug) {
-  return {
-    type: LIKE_ARTICLE,
-    slug,
-  };
-}
-
-export function unlikeArticle(slug) {
-  return {
-    type: UNLIKE_ARTICLE,
-    slug,
   };
 }
 

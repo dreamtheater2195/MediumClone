@@ -10,6 +10,8 @@ import {
   SET_CURRENT_USER,
   LOGOUT_USER,
   SET_APP_LOADED,
+  LIKE_ARTICLE,
+  UNLIKE_ARTICLE,
 } from "./constants";
 
 export function getCurrentUser() {
@@ -86,5 +88,19 @@ export function setAppLoaded(loaded) {
   return {
     type: SET_APP_LOADED,
     loaded,
+  };
+}
+
+export function likeArticle(slug) {
+  return {
+    type: LIKE_ARTICLE,
+    slug,
+  };
+}
+
+export function unlikeArticle(slug) {
+  return {
+    type: UNLIKE_ARTICLE,
+    slug,
   };
 }

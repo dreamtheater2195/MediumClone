@@ -2,14 +2,12 @@
  * HomeReducer
  */
 import { fromJS } from "immutable";
-
+import { LIKE_ARTICLE, UNLIKE_ARTICLE } from "containers/App/constants";
 import {
   LOAD_ARTICLES,
   LOAD_ARTICLES_SUCCESS,
   LOAD_ARTICLES_FAILURE,
   LOAD_POPULAR_TAGS_SUCCESS,
-  LIKE_ARTICLE,
-  UNLIKE_ARTICLE,
   LOAD_ARTICLE_WITH_TAG,
   LOAD_ARTICLE_WITH_TAG_SUCCESS,
 } from "./constants";

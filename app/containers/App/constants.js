@@ -14,3 +14,6 @@ export const LOGOUT_USER = "App/LOGOUT_USER";
 
 export const GET_CURRENT_USER = "App/GET_CURRENT_USER";
 export const SET_CURRENT_USER = "App/SET_CURRENT_USER";
+
+export const LIKE_ARTICLE = "App/LIKE_ARTICLE";
+export const UNLIKE_ARTICLE = "App/UNLIKE_ARTICLE";

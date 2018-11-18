@@ -20,6 +20,7 @@ import GridItem from "components/Grid/GridItem";
 import Paginations from "components/Pagination/Pagination";
 import Badge from "components/Badge/Badge";
 import homePageStyle from "assets/jss/material-kit-pro-react/views/homePageStyle";
+import { likeArticle, unlikeArticle } from "containers/App/actions";
 import reducer from "./reducer";
 import saga from "./saga";
 import {
@@ -32,13 +33,7 @@ import {
   makeSelectCurrentTag,
 } from "./selectors";
 import { makeSelectToken } from "./../App/selectors";
-import {
-  loadArticles,
-  loadArticlesWithTag,
-  loadPopularTags,
-  likeArticle,
-  unlikeArticle,
-} from "./actions";
+import { loadArticles, loadArticlesWithTag, loadPopularTags } from "./actions";
 import NavigationTabs from "./NavigationTabs";
 import coverImage from "../../assets/img/bg10.jpg";
 /* eslint-disable react/prefer-stateless-function */
