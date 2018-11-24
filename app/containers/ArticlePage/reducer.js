@@ -15,6 +15,8 @@ import {
   LOAD_ARTICLE,
   LOAD_ARTICLE_SUCCESS,
   LOAD_ARTICLE_FAILURE,
+  DELETE_COMMENT,
+  CREATE_COMMENT_SUCCESS,
 } from "./constants";
 
 export const initialState = fromJS({
@@ -58,6 +60,18 @@ function articlePageReducer(state = initialState, action) {
       const author = state.getIn(["article", "author"]);
       return state.setIn(["article", "author"], author.set("following", false));
     }
+    case DELETE_COMMENT:
+      return state.set(
+        "comments",
+        state
+          .get("comments")
+          .filter(comment => comment.get("id") !== action.commentId),
+      );
+    case CREATE_COMMENT_SUCCESS:
+      return state.set(
+        "comments",
+        state.get("comments").unshift(fromJS(action.comment)),
+      );
     default:
       return state;
   }

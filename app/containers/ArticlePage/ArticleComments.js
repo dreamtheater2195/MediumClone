@@ -13,14 +13,50 @@ import Media from "components/Media/Media";
 import Button from "components/CustomButtons/Button";
 import CustomInput from "components/CustomInput/CustomInput";
 
-import profile6 from "assets/img/faces/card-profile6-square.jpg";
 import moment from "moment";
 /* eslint-disable react/prefer-stateless-function */
 class ArticleComments extends Component {
+  state = {
+    comment: "",
+  };
+
   static propTypes = {
     classes: PropTypes.object,
     comments: PropTypes.object,
     currentUser: PropTypes.object,
+    deleteComment: PropTypes.func,
+    createComment: PropTypes.func,
+    articleSlug: PropTypes.string,
+  };
+
+  renderDeleteButtonForComment = comment => {
+    const { currentUser, classes, articleSlug, deleteComment } = this.props;
+    const currentUsername = currentUser ? currentUser.get("username") : "";
+    const commentAuthorUsername = comment.getIn(["author", "username"]);
+    if (currentUsername !== "" && currentUsername === commentAuthorUsername) {
+      return (
+        <Button
+          color="rose"
+          simple
+          className={classes.footerButtons}
+          onClick={() => deleteComment(articleSlug, comment.get("id"))}
+        >
+          <Delete className={classes.footerIcons} /> Delete
+        </Button>
+      );
+    }
+    return null;
+  };
+
+  onInputChange = event => {
+    this.setState({
+      comment: event.target.value,
+    });
+  };
+
+  handleSubmitComment = () => {
+    this.props.createComment(this.props.articleSlug, this.state.comment);
+    this.setState({ comment: "" });
   };
   render() {
     const { classes, comments, currentUser } = this.props;
@@ -74,13 +110,7 @@ class ArticleComments extends Component {
                         <Favorite className={classes.footerIcons} /> 243
                       </Button>
 
-                      <Button
-                        color="rose"
-                        simple
-                        className={classes.footerButtons}
-                      >
-                        <Delete className={classes.footerIcons} /> Delete
-                      </Button>
+                      {this.renderDeleteButtonForComment(comment)}
                     </div>
                   }
                 />
@@ -90,7 +120,7 @@ class ArticleComments extends Component {
               <Fragment>
                 <h3 className={classes.commentsTitle}>Post your comment</h3>
                 <Media
-                  avatar={profile6}
+                  avatar={currentUser.get("image")}
                   body={
                     <CustomInput
                       labelText=" Write some nice stuff or nothing..."
@@ -101,6 +131,8 @@ class ArticleComments extends Component {
                       inputProps={{
                         multiline: true,
                         rows: 5,
+                        value: this.state.comment,
+                        onChange: this.onInputChange,
                       }}
                     />
                   }
@@ -109,6 +141,7 @@ class ArticleComments extends Component {
                       color="primary"
                       round
                       className={classes.footerButtons}
+                      onClick={this.handleSubmitComment}
                     >
                       Post comment
                     </Button>

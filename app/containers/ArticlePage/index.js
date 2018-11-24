@@ -31,7 +31,7 @@ import {
 } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
-import { loadArticle } from "./actions";
+import { loadArticle, deleteComment, createComment } from "./actions";
 import ArticleMeta from "./ArticleMeta";
 import ArticleDetails from "./ArticleDetails";
 import ArticleComments from "./ArticleComments";
@@ -85,6 +85,9 @@ export class ArticlePage extends React.Component {
                   classes={classes}
                   currentUser={currentUser}
                   comments={comments}
+                  articleSlug={article.get("slug")}
+                  deleteComment={this.props.deleteComment}
+                  createComment={this.props.createComment}
                 />
               </Fragment>
             )}
@@ -107,6 +110,8 @@ ArticlePage.propTypes = {
   unlikeArticle: PropTypes.func,
   followUser: PropTypes.func,
   unfollowUser: PropTypes.func,
+  deleteComment: PropTypes.func,
+  createComment: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -118,7 +123,15 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(
   mapStateToProps,
-  { loadArticle, likeArticle, unlikeArticle, unfollowUser, followUser },
+  {
+    loadArticle,
+    likeArticle,
+    unlikeArticle,
+    unfollowUser,
+    followUser,
+    deleteComment,
+    createComment,
+  },
 );
 
 const withReducer = injectReducer({ key: "article", reducer });
