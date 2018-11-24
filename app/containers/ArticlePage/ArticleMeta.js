@@ -6,7 +6,13 @@ import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button";
 import coverImg from "assets/img/bg5.jpg";
 
-const ArticleMeta = ({ currentUser, loading, classes, article }) => {
+const ArticleMeta = ({
+  currentUser,
+  loading,
+  classes,
+  article,
+  deleteArticle,
+}) => {
   const currentUsername = currentUser ? currentUser.get("username") : "";
   const authorUsername = article ? article.getIn(["author", "username"]) : "";
   return (
@@ -28,7 +34,12 @@ const ArticleMeta = ({ currentUser, loading, classes, article }) => {
                     <Button color="info" size="lg" round>
                       Edit Article
                     </Button>{" "}
-                    <Button color="rose" size="lg" round>
+                    <Button
+                      color="rose"
+                      size="lg"
+                      round
+                      onClick={() => deleteArticle(article.get("slug"))}
+                    >
                       Delete Article
                     </Button>
                   </Fragment>
@@ -47,6 +58,7 @@ ArticleMeta.propTypes = {
   article: PropTypes.object,
   classes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
+  deleteArticle: PropTypes.func,
 };
 
 export default ArticleMeta;

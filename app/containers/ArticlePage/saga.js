@@ -1,5 +1,13 @@
 import { takeLatest, put, call, all, fork } from "redux-saga/effects";
-import { LOAD_ARTICLE, DELETE_COMMENT, CREATE_COMMENT } from "./constants";
+import { push } from "react-router-redux";
+import {
+  LOAD_ARTICLE,
+  DELETE_COMMENT,
+  CREATE_COMMENT,
+  DELETE_ARTICLE,
+  DELETE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE_FAILURE,
+} from "./constants";
 import API from "../../api";
 import {
   loadArticleSuccess,
@@ -33,9 +41,23 @@ export function* createComment(action) {
     console.log(err);
   }
 }
-// Individual exports for testing
+
+export function* deleteArticle(action) {
+  try {
+    yield call(API.Article.del, action.slug);
+    yield put({ type: DELETE_ARTICLE_SUCCESS });
+    yield put(push("/"));
+  } catch (err) {
+    yield put({ type: DELETE_ARTICLE_FAILURE });
+  }
+}
+
 export function* loadArticleSaga() {
   yield takeLatest(LOAD_ARTICLE, loadArticle);
+}
+
+export function* deleteArticleSaga() {
+  yield takeLatest(DELETE_ARTICLE, deleteArticle);
 }
 
 export function* deleteCommentSaga() {
@@ -48,6 +70,7 @@ export function* createCommentSaga() {
 export default function* articleSaga() {
   yield all([
     fork(loadArticleSaga),
+    fork(deleteArticleSaga),
     fork(deleteCommentSaga),
     fork(createCommentSaga),
   ]);

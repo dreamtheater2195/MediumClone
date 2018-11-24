@@ -26,7 +26,7 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
   - Delete article button (only shown to article's author)
   - [x] Render markdown from server client side
   - [x] Comments section at bottom of page
-  - Delete comment button (only shown to comment's author)
+  - [x] Delete comment button (only shown to comment's author)
 - [x] Profile page (URL: /#/@username, /#/@username/favorites )
   - [x] Show basic user info
   - List of articles populated from author's created articles or author's favorited articles

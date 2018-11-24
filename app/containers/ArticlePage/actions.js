@@ -11,6 +11,7 @@ import {
   DELETE_COMMENT,
   CREATE_COMMENT,
   CREATE_COMMENT_SUCCESS,
+  DELETE_ARTICLE,
 } from "./constants";
 
 export function loadArticle(slug) {
@@ -55,5 +56,12 @@ export function createCommentSuccess(comment) {
   return {
     type: CREATE_COMMENT_SUCCESS,
     comment,
+  };
+}
+
+export function deleteArticle(slug) {
+  return {
+    type: DELETE_ARTICLE,
+    slug,
   };
 }

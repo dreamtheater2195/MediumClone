@@ -13,7 +13,6 @@ import { compose } from "redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import classnames from "classnames";
-
 import articlePageStyle from "assets/jss/material-kit-pro-react/views/articlePageStyle";
 import injectSaga from "utils/injectSaga";
 import injectReducer from "utils/injectReducer";
@@ -31,10 +30,16 @@ import {
 } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
-import { loadArticle, deleteComment, createComment } from "./actions";
+import {
+  loadArticle,
+  deleteComment,
+  createComment,
+  deleteArticle,
+} from "./actions";
 import ArticleMeta from "./ArticleMeta";
 import ArticleDetails from "./ArticleDetails";
 import ArticleComments from "./ArticleComments";
+
 /* eslint-disable react/prefer-stateless-function */
 export class ArticlePage extends React.Component {
   componentDidMount() {
@@ -63,6 +68,7 @@ export class ArticlePage extends React.Component {
           article={article}
           classes={classes}
           currentUser={currentUser}
+          deleteArticle={this.props.deleteArticle}
         />
         <div className={classnames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
@@ -112,6 +118,7 @@ ArticlePage.propTypes = {
   unfollowUser: PropTypes.func,
   deleteComment: PropTypes.func,
   createComment: PropTypes.func,
+  deleteArticle: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -131,6 +138,7 @@ const withConnect = connect(
     followUser,
     deleteComment,
     createComment,
+    deleteArticle,
   },
 );
 
