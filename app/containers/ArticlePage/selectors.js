@@ -20,4 +20,8 @@ const makeSelectLoading = () =>
 
 const makeSelectArticle = () =>
   createSelector(selectArticlePageDomain, substate => substate.get("article"));
-export { makeSelectLoading, makeSelectArticle };
+
+const makeSelectArticleComments = () =>
+  createSelector(selectArticlePageDomain, substate => substate.get("comments"));
+
+export { makeSelectLoading, makeSelectArticle, makeSelectArticleComments };

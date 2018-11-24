@@ -32,7 +32,9 @@ const Article = ({ article, classes, likeArticle, unlikeArticle }) => {
       body={
         <div>
           <div style={{ float: "left", maxWidth: "60%" }}>
-            <h4 className={classes.articleTitle}>{article.get("title")}</h4>
+            <Link to={`/article/${article.get("slug")}`}>
+              <h4 className={classes.articleTitle}>{article.get("title")}</h4>
+            </Link>
             <h5>{article.get("description")}</h5>
           </div>
           <Button
@@ -51,7 +53,9 @@ const Article = ({ article, classes, likeArticle, unlikeArticle }) => {
       footer={
         <div>
           <Clearfix />
-          <Muted>Read more...</Muted>
+          <Link to={`/article/${article.get("slug")}`}>
+            <Muted>Read more...</Muted>
+          </Link>
           <div className={classes.articleTags}>
             {article
               .get("tagList")

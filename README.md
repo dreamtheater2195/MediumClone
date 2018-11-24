@@ -22,10 +22,10 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
   - [x] Use JWT (store the token in localStorage)
 - [x] Settings page (URL: /#/settings )
 - Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )
-- Article page (URL: /#/article/article-slug-here )
+- [x] Article page (URL: /#/article/article-slug-here )
   - Delete article button (only shown to article's author)
-  - Render markdown from server client side
-  - Comments section at bottom of page
+  - [x] Render markdown from server client side
+  - [x] Comments section at bottom of page
   - Delete comment button (only shown to comment's author)
 - [x] Profile page (URL: /#/@username, /#/@username/favorites )
   - [x] Show basic user info

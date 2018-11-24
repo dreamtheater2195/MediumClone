@@ -4,7 +4,7 @@
  *
  */
 
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
@@ -24,12 +24,17 @@ import {
   followUser,
   unfollowUser,
 } from "containers/App/actions";
-import { makeSelectLoading, makeSelectArticle } from "./selectors";
+import {
+  makeSelectLoading,
+  makeSelectArticle,
+  makeSelectArticleComments,
+} from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
 import { loadArticle } from "./actions";
 import ArticleMeta from "./ArticleMeta";
 import ArticleDetails from "./ArticleDetails";
+import ArticleComments from "./ArticleComments";
 /* eslint-disable react/prefer-stateless-function */
 export class ArticlePage extends React.Component {
   componentDidMount() {
@@ -46,12 +51,12 @@ export class ArticlePage extends React.Component {
   }
 
   render() {
-    const { classes, loading, article, currentUser } = this.props;
+    const { classes, loading, article, currentUser, comments } = this.props;
     return (
       <div>
         <Helmet>
-          <title>ArticlePage</title>
-          <meta name="description" content="Description of ArticlePage" />
+          <title>{article ? article.get("title") : "Article"}</title>
+          <meta name="description" content="Article details" />
         </Helmet>
         <ArticleMeta
           loading={loading}
@@ -66,15 +71,22 @@ export class ArticlePage extends React.Component {
                 <CircularProgress color="secondary" />
               </div>
             ) : (
-              <ArticleDetails
-                article={article}
-                classes={classes}
-                currentUser={currentUser}
-                onLikeArticle={this.props.likeArticle}
-                onUnlikeArticle={this.props.unlikeArticle}
-                onFollowUser={this.props.followUser}
-                onUnfollowUser={this.props.unfollowUser}
-              />
+              <Fragment>
+                <ArticleDetails
+                  article={article}
+                  classes={classes}
+                  currentUser={currentUser}
+                  onLikeArticle={this.props.likeArticle}
+                  onUnlikeArticle={this.props.unlikeArticle}
+                  onFollowUser={this.props.followUser}
+                  onUnfollowUser={this.props.unfollowUser}
+                />
+                <ArticleComments
+                  classes={classes}
+                  currentUser={currentUser}
+                  comments={comments}
+                />
+              </Fragment>
             )}
           </div>
         </div>
@@ -89,6 +101,7 @@ ArticlePage.propTypes = {
   match: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   article: PropTypes.object,
+  comments: PropTypes.object,
   currentUser: PropTypes.object,
   likeArticle: PropTypes.func,
   unlikeArticle: PropTypes.func,
@@ -100,6 +113,7 @@ const mapStateToProps = createStructuredSelector({
   article: makeSelectArticle(),
   loading: makeSelectLoading(),
   currentUser: makeSelectCurrentUser(),
+  comments: makeSelectArticleComments(),
 });
 
 const withConnect = connect(

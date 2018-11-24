@@ -37,7 +37,7 @@ const ArticleDetails = ({
   const renderFollowButton = () => {
     const currentUsername = currentUser ? currentUser.get("username") : "";
     const authorUsername = article.getIn(["author", "username"]);
-    if (currentUsername !== authorUsername) {
+    if (currentUsername !== "" && currentUsername !== authorUsername) {
       return (
         <GridItem xs={12} sm={2} md={2}>
           <Button

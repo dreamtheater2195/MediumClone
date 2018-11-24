@@ -1,12 +1,15 @@
-import { takeLatest, put, call } from "redux-saga/effects";
+import { takeLatest, put, call, all } from "redux-saga/effects";
 import { LOAD_ARTICLE } from "./constants";
 import API from "../../api";
 import { loadArticleSuccess, loadArticleFailure } from "./actions";
 
 export function* loadArticle({ slug }) {
   try {
-    const { article } = yield call(API.Article.get, slug);
-    yield put(loadArticleSuccess(article));
+    const [{ article }, { comments }] = yield all([
+      call(API.Article.get, slug),
+      call(API.Comment.forArticle, slug),
+    ]);
+    yield put(loadArticleSuccess(article, comments));
   } catch (err) {
     yield put(loadArticleFailure({ errors: err }));
   }

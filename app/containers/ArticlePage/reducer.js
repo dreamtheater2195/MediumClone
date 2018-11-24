@@ -21,6 +21,7 @@ export const initialState = fromJS({
   loading: true,
   article: null,
   errors: null,
+  comments: [],
 });
 
 function articlePageReducer(state = initialState, action) {
@@ -31,7 +32,8 @@ function articlePageReducer(state = initialState, action) {
       return state
         .set("loading", false)
         .set("article", fromJS(action.article))
-        .set("errors", null);
+        .set("errors", null)
+        .set("comments", fromJS(action.comments));
     case LOAD_ARTICLE_FAILURE:
       return state.set("loading", false).set("errors", fromJS(action.errors));
     case LIKE_ARTICLE:

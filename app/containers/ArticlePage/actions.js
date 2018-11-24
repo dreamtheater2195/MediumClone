@@ -17,10 +17,11 @@ export function loadArticle(slug) {
   };
 }
 
-export function loadArticleSuccess(article) {
+export function loadArticleSuccess(article, comments) {
   return {
     type: LOAD_ARTICLE_SUCCESS,
     article,
+    comments,
   };
 }
 

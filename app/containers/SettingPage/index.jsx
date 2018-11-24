@@ -23,7 +23,7 @@ import saga from "./saga";
 import { makeSelectSaving, makeSelectErrors } from "./selectors";
 export class SettingPage extends Component {
   state = {
-    currentUser: this.props.currentUser,
+    currentUser: this.props.currentUser.toJS(),
   };
 
   static propTypes = {
