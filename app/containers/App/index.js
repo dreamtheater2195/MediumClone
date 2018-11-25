@@ -8,14 +8,13 @@ import { DAEMON } from "utils/constants";
 import injectSaga from "utils/injectSaga";
 import API from "api";
 import HomePage from "containers/HomePage/Loadable";
-import FeaturePage from "containers/FeaturePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import RegisterPage from "containers/RegisterPage/Loadable";
 import LoginPage from "containers/LoginPage/Loadable";
 import SettingPage from "containers/SettingPage/Loadable";
 import ProfilePage from "containers/ProfilePage/Loadable";
 import ArticlePage from "containers/ArticlePage/Loadable";
-
+import EditArticlePage from "containers/EditArticlePage/Loadable";
 import {
   getCurrentUser,
   logoutUser,
@@ -60,8 +59,9 @@ class App extends Component {
               <Route path="/register" component={RegisterPage} />
               <Route path="/profile/@:username" component={ProfilePage} />
               <Route path="/article/:slug" component={ArticlePage} />
+              <Route path="/editor/:slug" component={EditArticlePage} />
+              <Route path="/editor" component={EditArticlePage} />
               <Route path="/settings" component={SettingPage} />
-              <Route path="/features" component={FeaturePage} />
               <Route component={NotFoundPage} />
               <Route />
             </Switch>
