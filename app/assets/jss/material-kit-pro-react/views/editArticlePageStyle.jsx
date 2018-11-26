@@ -14,6 +14,10 @@ const styles = {
     height: "500px",
     backgroundPosition: "top center",
   },
+  progress: {
+    textAlign: "center",
+    margin: "50px 0",
+  },
 };
 
 export default styles;

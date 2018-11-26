@@ -21,8 +21,8 @@ const AppHeader = props => {
               onClick={e => e.preventDefault()}
               color="transparent"
             >
-              <Link to="/new-post" style={{ color: "inherit" }}>
-                NEW POST
+              <Link to="/editor" style={{ color: "inherit" }}>
+                NEW ARTICLE
               </Link>
             </Button>
           </ListItem>
