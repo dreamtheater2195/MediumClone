@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Parallax from "components/Parallax/Parallax";
 import GridContainer from "components/Grid/GridContainer";
@@ -31,9 +32,11 @@ const ArticleMeta = ({
                 <br />
                 {currentUsername === authorUsername && (
                   <Fragment>
-                    <Button color="info" size="lg" round>
-                      Edit Article
-                    </Button>{" "}
+                    <Link to={`/editor/${article.get("slug")}`}>
+                      <Button color="info" size="lg" round>
+                        Edit Article
+                      </Button>{" "}
+                    </Link>
                     <Button
                       color="rose"
                       size="lg"

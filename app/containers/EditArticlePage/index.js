@@ -22,6 +22,10 @@ import saga from "./saga";
 import EditorForm from "./EditorForm";
 /* eslint-disable react/prefer-stateless-function */
 export class EditArticlePage extends React.Component {
+  state = {
+    showPreview: false,
+  };
+
   componentDidMount() {
     if (this.props.match.params.slug) {
       return this.props.loadEditor(this.props.match.params.slug);
@@ -43,6 +47,12 @@ export class EditArticlePage extends React.Component {
     this.props.submitArticle(article);
   };
 
+  toggleShowPreview = () => {
+    this.setState(prevState => ({
+      showPreview: !prevState.showPreview,
+    }));
+  };
+
   render() {
     const { classes, editor } = this.props;
     return (
@@ -59,7 +69,7 @@ export class EditArticlePage extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={8}>
+              <GridItem xs={12} sm={12} md={10}>
                 <h2 className={classes.title}>
                   {this.props.match.params.slug
                     ? "Edit Article"
@@ -77,6 +87,9 @@ export class EditArticlePage extends React.Component {
                     onFieldChange={this.handleFieldChange}
                     saving={editor.get("saving")}
                     onSubmit={this.handleSubmit}
+                    classes={classes}
+                    showPreview={this.state.showPreview}
+                    toggleShowPreview={this.toggleShowPreview}
                   />
                 )}
               </GridItem>
