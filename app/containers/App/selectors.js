@@ -24,6 +24,8 @@ const makeSelectRepos = () =>
 const makeSelectLocation = () =>
   createSelector(selectRoute, routeState => routeState.get("location").toJS());
 
+const makeSelectRedirectTo = () =>
+  createSelector(selectGlobal, globalState => globalState.get("redirectTo"));
 export {
   selectGlobal,
   makeSelectCurrentUser,
@@ -32,4 +34,5 @@ export {
   makeSelectRepos,
   makeSelectLocation,
   makeSelectAppLoaded,
+  makeSelectRedirectTo,
 };

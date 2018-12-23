@@ -20,3 +20,5 @@ export const UNLIKE_ARTICLE = "App/UNLIKE_ARTICLE";
 
 export const FOLLOW_USER = "App/FOLLOW_USER";
 export const UNFOLLOW_USER = "App/UNFOLLOW_USER";
+
+export const REDIRECT = "App/REDIRECT";

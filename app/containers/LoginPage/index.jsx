@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import withStyles from "@material-ui/core/styles/withStyles";
-import toastr from "toastr";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
@@ -38,15 +37,6 @@ class LoginPage extends React.Component {
 
   componentWillMount() {
     if (this.props.currentUser) {
-      this.props.history.push("/"); // eslint-disable-line
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.errors) {
-      toastr.error("Email or password is invalid");
-    } else if (nextProps.currentUser) {
-      toastr.success("Sign in successfully!");
       this.props.history.push("/"); // eslint-disable-line
     }
   }

@@ -1,4 +1,5 @@
 import { takeLatest, take, put, call, all, fork } from "redux-saga/effects";
+import toastr from "toastr";
 import API from "../../api";
 import {
   REGISTER_USER,
@@ -34,9 +35,11 @@ function* signin({ email, password }) {
     const { user } = yield call(API.Auth.login, email, password);
     yield call(setAuthToken, user.token);
     yield put(loginUserSuccess({ user }));
+    toastr.success("Sign in successfully!");
   } catch (err) {
     yield call(signout);
     yield put(loginUserFailure({ errors: err.response.body.errors }));
+    toastr.error("Email or password is invalid");
   }
 }
 
@@ -49,6 +52,7 @@ function* signup({ username, email, password }) {
     const { user } = yield call(API.Auth.register, username, email, password);
     yield call(setAuthToken, user.token);
     yield put(registerUserSuccess({ user }));
+    toastr.success("Sign up successfully!");
   } catch (err) {
     yield call(signout);
     yield put(registerUserFailure({ errors: err.response.body.errors }));

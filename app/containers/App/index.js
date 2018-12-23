@@ -19,10 +19,12 @@ import {
   getCurrentUser,
   logoutUser,
   setAppLoaded,
+  redirect,
 } from "containers/App/actions";
 import {
   makeSelectCurrentUser,
   makeSelectAppLoaded,
+  makeSelectRedirectTo,
 } from "containers/App/selectors";
 import AppHeader from "./AppHeader";
 import saga from "./sagas";
@@ -34,12 +36,22 @@ class App extends Component {
     setAppLoaded: PropTypes.func.isRequired,
     currentUser: PropTypes.object,
     appLoaded: PropTypes.bool.isRequired,
+    redirect: PropTypes.func.isRequired,
+    redirectTo: PropTypes.string,
+    history: PropTypes.object.isRequired,
   };
   async componentDidMount() {
     this.props.setAppLoaded(false);
     const token = await localStorage.getItem("jwt");
     API.setToken(token);
     this.props.getCurrentUser();
+  }
+  componentWillReceiveProps(nextProps) {
+    const { redirectTo } = nextProps;
+    if (redirectTo) {
+      this.props.history.push(redirectTo);
+      this.props.redirect();
+    }
   }
   render() {
     return (
@@ -74,11 +86,12 @@ class App extends Component {
 const mapStateToProps = createStructuredSelector({
   currentUser: makeSelectCurrentUser(),
   appLoaded: makeSelectAppLoaded(),
+  redirectTo: makeSelectRedirectTo(),
 });
 
 const withConnect = connect(
   mapStateToProps,
-  { getCurrentUser, logoutUser, setAppLoaded },
+  { getCurrentUser, logoutUser, setAppLoaded, redirect },
 );
 
 const withSaga = injectSaga({ key: "appDaemons", saga, mode: DAEMON });

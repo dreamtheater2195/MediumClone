@@ -14,6 +14,7 @@ import {
   UNLIKE_ARTICLE,
   FOLLOW_USER,
   UNFOLLOW_USER,
+  REDIRECT,
 } from "./constants";
 
 export function getCurrentUser() {
@@ -118,5 +119,11 @@ export function unfollowUser({ username }) {
   return {
     type: UNFOLLOW_USER,
     username,
+  };
+}
+
+export function redirect() {
+  return {
+    type: REDIRECT,
   };
 }

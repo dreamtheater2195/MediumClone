@@ -16,15 +16,15 @@ const AppHeader = props => {
       return (
         <Fragment>
           <ListItem className={classes.listItem}>
-            <Button
-              className={classes.navLink}
-              onClick={e => e.preventDefault()}
-              color="transparent"
-            >
-              <Link to="/editor" style={{ color: "inherit" }}>
+            <Link to="/editor">
+              <Button
+                className={classes.navLink}
+                color="transparent"
+                style={{ color: "white" }}
+              >
                 NEW ARTICLE
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </ListItem>
           <ListItem className={classes.listItem}>
             <CustomDropdown
@@ -69,26 +69,26 @@ const AppHeader = props => {
     return (
       <Fragment>
         <ListItem className={classes.listItem}>
-          <Button
-            className={classes.navLink}
-            onClick={e => e.preventDefault()}
-            color="transparent"
-          >
-            <Link to="/login" style={{ color: "inherit" }}>
+          <Link to="/login">
+            <Button
+              className={classes.navLink}
+              color="transparent"
+              style={{ color: "white" }}
+            >
               Sign in
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <Button
-            className={classes.navLink}
-            onClick={e => e.preventDefault()}
-            color="transparent"
-          >
-            <Link to="/register" style={{ color: "inherit" }}>
+          <Link to="/register">
+            <Button
+              className={classes.navLink}
+              color="transparent"
+              style={{ color: "white" }}
+            >
               Sign up
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </ListItem>
       </Fragment>
     );
@@ -105,15 +105,15 @@ const AppHeader = props => {
       links={
         <List className={`${classes.list} ${classes.mlAuto}`}>
           <ListItem className={classes.listItem}>
-            <Button
-              className={`${classes.navLink} ${classes.navLinkActive}`}
-              onClick={e => e.preventDefault()}
-              color="transparent"
-            >
-              <Link to="/" style={{ color: "inherit" }}>
+            <Link to="/">
+              <Button
+                className={`${classes.navLink} ${classes.navLinkActive}`}
+                color="transparent"
+                style={{ color: "white" }}
+              >
                 Home
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </ListItem>
           {renderHeaderLinks()}
         </List>

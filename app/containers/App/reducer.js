@@ -11,6 +11,7 @@ import {
   SET_CURRENT_USER,
   LOGOUT_USER,
   SET_APP_LOADED,
+  REDIRECT,
 } from "./constants";
 
 // The initial state of the App
@@ -25,6 +26,7 @@ const initialState = fromJS({
     email: "",
     password: "",
   },
+  redirectTo: "",
 });
 
 function appReducer(state = initialState, action) {
@@ -42,7 +44,8 @@ function appReducer(state = initialState, action) {
         .set("token", action.user.token)
         .set("currentUser", fromJS(action.user))
         .setIn(["auth", "loading"], false)
-        .setIn(["auth", "errors"], null);
+        .setIn(["auth", "errors"], null)
+        .set("redirectTo", "/");
     case REGISTER_USER_FAILURE:
     case LOGIN_USER_FAILURE:
       return state
@@ -56,6 +59,8 @@ function appReducer(state = initialState, action) {
       return initialState;
     case SET_APP_LOADED:
       return state.set("appLoaded", action.loaded);
+    case REDIRECT:
+      return state.set("redirectTo", "");
     default:
       return state;
   }
