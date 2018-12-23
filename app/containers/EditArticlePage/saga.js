@@ -1,5 +1,4 @@
 import { takeLatest, call, put, all, fork } from "redux-saga/effects";
-import { push } from "react-router-redux";
 import toastr from "toastr";
 import {
   LOAD_EDITOR,
@@ -32,7 +31,6 @@ export function* submitArticle({ article }) {
       );
       yield put({ type: SUBMIT_ARTICLE_SUCCESS, article: updatedArticle });
       toastr.success("Update article successfully");
-      yield put(push(`/article/${updatedArticle.slug}`));
     } else {
       // create
       const { article: createdArticle } = yield call(
@@ -41,7 +39,6 @@ export function* submitArticle({ article }) {
       );
       yield put({ type: SUBMIT_ARTICLE_SUCCESS, article: createdArticle });
       toastr.success("Create article successfully");
-      yield put(push(`/article/${createdArticle.slug}`));
     }
   } catch (err) {
     console.log(err);

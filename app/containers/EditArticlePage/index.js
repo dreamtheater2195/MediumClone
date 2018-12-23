@@ -15,7 +15,7 @@ import editArticlePageStyle from "assets/jss/material-kit-pro-react/views/editAr
 import injectSaga from "utils/injectSaga";
 import injectReducer from "utils/injectReducer";
 import coverImage from "assets/img/examples/card-blog2.jpg";
-import { loadEditor, updateField, submitArticle } from "./actions";
+import { loadEditor, updateField, submitArticle, updateTags } from "./actions";
 import { makeSelectEditor } from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
@@ -43,8 +43,13 @@ export class EditArticlePage extends React.Component {
       title: editor.get("title"),
       body: editor.get("body"),
       description: editor.get("description"),
+      tagList: editor.get("tagList"),
     };
     this.props.submitArticle(article);
+  };
+
+  handleTagsChange = tags => {
+    this.props.updateTags(tags);
   };
 
   toggleShowPreview = () => {
@@ -84,7 +89,9 @@ export class EditArticlePage extends React.Component {
                     title={editor.get("title")}
                     body={editor.get("body")}
                     description={editor.get("description")}
+                    tagList={editor.get("tagList")}
                     onFieldChange={this.handleFieldChange}
+                    onTagsChange={this.handleTagsChange}
                     saving={editor.get("saving")}
                     onSubmit={this.handleSubmit}
                     classes={classes}
@@ -109,6 +116,7 @@ EditArticlePage.propTypes = {
   loadEditor: PropTypes.func,
   updateField: PropTypes.func,
   submitArticle: PropTypes.func,
+  updateTags: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -117,7 +125,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(
   mapStateToProps,
-  { loadEditor, updateField, submitArticle },
+  { loadEditor, updateField, submitArticle, updateTags },
 );
 
 const withReducer = injectReducer({ key: "editor", reducer });

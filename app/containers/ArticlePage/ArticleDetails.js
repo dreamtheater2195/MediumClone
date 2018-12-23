@@ -88,9 +88,11 @@ const ArticleDetails = ({
             <GridContainer>
               <GridItem xs={12} sm={6} md={6}>
                 <div className={classes.blogTags}>
-                  {article
-                    .get("tagList")
-                    .map(tag => <Badge color="primary">{tag}</Badge>)}
+                  {article.get("tagList").map((tag, i) => (
+                    <Badge color="primary" key={i}>
+                      {tag}
+                    </Badge>
+                  ))}
                 </div>
               </GridItem>
               <GridItem xs={12} sm={6} md={6}>

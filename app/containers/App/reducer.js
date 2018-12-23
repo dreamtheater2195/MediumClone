@@ -1,4 +1,5 @@
 import { fromJS } from "immutable";
+import { SUBMIT_ARTICLE_SUCCESS } from "containers/EditArticlePage/constants";
 
 import {
   REGISTER_USER,
@@ -61,6 +62,8 @@ function appReducer(state = initialState, action) {
       return state.set("appLoaded", action.loaded);
     case REDIRECT:
       return state.set("redirectTo", "");
+    case SUBMIT_ARTICLE_SUCCESS:
+      return state.set("redirectTo", `/article/${action.article.slug}`);
     default:
       return state;
   }

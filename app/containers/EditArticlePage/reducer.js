@@ -11,6 +11,7 @@ import {
   UPDATE_FIELD,
   SUBMIT_ARTICLE,
   SUBMIT_ARTICLE_SUCCESS,
+  UPDATE_TAGS,
 } from "./constants";
 
 export const initialState = fromJS({
@@ -42,6 +43,8 @@ function editArticlePageReducer(state = initialState, action) {
       return state.set("saving", true);
     case SUBMIT_ARTICLE_SUCCESS:
       return state.set("saving", false).set("errors", null);
+    case UPDATE_TAGS:
+      return state.set("tagList", action.tags);
     default:
       return state;
   }

@@ -5,12 +5,15 @@ import Button from "components/CustomButtons/Button";
 import marked from "marked";
 import he from "he";
 import hljs from "highlight.js";
+import TagsInput from "react-tagsinput";
 const EditorForm = ({
   classes,
   title,
   description,
   body,
+  tagList,
   onFieldChange,
+  onTagsChange,
   onSubmit,
   saving,
   showPreview,
@@ -73,6 +76,13 @@ const EditorForm = ({
           }}
         />
       )}
+      <TagsInput
+        value={tagList}
+        onChange={onTagsChange}
+        tagProps={{
+          className: "react-tagsinput-tag rose",
+        }}
+      />
       <Button color="primary" round disabled={saving} onClick={onSubmit}>
         {saving ? "Saving..." : "Save Article"}
       </Button>
@@ -88,7 +98,9 @@ EditorForm.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   body: PropTypes.string,
+  tagList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onFieldChange: PropTypes.func,
+  onTagsChange: PropTypes.func,
   onSubmit: PropTypes.func,
   saving: PropTypes.bool,
   classes: PropTypes.object,

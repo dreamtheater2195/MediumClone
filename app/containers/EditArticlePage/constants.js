@@ -12,3 +12,5 @@ export const SUBMIT_ARTICLE_SUCCESS =
   "app/EditArticlePage/SUBMIT_ARTICLE_SUCCESS";
 export const SUBMIT_ARTICLE_FAILURE =
   "app/EditArticlePage/SUBMIT_ARTICLE_FAILURE";
+
+export const UPDATE_TAGS = "app/EditArticlePage/UPDATE_TAGS";

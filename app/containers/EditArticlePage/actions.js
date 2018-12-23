@@ -4,7 +4,12 @@
  *
  */
 
-import { LOAD_EDITOR, UPDATE_FIELD, SUBMIT_ARTICLE } from "./constants";
+import {
+  LOAD_EDITOR,
+  UPDATE_FIELD,
+  SUBMIT_ARTICLE,
+  UPDATE_TAGS,
+} from "./constants";
 
 export function loadEditor(slug) {
   return {
@@ -25,5 +30,12 @@ export function submitArticle(article) {
   return {
     type: SUBMIT_ARTICLE,
     article,
+  };
+}
+
+export function updateTags(tags) {
+  return {
+    type: UPDATE_TAGS,
+    tags,
   };
 }
