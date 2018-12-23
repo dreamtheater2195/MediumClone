@@ -62,7 +62,7 @@ const SignInForm = ({
         Sign in
       </Button>
       <h5>
-        New to conduit?
+        Are you new?
         <Link to="/register"> Create an account.</Link>
       </h5>
     </div>

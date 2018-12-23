@@ -1,6 +1,6 @@
 ## Functionality overview
 
-The example application is a social blogging site (i.e. a Medium.com clone) called "Conduit". It uses a custom API for all requests, including authentication. You can view a live demo over at https://redux.productionready.io/
+The example application is a social blogging site. It uses a custom API for all requests, including authentication.
 
 **General functionality:**
 
@@ -21,9 +21,9 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
 - [x] Sign in/Sign up pages (URL: /#/login, /#/register )
   - [x] Use JWT (store the token in localStorage)
 - [x] Settings page (URL: /#/settings )
-- Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )
+- [x] Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )
 - [x] Article page (URL: /#/article/article-slug-here )
-  - Delete article button (only shown to article's author)
+  - [x] Delete article button (only shown to article's author)
   - [x] Render markdown from server client side
   - [x] Comments section at bottom of page
   - [x] Delete comment button (only shown to comment's author)
