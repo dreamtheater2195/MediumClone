@@ -3,7 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const OfflinePlugin = require("offline-plugin");
-const { HashedModuleIdsPlugin, IgnorePlugin } = require("webpack");
+const { HashedModuleIdsPlugin } = require("webpack");
 
 module.exports = require("./webpack.base.babel")({
   mode: "production",
@@ -27,9 +27,6 @@ module.exports = require("./webpack.base.babel")({
   },
 
   plugins: [
-    // Fixes warning in moment-with-locales.min.js
-    //   Module not found: Error: Can't resolve './locale' in ...
-    new IgnorePlugin(/\.\/locale$/),
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: "app/index.html",
