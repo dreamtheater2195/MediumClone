@@ -8,20 +8,17 @@ import Header from "components/Header/Header";
 import Button from "components/CustomButtons/Button";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown";
 import headerLinksStyle from "assets/jss/material-kit-pro-react/components/headerLinksStyle";
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 
 const AppHeader = props => {
-  const { classes, currentUser, onSignout } = props;
+  const { classes, currentUser, onSignout, width } = props;
   const renderHeaderLinks = () => {
     if (currentUser) {
       return (
         <Fragment>
           <ListItem className={classes.listItem}>
-            <Link to="/editor">
-              <Button
-                className={classes.navLink}
-                color="transparent"
-                style={{ color: "white" }}
-              >
+            <Link to="/editor" className={classes.navLinkColor}>
+              <Button className={classes.navLink} color="transparent">
                 NEW ARTICLE
               </Button>
             </Link>
@@ -33,7 +30,16 @@ const AppHeader = props => {
               hoverColor="dark"
               dropdownHeader={currentUser.get("username")}
               buttonText={
-                currentUser.get("image") ? (
+                isWidthDown("sm", width) ? (
+                  <div>
+                    <img
+                      src={currentUser.get("image")}
+                      className={classes.img}
+                      alt="profile"
+                    />
+                    {`  ${currentUser.get("username")}`}
+                  </div>
+                ) : currentUser.get("image") ? (
                   <img
                     src={currentUser.get("image")}
                     className={classes.img}
@@ -44,20 +50,26 @@ const AppHeader = props => {
                 )
               }
               buttonProps={{
-                className: `${classes.navLink} ${classes.imageDropdownButton}`,
+                className: `${classes.navLink} ${classes.imageDropdownButton} ${
+                  classes.navLinkColor
+                }`,
                 color: "transparent",
               }}
               dropdownList={[
                 <Link
                   to={`/profile/@${currentUser.get("username")}`}
-                  style={{ color: "inherit" }}
+                  className={classes.dropdownLinkColor}
                 >
                   My Profile
                 </Link>,
-                <Link to="/settings" style={{ color: "inherit" }}>
+                <Link to="/settings" className={classes.dropdownLinkColor}>
                   Settings
                 </Link>,
-                <Link to="/" style={{ color: "inherit" }} onClick={onSignout}>
+                <Link
+                  to="/"
+                  className={classes.dropdownLinkColor}
+                  onClick={onSignout}
+                >
                   Sign out
                 </Link>,
               ]}
@@ -69,7 +81,7 @@ const AppHeader = props => {
     return (
       <Fragment>
         <ListItem className={classes.listItem}>
-          <Link to="/login">
+          <Link to="/login" className={classes.navLinkColor}>
             <Button
               className={classes.navLink}
               color="transparent"
@@ -80,7 +92,7 @@ const AppHeader = props => {
           </Link>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <Link to="/register">
+          <Link to="/register" className={classes.navLinkColor}>
             <Button
               className={classes.navLink}
               color="transparent"
@@ -98,19 +110,11 @@ const AppHeader = props => {
       brand="Medium"
       absolute
       color="transparent"
-      changeColorOnScroll={{
-        height: 400,
-        color: "primary",
-      }}
       links={
         <List className={`${classes.list} ${classes.mlAuto}`}>
           <ListItem className={classes.listItem}>
-            <Link to="/">
-              <Button
-                className={`${classes.navLink} ${classes.navLinkActive}`}
-                color="transparent"
-                style={{ color: "white" }}
-              >
+            <Link to="/" className={classes.navLinkColor}>
+              <Button className={classes.navLink} color="transparent">
                 Home
               </Button>
             </Link>
@@ -126,5 +130,6 @@ AppHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   onSignout: PropTypes.func.isRequired,
+  width: PropTypes.number,
 };
-export default withStyles(headerLinksStyle)(AppHeader);
+export default withStyles(headerLinksStyle)(withWidth()(AppHeader));

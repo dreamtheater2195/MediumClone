@@ -212,6 +212,21 @@ const headerLinksStyle = theme => ({
     height: "40px",
     borderRadius: "50%",
   },
+  navLinkColor: {
+    "&, &:hover, &:focus,&:active ": {
+      color: "white",
+    },
+    [theme.breakpoints.down("sm")]: {
+      "&, &:hover, &:focus,&:active ": {
+        color: "inherit",
+      },
+    },
+  },
+  dropdownLinkColor: {
+    "&, &:hover, &:focus,&:active ": {
+      color: "inherit",
+    },
+  },
 });
 
 export default headerLinksStyle;
