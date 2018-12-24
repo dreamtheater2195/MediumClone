@@ -9,16 +9,15 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_USERNAME = "boilerplate/Home/CHANGE_USERNAME";
-export const LOAD_ARTICLES = "boilerplate/Home/LOAD_ARTICLES";
-export const LOAD_ARTICLES_SUCCESS = "boilerplate/Home/LOAD_ARTICLES_SUCCESS";
-export const LOAD_ARTICLES_FAILURE = "boilerplate/Home/LOAD_ARTICLES_FAILURE";
-export const LOAD_POPULAR_TAGS = "boilerplate/Home/LOAD_POPULAR_TAGS";
-export const LOAD_POPULAR_TAGS_SUCCESS =
-  "boilerplate/Home/LOAD_POPULAR_TAGS_SUCCESS";
+export const CHANGE_USERNAME = "Home/CHANGE_USERNAME";
+export const LOAD_ARTICLES = "Home/LOAD_ARTICLES";
+export const LOAD_ARTICLES_SUCCESS = "Home/LOAD_ARTICLES_SUCCESS";
+export const LOAD_ARTICLES_FAILURE = "Home/LOAD_ARTICLES_FAILURE";
+export const LOAD_POPULAR_TAGS = "Home/LOAD_POPULAR_TAGS";
+export const LOAD_POPULAR_TAGS_SUCCESS = "Home/LOAD_POPULAR_TAGS_SUCCESS";
 
-export const LOAD_ARTICLE_WITH_TAG = "boilerplate/Home/LOAD_ARTICLE_WITH_TAG";
+export const LOAD_ARTICLE_WITH_TAG = "Home/LOAD_ARTICLE_WITH_TAG";
 export const LOAD_ARTICLE_WITH_TAG_SUCCESS =
-  "boilerplate/Home/LOAD_ARTICLE_WITH_TAG_SUCCESS";
+  "Home/LOAD_ARTICLE_WITH_TAG_SUCCESS";
 export const LOAD_ARTICLE_WITH_TAG_FAILURE =
-  "boilerplate/Home/LOAD_ARTICLE_WITH_TAG_FAILURE";
+  "Home/LOAD_ARTICLE_WITH_TAG_FAILURE";

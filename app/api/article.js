@@ -7,13 +7,13 @@ const encode = encodeURIComponent;
 export default {
   all: page => request.get(`/articles?${limit(10, page)}`),
   byAuthor: (author, page) =>
-    request.get(`/articles?author=${encode(author)}&${limit(5, page)}`),
+    request.get(`/articles?author=${encode(author)}&${limit(10, page)}`),
   byTag: (tag, page) =>
     request.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
   del: slug => request.del(`/articles/${slug}`),
   favorite: slug => request.post(`/articles/${slug}/favorite`),
   favoritedBy: (author, page) =>
-    request.get(`/articles?favorited=${encode(author)}&${limit(5, page)}`),
+    request.get(`/articles?favorited=${encode(author)}&${limit(10, page)}`),
   feed: page => request.get(`/articles/feed?${limit(10, page)}`),
   get: slug => request.get(`/articles/${slug}`),
   unfavorite: slug => request.del(`/articles/${slug}/favorite`),

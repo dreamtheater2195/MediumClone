@@ -10,12 +10,19 @@ import {
   LOAD_PROFILE,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_ERROR,
+  LOAD_ARTICLES,
+  LOAD_ARTICLES_SUCCESS,
+  LOAD_ARTICLES_FAILURE,
 } from "./constants";
 
 export const initialState = fromJS({
   errors: null,
   loading: true,
   profile: null,
+  articles: [],
+  articlesCount: 0,
+  articlesLoading: false,
+  articlesError: null,
 });
 
 function profilePageReducer(state = initialState, action) {
@@ -36,6 +43,15 @@ function profilePageReducer(state = initialState, action) {
       return state.setIn(["profile", "following"], true);
     case UNFOLLOW_USER:
       return state.setIn(["profile", "following"], false);
+    case LOAD_ARTICLES:
+      return state.set("articlesLoading", false);
+    case LOAD_ARTICLES_SUCCESS:
+      return state
+        .set("articles", fromJS(action.articles))
+        .set("articlesCount", action.articlesCount)
+        .set("articlesLoading", false);
+    case LOAD_ARTICLES_FAILURE:
+      return state.set("articlesError", action.error);
     default:
       return state;
   }

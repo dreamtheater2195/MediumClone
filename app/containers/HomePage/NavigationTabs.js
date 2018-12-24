@@ -8,7 +8,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 // core components
 import NavPills from "components/NavPills/NavPills";
-import Article from "./Article";
+import Articles from "./Articles";
 /* eslint-disable react/prefer-stateless-function */
 class NavigationTabs extends Component {
   static propTypes = {
@@ -42,17 +42,12 @@ class NavigationTabs extends Component {
     }
     if (articles) {
       return (
-        <div>
-          {articles.map((article, index) => (
-            <Article
-              article={article}
-              classes={classes}
-              key={index}
-              likeArticle={onLikeArticle}
-              unlikeArticle={onUnlikeArticle}
-            />
-          ))}
-        </div>
+        <Articles
+          articles={articles}
+          classes={classes}
+          likeArticle={onLikeArticle}
+          unlikeArticle={onUnlikeArticle}
+        />
       );
     }
     return null;

@@ -33,11 +33,7 @@ const homePageStyle = {
     ...title,
     color: "#FFF",
   },
-  articleTitle: {
-    ...title,
-    marginTop: "10px",
-    marginBottom: "10px",
-  },
+
   tagTitle: {
     ...title,
   },
@@ -51,18 +47,22 @@ const homePageStyle = {
     textAlign: "center",
     margin: "50px 0",
   },
-  footerButtons: {
-    float: "right",
-  },
-  articleTags: {
-    float: "right",
-  },
   tag: {
     cursor: "pointer",
     "&:hover": {
       backgroundColor: "#899097",
     },
   },
+  articleTitle: {
+    ...title,
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
+  footerButtons: {
+    float: "right",
+  },
+  articleTags: {
+    float: "right",
+  },
 };
-
 export default homePageStyle;

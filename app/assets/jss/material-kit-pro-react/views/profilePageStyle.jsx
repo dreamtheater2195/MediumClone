@@ -27,6 +27,7 @@ const styles = {
       height: "auto",
       transform: "translate3d(0, -50%, 0)",
     },
+    marginBottom: "40px",
   },
   title,
   name: {
@@ -50,6 +51,19 @@ const styles = {
   progress: {
     textAlign: "center",
     margin: "50px 0",
+  },
+
+  // article
+  articleTitle: {
+    ...title,
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
+  footerButtons: {
+    float: "right",
+  },
+  articleTags: {
+    float: "right",
   },
 };
 
