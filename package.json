@@ -1,16 +1,16 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.6.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "medium-clone",
+  "version": "0.0.1",
+  "description": "A website to read and write ideas and stories",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": "https://github.com/dreamtheater2195/MediumClone.git"
   },
   "engines": {
     "npm": ">=5",
     "node": ">=8"
   },
-  "author": "Max Stoiber",
+  "author": "Quan Minh Pham",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
@@ -45,7 +45,8 @@
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "prettify": "prettier --write"
+    "prettify": "prettier --write",
+    "heroku-postbuild": "npm run build"
   },
   "lint-staged": {
     "*.js": [
