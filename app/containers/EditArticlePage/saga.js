@@ -1,5 +1,4 @@
 import { takeLatest, call, put, all, fork } from "redux-saga/effects";
-import toastr from "toastr";
 import {
   LOAD_EDITOR,
   LOAD_EDITOR_SUCCESS,
@@ -30,7 +29,6 @@ export function* submitArticle({ article }) {
         article,
       );
       yield put({ type: SUBMIT_ARTICLE_SUCCESS, article: updatedArticle });
-      toastr.success("Update article successfully");
     } else {
       // create
       const { article: createdArticle } = yield call(
@@ -38,7 +36,6 @@ export function* submitArticle({ article }) {
         article,
       );
       yield put({ type: SUBMIT_ARTICLE_SUCCESS, article: createdArticle });
-      toastr.success("Create article successfully");
     }
   } catch (err) {
     console.log(err);

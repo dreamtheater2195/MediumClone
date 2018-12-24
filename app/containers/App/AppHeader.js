@@ -130,6 +130,6 @@ AppHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   onSignout: PropTypes.func.isRequired,
-  width: PropTypes.number,
+  width: PropTypes.string,
 };
 export default withStyles(headerLinksStyle)(withWidth()(AppHeader));

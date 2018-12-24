@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Media from "components/Media/Media";
-import moment from "moment";
 import { Link } from "react-router-dom";
 import Button from "components/CustomButtons/Button";
 import Favorite from "@material-ui/icons/Favorite";
 import Clearfix from "components/Clearfix/Clearfix";
 import Muted from "components/Typography/Muted";
 import Badge from "components/Badge/Badge";
+import { format } from "date-fns";
 
 const Article = ({ article, classes, likeArticle, unlikeArticle }) => {
   const toggleLikeArticle = () => {
@@ -26,7 +26,7 @@ const Article = ({ article, classes, likeArticle, unlikeArticle }) => {
           <Link to={`/profile/@${article.get("author").get("username")}`}>
             {article.get("author").get("username")}
           </Link>{" "}
-          <small>· {moment(article.get("createdAt")).format("lll")}</small>
+          <small>· {format(article.get("createdAt"), "MMM, Do YYYY")}</small>
         </span>
       }
       body={

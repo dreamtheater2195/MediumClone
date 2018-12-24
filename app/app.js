@@ -19,8 +19,6 @@ import App from "containers/App";
 
 // Import plugin scss
 import "assets/scss/material-kit-pro-react.scss";
-// import toastr scss
-import "assets/scss/toastr.scss";
 // Import Language Provider
 import LanguageProvider from "containers/LanguageProvider";
 

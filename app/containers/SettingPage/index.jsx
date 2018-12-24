@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
 import { Helmet } from "react-helmet";
-import toastr from "toastr";
 import injectReducer from "utils/injectReducer";
 import injectSaga from "utils/injectSaga";
 import withAuth from "utils/withAuth";
@@ -40,9 +39,8 @@ export class SettingPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.saving && !this.props.errors && !this.props.saving) {
-      toastr.success("Profile updated successfully!");
-    }
+    // if (prevProps.saving && !this.props.errors && !this.props.saving) {
+    // }
   }
 
   handleInputChange = field => event => {

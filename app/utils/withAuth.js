@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { makeSelectCurrentUser } from "containers/App/selectors";
-import toastr from "toastr";
 export default ChildComponent => {
   class WrappedComponent extends Component {
     static propTypes = {
@@ -20,7 +19,6 @@ export default ChildComponent => {
 
     shouldNavigateAway() {
       if (!this.props.currentUser) {
-        toastr.info("You have to login first");
         this.props.history.push("/login");
       }
     }

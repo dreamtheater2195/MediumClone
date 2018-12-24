@@ -13,7 +13,7 @@ import Media from "components/Media/Media";
 import Button from "components/CustomButtons/Button";
 import CustomInput from "components/CustomInput/CustomInput";
 
-import moment from "moment";
+import { distanceInWordsToNow } from "date-fns";
 /* eslint-disable react/prefer-stateless-function */
 class ArticleComments extends Component {
   state = {
@@ -78,7 +78,7 @@ class ArticleComments extends Component {
                     <span>
                       {comment.getIn(["author", "username"])}{" "}
                       <small>
-                        · {moment(comment.get("createdAt")).fromNow()}
+                        · {distanceInWordsToNow(comment.get("createdAt"))}
                       </small>
                     </span>
                   }
