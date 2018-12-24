@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { DAEMON } from "utils/constants";
 import injectSaga from "utils/injectSaga";
 import API from "api";
-import HomePage from "containers/HomePage/Loadable";
+import HomePage from "containers/HomePage";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import RegisterPage from "containers/RegisterPage/Loadable";
 import LoginPage from "containers/LoginPage/Loadable";
